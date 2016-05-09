@@ -8,7 +8,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="VideoInfoViewer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="BYZ-38-t0r" customClass="ViewController" customModule="VideoInfoViewer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -16,9 +16,28 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="RhS-S0-2U5">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="Q6W-PP-Kdj"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="Zvh-MP-Kp4"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="RhS-S0-2U5" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Lb2-Tp-8b3"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="RhS-S0-2U5" secondAttribute="bottom" id="sBb-8e-Guc"/>
+                            <constraint firstItem="RhS-S0-2U5" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="vFW-8t-BgH"/>
+                            <constraint firstItem="RhS-S0-2U5" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" id="wXe-Bu-aYj"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="czn-hW-kGe"/>
+                    <connections>
+                        <outlet property="tableView" destination="RhS-S0-2U5" id="Y9C-9N-4wO"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

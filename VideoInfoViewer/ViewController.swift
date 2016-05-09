@@ -17,18 +17,21 @@
 import UIKit
 import MobileCoreServices
 import CoreData
+import AVFoundation
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate,UITableViewDataSource {
     
     let imagePicker = UIImagePickerController()
     
     var videos = [NSManagedObject]()
+    
+    @IBOutlet
+    var tableView: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.title = "Video Info Viewer"
-        
         
         let openButton = UIBarButtonItem()
         openButton.title = "Open"
@@ -51,6 +54,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         } catch let error as NSError {
             print("Could not fetch \(error), \(error.userInfo)")
         }
+        
+        print("Got \(videos.count) videos")
+        
+        print("TableView is \(tableView)")
+        
+        self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
     }
     
     @IBAction func clickOpen(sender: UIBarButtonItem) {
@@ -62,19 +71,19 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-        let mediaUrl = info[UIImagePickerControllerMediaURL] as? NSURL// as String
+        let mediaUrl = info[UIImagePickerControllerMediaURL] as? NSURL
         picker.dismissViewControllerAnimated(true, completion: nil)
         
         if let srcURL = mediaUrl {
             print(srcURL)
             let filemgr = NSFileManager.defaultManager()
             
-            var fileName = "video_\(NSDate().timeIntervalSince1970).MOV"
+            var videoName = "video_\(NSDate().timeIntervalSince1970).MOV"
             if let lastPathCompontent = srcURL.lastPathComponent {
-                fileName = lastPathCompontent
+                videoName = lastPathCompontent
             }
         
-            let toURL = getDocumentUrl(fileName)
+            let toURL = getDocumentUrl(videoName)
         
             do {
                 try filemgr.copyItemAtURL(srcURL, toURL: toURL)
@@ -83,29 +92,34 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 return
             }
             
-            saveVideo(toURL)
+            let thumbnailURL = getDocumentUrl("\(videoName).png")
+            let duration = getVideoDuration(toURL)
+            let thumbTime = CMTime(seconds: duration.seconds / 2.0, preferredTimescale: duration.timescale)
+            renderThumbnailFromVideo(toURL, thumbnailURL: thumbnailURL, time: thumbTime)
+            
+            saveVideo(toURL, thumbnailURL: thumbnailURL)
             print(videos.count)
         } else {
             print("Failed to unpack media url")
         }
     }
 
-    func saveVideo(videoURL: NSURL) {
+    func saveVideo(videoURL: NSURL, thumbnailURL: NSURL) {
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         
         let managedContext = appDelegate.managedObjectContext
         
-        
         let entity =  NSEntityDescription.entityForName("Video", inManagedObjectContext:managedContext)
         
-        let video = NSManagedObject(entity: entity!,
-                                     insertIntoManagedObjectContext: managedContext)
+        let video = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
         
-        video.setValue(videoURL.absoluteString, forKey: "videoURL")
+        video.setValue(videoURL.path, forKey: "videoPath")
+        video.setValue(thumbnailURL.path, forKey: "thumbnailPath")
         
         do {
             try managedContext.save()
             videos.append(video)
+            tableView.reloadData()
         } catch let error as NSError  {
             print("Could not save \(error), \(error.userInfo)")
         }
@@ -120,12 +134,58 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         return documentDirectory.URLByAppendingPathComponent(pathComponent)
     }
+    
+    func renderThumbnailFromVideo(videoURL: NSURL, thumbnailURL: NSURL, time: CMTime) -> Bool {
+        let asset = AVURLAsset(URL: videoURL, options: nil)
+        let imgGenerator = AVAssetImageGenerator(asset: asset)
+        do {
+            let cgImage = try imgGenerator.copyCGImageAtTime(time, actualTime: nil)
+            let uiImage = UIImage(CGImage: cgImage)
+            
+            let result = UIImagePNGRepresentation(uiImage)?.writeToURL(thumbnailURL, atomically: true)
+            return result != nil
+        } catch _ {
+            print("Failed to get thumbnail")
+        }
+        return false
+    }
+    
+    func getVideoDuration(videoURL: NSURL) -> CMTime{
+        let asset = AVURLAsset(URL: videoURL, options: nil)
+        return asset.duration
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("getting table count")
+        return videos.count
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell:UITableViewCell = self.tableView.dequeueReusableCellWithIdentifier("cell")! as UITableViewCell
+        
+        let videoPath = self.videos[indexPath.row].valueForKey("videoPath") as? String
+        let thumbnailPath = self.videos[indexPath.row].valueForKey("thumbnailPath") as? String
+        
+        if let vp = videoPath {
+            let videoURL = NSURL(fileURLWithPath: vp)
+            cell.textLabel?.text = videoURL.lastPathComponent
+        }
+        
+        if let tp = thumbnailPath {
+            let thumbnailURL = NSURL(fileURLWithPath: tp)
+            cell.imageView?.image = UIImage(named: thumbnailURL.path! )
+        }
+        
+        return cell
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+    }
 }
 
