@@ -113,8 +113,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         let video = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
         
-        video.setValue(videoURL.path, forKey: "videoPath")
-        video.setValue(thumbnailURL.path, forKey: "thumbnailPath")
+        video.setValue(videoURL.lastPathComponent, forKey: "videoFile")
+        video.setValue(thumbnailURL.lastPathComponent, forKey: "thumbnailFile")
         
         do {
             try managedContext.save()
@@ -168,16 +168,23 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell:UITableViewCell = self.tableView.dequeueReusableCellWithIdentifier("cell")! as UITableViewCell
         
-        let videoPath = self.videos[indexPath.row].valueForKey("videoPath") as? String
-        let thumbnailPath = self.videos[indexPath.row].valueForKey("thumbnailPath") as? String
+        let videoFile = self.videos[indexPath.row].valueForKey("videoFile") as? String
+        let thumbnailFile = self.videos[indexPath.row].valueForKey("thumbnailFile") as? String
         
-        if let vp = videoPath {
-            let videoURL = NSURL(fileURLWithPath: vp)
+        if let vf = videoFile {
+            let videoURL = getDocumentUrl(vf)
             cell.textLabel?.text = videoURL.lastPathComponent
         }
         
-        if let tp = thumbnailPath {
-            let thumbnailURL = NSURL(fileURLWithPath: tp)
+        if let tf = thumbnailFile {
+            let thumbnailURL = getDocumentUrl(tf)
+            var error: NSError?
+            if thumbnailURL.checkResourceIsReachableAndReturnError(&error) {
+                print("Thumbnail is unreachable")
+            } else {
+                print("Thumbnail is reachable")
+            }
+            print("Binding to \(thumbnailURL.path!)")
             cell.imageView?.image = UIImage(named: thumbnailURL.path! )
         }
         
@@ -186,6 +193,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
+        let videoFile = self.videos[indexPath.row].valueForKey("videoFile") as? String
+        if let vf = videoFile {
+            let videoURL = getDocumentUrl(vf)
+            let nc = parentViewController as? UINavigationController
+            if let navController = nc {
+                let videoDetailsController = self.storyboard!.instantiateViewControllerWithIdentifier("videoDetails") as! VideoDetailsViewController
+                navController.pushViewController(videoDetailsController, animated: true)
+            }
+        }
     }
 }
 

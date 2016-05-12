@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F81F5821CE16FE100544F85 /* VideoDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F81F5811CE16FE100544F85 /* VideoDetailsViewController.swift */; };
 		1F9F19AF1CDD18F100DE819B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F19AE1CDD18F100DE819B /* AppDelegate.swift */; };
 		1F9F19B11CDD18F100DE819B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F19B01CDD18F100DE819B /* ViewController.swift */; };
 		1F9F19B41CDD18F100DE819B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F9F19B21CDD18F100DE819B /* Main.storyboard */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1F81F5811CE16FE100544F85 /* VideoDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoDetailsViewController.swift; sourceTree = "<group>"; };
 		1F9F19AB1CDD18F100DE819B /* VideoInfoViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoInfoViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F9F19AE1CDD18F100DE819B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1F9F19B01CDD18F100DE819B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				1F9F19BA1CDD18F100DE819B /* LaunchScreen.storyboard */,
 				1F9F19BD1CDD18F100DE819B /* Info.plist */,
 				1F9F19B51CDD18F100DE819B /* VideoInfoViewer.xcdatamodeld */,
+				1F81F5811CE16FE100544F85 /* VideoDetailsViewController.swift */,
 			);
 			path = VideoInfoViewer;
 			sourceTree = "<group>";
@@ -262,6 +265,7 @@
 			files = (
 				1F9F19B11CDD18F100DE819B /* ViewController.swift in Sources */,
 				1F9F19B71CDD18F100DE819B /* VideoInfoViewer.xcdatamodeld in Sources */,
+				1F81F5821CE16FE100544F85 /* VideoDetailsViewController.swift in Sources */,
 				1F9F19AF1CDD18F100DE819B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
