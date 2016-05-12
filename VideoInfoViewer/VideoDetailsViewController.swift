@@ -10,6 +10,11 @@ import UIKit
 
 class VideoDetailsViewController: UIViewController {
 
+    var videoURL: NSURL?
+    var thumbnailURL: NSURL?
+    
+    @IBOutlet weak var thumbnailView: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -21,6 +26,8 @@ class VideoDetailsViewController: UIViewController {
         backButton.target = self
         
         self.navigationItem.leftBarButtonItem = backButton
+        
+        thumbnailView?.image = UIImage(named: thumbnailURL!.path! )
     }
     
     @IBAction func clickBack(sender: UIBarButtonItem) {
@@ -34,16 +41,4 @@ class VideoDetailsViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

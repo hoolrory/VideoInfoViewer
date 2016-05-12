@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -72,8 +73,24 @@
                     <view key="view" contentMode="scaleToFill" id="7n8-Ni-Zzd">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qzo-pL-ROr">
+                                <rect key="frame" x="20" y="20" width="560" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="vwr-ZB-U1w"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="qzo-pL-ROr" secondAttribute="trailing" id="B6M-Ia-rI9"/>
+                            <constraint firstItem="qzo-pL-ROr" firstAttribute="leading" secondItem="7n8-Ni-Zzd" secondAttribute="leadingMargin" id="K33-G6-mke"/>
+                            <constraint firstItem="qzo-pL-ROr" firstAttribute="top" secondItem="2Mf-r5-IBb" secondAttribute="bottom" id="scT-l1-eEx"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="thumbnailView" destination="qzo-pL-ROr" id="LtI-2D-nJl"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aif-8a-I95" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

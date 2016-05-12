@@ -192,15 +192,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
         let videoFile = self.videos[indexPath.row].valueForKey("videoFile") as? String
-        if let vf = videoFile {
-            let videoURL = getDocumentUrl(vf)
-            let nc = parentViewController as? UINavigationController
-            if let navController = nc {
-                let videoDetailsController = self.storyboard!.instantiateViewControllerWithIdentifier("videoDetails") as! VideoDetailsViewController
-                navController.pushViewController(videoDetailsController, animated: true)
-            }
+        let thumbnailFile = self.videos[indexPath.row].valueForKey("thumbnailFile") as? String
+        let videoURL = getDocumentUrl(videoFile!)
+        let thumbnailURL = getDocumentUrl(thumbnailFile!)
+        let nc = parentViewController as? UINavigationController
+        if let navController = nc {
+            let videoDetailsController = self.storyboard!.instantiateViewControllerWithIdentifier("videoDetails") as! VideoDetailsViewController
+            videoDetailsController.videoURL = videoURL
+            videoDetailsController.thumbnailURL = thumbnailURL
+            navController.pushViewController(videoDetailsController, animated: true)
         }
     }
 }
