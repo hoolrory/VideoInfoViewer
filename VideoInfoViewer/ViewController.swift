@@ -55,10 +55,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             print("Could not fetch \(error), \(error.userInfo)")
         }
         
-        print("Got \(videos.count) videos")
-        
-        print("TableView is \(tableView)")
-        
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
     }
     
@@ -75,7 +71,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         picker.dismissViewControllerAnimated(true, completion: nil)
         
         if let srcURL = mediaUrl {
-            print(srcURL)
             let filemgr = NSFileManager.defaultManager()
             
             var videoName = "video_\(NSDate().timeIntervalSince1970).MOV"
@@ -141,7 +136,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("getting table count")
         return videos.count
     }
     
@@ -158,13 +152,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         if let tf = thumbnailFile {
             let thumbnailURL = getDocumentUrl(tf)
-            var error: NSError?
-            if thumbnailURL.checkResourceIsReachableAndReturnError(&error) {
-                print("Thumbnail is unreachable")
-            } else {
-                print("Thumbnail is reachable")
-            }
-            print("Binding to \(thumbnailURL.path!)")
+            // print("Binding to \(thumbnailURL.path!)")
             cell.imageView?.image = UIImage(named: thumbnailURL.path! )
         }
         

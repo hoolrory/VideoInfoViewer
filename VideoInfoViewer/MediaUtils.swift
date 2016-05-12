@@ -23,9 +23,14 @@ class MediaUtils {
     static func renderThumbnailFromVideo(videoURL: NSURL, thumbnailURL: NSURL, time: CMTime) -> Bool {
         let asset = AVURLAsset(URL: videoURL, options: nil)
         let imgGenerator = AVAssetImageGenerator(asset: asset)
+        let rotation = getVideoRotation(videoURL)
         do {
             let cgImage = try imgGenerator.copyCGImageAtTime(time, actualTime: nil)
-            let uiImage = UIImage(CGImage: cgImage)
+            var uiImage = UIImage(CGImage: cgImage)
+            
+            if rotation != 0 {
+                uiImage = rotateImageByDegrees(uiImage, degrees: CGFloat(rotation))
+            }
             
             let result = UIImagePNGRepresentation(uiImage)?.writeToURL(thumbnailURL, atomically: true)
             return result != nil
@@ -35,8 +40,41 @@ class MediaUtils {
         return false
     }
     
-    static func getVideoDuration(videoURL: NSURL) -> CMTime{
+    static func getVideoDuration(videoURL: NSURL) -> CMTime {
         let asset = AVURLAsset(URL: videoURL, options: nil)
         return asset.duration
+    }
+    
+    static func getVideoRotation(videoURL: NSURL) -> Float {
+        let asset = AVURLAsset(URL: videoURL, options: nil)
+        
+        let videoTracks = asset.tracksWithMediaType(AVMediaTypeVideo)
+        
+        if videoTracks.count == 0 {
+            return 0.0
+        }
+        
+        let transform = videoTracks[0].preferredTransform
+    
+        let radians = atan2f(Float(transform.b), Float(transform.a))
+        let videoAngleInDegrees = (radians * 180.0) / Float(M_PI)
+        
+        return videoAngleInDegrees
+    }
+    
+    static func rotateImageByDegrees(oldImage: UIImage, degrees: CGFloat) -> UIImage {
+        let rotatedViewBox = UIView(frame: CGRectMake(0, 0, oldImage.size.width, oldImage.size.height))
+        let transform = CGAffineTransformMakeRotation(degrees * CGFloat(M_PI / 180))
+        rotatedViewBox.transform = transform
+        let rotatedSize: CGSize = rotatedViewBox.frame.size
+        UIGraphicsBeginImageContext(rotatedSize)
+        let context = UIGraphicsGetCurrentContext()!
+        CGContextTranslateCTM(context, rotatedSize.width / 2, rotatedSize.height / 2)
+        CGContextRotateCTM(context, (degrees * CGFloat(M_PI / 180)))
+        CGContextScaleCTM(context, 1.0, -1.0)
+        CGContextDrawImage(context, CGRectMake(-oldImage.size.width / 2, -oldImage.size.height / 2, oldImage.size.width, oldImage.size.height), oldImage.CGImage)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage
     }
 }
