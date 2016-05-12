@@ -93,9 +93,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             }
             
             let thumbnailURL = getDocumentUrl("\(videoName).png")
-            let duration = getVideoDuration(toURL)
+            let duration = MediaUtils.getVideoDuration(toURL)
             let thumbTime = CMTime(seconds: duration.seconds / 2.0, preferredTimescale: duration.timescale)
-            renderThumbnailFromVideo(toURL, thumbnailURL: thumbnailURL, time: thumbTime)
+            MediaUtils.renderThumbnailFromVideo(toURL, thumbnailURL: thumbnailURL, time: thumbTime)
             
             saveVideo(toURL, thumbnailURL: thumbnailURL)
             print(videos.count)
@@ -133,26 +133,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
         
         return documentDirectory.URLByAppendingPathComponent(pathComponent)
-    }
-    
-    func renderThumbnailFromVideo(videoURL: NSURL, thumbnailURL: NSURL, time: CMTime) -> Bool {
-        let asset = AVURLAsset(URL: videoURL, options: nil)
-        let imgGenerator = AVAssetImageGenerator(asset: asset)
-        do {
-            let cgImage = try imgGenerator.copyCGImageAtTime(time, actualTime: nil)
-            let uiImage = UIImage(CGImage: cgImage)
-            
-            let result = UIImagePNGRepresentation(uiImage)?.writeToURL(thumbnailURL, atomically: true)
-            return result != nil
-        } catch _ {
-            print("Failed to get thumbnail")
-        }
-        return false
-    }
-    
-    func getVideoDuration(videoURL: NSURL) -> CMTime{
-        let asset = AVURLAsset(URL: videoURL, options: nil)
-        return asset.duration
     }
 
     override func didReceiveMemoryWarning() {

@@ -16,6 +16,7 @@
 		1F9F19BC1CDD18F100DE819B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F9F19BA1CDD18F100DE819B /* LaunchScreen.storyboard */; };
 		1F9F19C71CDD18F100DE819B /* VideoInfoViewerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F19C61CDD18F100DE819B /* VideoInfoViewerTests.swift */; };
 		1F9F19D21CDD18F200DE819B /* VideoInfoViewerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F19D11CDD18F200DE819B /* VideoInfoViewerUITests.swift */; };
+		1FC98CCE1CE5392900301B9E /* MediaUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC98CCD1CE5392900301B9E /* MediaUtils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		1F9F19CD1CDD18F200DE819B /* VideoInfoViewerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VideoInfoViewerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F9F19D11CDD18F200DE819B /* VideoInfoViewerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoInfoViewerUITests.swift; sourceTree = "<group>"; };
 		1F9F19D31CDD18F200DE819B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1FC98CCD1CE5392900301B9E /* MediaUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 				1F9F19BD1CDD18F100DE819B /* Info.plist */,
 				1F9F19B51CDD18F100DE819B /* VideoInfoViewer.xcdatamodeld */,
 				1F81F5811CE16FE100544F85 /* VideoDetailsViewController.swift */,
+				1FC98CCD1CE5392900301B9E /* MediaUtils.swift */,
 			);
 			path = VideoInfoViewer;
 			sourceTree = "<group>";
@@ -263,6 +266,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FC98CCE1CE5392900301B9E /* MediaUtils.swift in Sources */,
 				1F9F19B11CDD18F100DE819B /* ViewController.swift in Sources */,
 				1F9F19B71CDD18F100DE819B /* VideoInfoViewer.xcdatamodeld in Sources */,
 				1F81F5821CE16FE100544F85 /* VideoDetailsViewController.swift in Sources */,
