@@ -17,6 +17,8 @@
 		1F9F19C71CDD18F100DE819B /* VideoInfoViewerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F19C61CDD18F100DE819B /* VideoInfoViewerTests.swift */; };
 		1F9F19D21CDD18F200DE819B /* VideoInfoViewerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F19D11CDD18F200DE819B /* VideoInfoViewerUITests.swift */; };
 		1FC98CCE1CE5392900301B9E /* MediaUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC98CCD1CE5392900301B9E /* MediaUtils.swift */; };
+		1FFC73721D42B25300757F78 /* CPPTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FFC73701D42B25300757F78 /* CPPTest.cpp */; };
+		1FFC73761D42B31100757F78 /* ObjC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1FFC73751D42B31100757F78 /* ObjC.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,11 @@
 		1F9F19D11CDD18F200DE819B /* VideoInfoViewerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoInfoViewerUITests.swift; sourceTree = "<group>"; };
 		1F9F19D31CDD18F200DE819B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1FC98CCD1CE5392900301B9E /* MediaUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaUtils.swift; sourceTree = "<group>"; };
+		1FFC736F1D42B25300757F78 /* VideoInfoViewer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VideoInfoViewer-Bridging-Header.h"; sourceTree = "<group>"; };
+		1FFC73701D42B25300757F78 /* CPPTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CPPTest.cpp; sourceTree = "<group>"; };
+		1FFC73711D42B25300757F78 /* CPPTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPTest.h; sourceTree = "<group>"; };
+		1FFC73751D42B31100757F78 /* ObjC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ObjC.mm; sourceTree = "<group>"; };
+		1FFC73771D42B36900757F78 /* ObjC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObjC.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +119,11 @@
 				1F9F19B51CDD18F100DE819B /* VideoInfoViewer.xcdatamodeld */,
 				1F81F5811CE16FE100544F85 /* VideoDetailsViewController.swift */,
 				1FC98CCD1CE5392900301B9E /* MediaUtils.swift */,
+				1FFC73701D42B25300757F78 /* CPPTest.cpp */,
+				1FFC73711D42B25300757F78 /* CPPTest.h */,
+				1FFC736F1D42B25300757F78 /* VideoInfoViewer-Bridging-Header.h */,
+				1FFC73751D42B31100757F78 /* ObjC.mm */,
+				1FFC73771D42B36900757F78 /* ObjC.h */,
 			);
 			path = VideoInfoViewer;
 			sourceTree = "<group>";
@@ -267,10 +279,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				1FC98CCE1CE5392900301B9E /* MediaUtils.swift in Sources */,
+				1FFC73761D42B31100757F78 /* ObjC.mm in Sources */,
 				1F9F19B11CDD18F100DE819B /* ViewController.swift in Sources */,
 				1F9F19B71CDD18F100DE819B /* VideoInfoViewer.xcdatamodeld in Sources */,
 				1F81F5821CE16FE100544F85 /* VideoDetailsViewController.swift in Sources */,
 				1F9F19AF1CDD18F100DE819B /* AppDelegate.swift in Sources */,
+				1FFC73721D42B25300757F78 /* CPPTest.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -414,14 +428,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = VideoInfoViewer/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.roryhool.VideoInfoViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "VideoInfoViewer/VideoInfoViewer-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -429,14 +446,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = VideoInfoViewer/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.roryhool.VideoInfoViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "VideoInfoViewer/VideoInfoViewer-Bridging-Header.h";
 			};
 			name = Release;
 		};
