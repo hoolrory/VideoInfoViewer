@@ -64,7 +64,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         imagePicker.allowsEditing = false
         imagePicker.sourceType = .PhotoLibrary
         imagePicker.mediaTypes = [kUTTypeMovie as String]
-        
+        imagePicker.modalTransitionStyle = .PartialCurl
         presentViewController(imagePicker, animated: true, completion: nil)
     }
     

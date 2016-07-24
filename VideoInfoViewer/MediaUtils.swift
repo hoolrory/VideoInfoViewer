@@ -45,6 +45,29 @@ class MediaUtils {
         return asset.duration
     }
     
+    static func getVideoResolution(videoURL: NSURL) -> CGSize {
+        let asset = AVURLAsset(URL: videoURL, options: nil)
+        let videoTracks = asset.tracksWithMediaType(AVMediaTypeVideo)
+        
+        if videoTracks.count == 0 {
+            return CGSizeMake(0, 0)
+        }
+        
+        return videoTracks[0].naturalSize
+
+    }
+    
+    static func getVideoFrameRate(videoURL:NSURL) -> Float {
+        let asset = AVURLAsset(URL: videoURL, options: nil)
+        let videoTracks = asset.tracksWithMediaType(AVMediaTypeVideo)
+        
+        if videoTracks.count == 0 {
+            return 0
+        }
+        
+        return videoTracks[0].nominalFrameRate
+    }
+    
     static func getVideoRotation(videoURL: NSURL) -> Float {
         let asset = AVURLAsset(URL: videoURL, options: nil)
         

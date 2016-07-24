@@ -80,15 +80,29 @@
                                     <constraint firstAttribute="height" constant="100" id="vwr-ZB-U1w"/>
                                 </constraints>
                             </imageView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="NCw-MQ-fLM">
+                                <rect key="frame" x="40" y="130" width="520" height="300"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="9T2-HD-Cne"/>
+                                </constraints>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="qzo-pL-ROr" secondAttribute="trailing" id="B6M-Ia-rI9"/>
+                            <constraint firstItem="qzo-pL-ROr" firstAttribute="trailing" secondItem="7n8-Ni-Zzd" secondAttribute="trailingMargin" id="B6M-Ia-rI9"/>
+                            <constraint firstItem="NCw-MQ-fLM" firstAttribute="trailing" secondItem="7n8-Ni-Zzd" secondAttribute="trailingMargin" constant="-20" id="Fkc-mK-zE3"/>
                             <constraint firstItem="qzo-pL-ROr" firstAttribute="leading" secondItem="7n8-Ni-Zzd" secondAttribute="leadingMargin" id="K33-G6-mke"/>
+                            <constraint firstItem="NCw-MQ-fLM" firstAttribute="leading" secondItem="7n8-Ni-Zzd" secondAttribute="leadingMargin" constant="20" id="Lk8-Iy-lsd"/>
+                            <constraint firstItem="NCw-MQ-fLM" firstAttribute="top" secondItem="qzo-pL-ROr" secondAttribute="bottom" constant="10" id="mcK-yq-EjH"/>
                             <constraint firstItem="qzo-pL-ROr" firstAttribute="top" secondItem="2Mf-r5-IBb" secondAttribute="bottom" id="scT-l1-eEx"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="textView" destination="NCw-MQ-fLM" id="IaH-Zb-MYk"/>
                         <outlet property="thumbnailView" destination="qzo-pL-ROr" id="LtI-2D-nJl"/>
                     </connections>
                 </viewController>
