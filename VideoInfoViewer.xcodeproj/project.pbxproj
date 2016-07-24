@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F6E3C4A1D4527890008CDD5 /* libMP4Parse.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F6E3C471D4523210008CDD5 /* libMP4Parse.a */; };
 		1F81F5821CE16FE100544F85 /* VideoDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F81F5811CE16FE100544F85 /* VideoDetailsViewController.swift */; };
 		1F9F19AF1CDD18F100DE819B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F19AE1CDD18F100DE819B /* AppDelegate.swift */; };
 		1F9F19B11CDD18F100DE819B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F19B01CDD18F100DE819B /* ViewController.swift */; };
@@ -22,6 +23,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		1F6E3C461D4523210008CDD5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1F6E3C421D4523210008CDD5 /* MP4Parse.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1F6E3A3C1D45177A0008CDD5;
+			remoteInfo = MP4Parse;
+		};
+		1F6E3C481D4527720008CDD5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1F6E3C421D4523210008CDD5 /* MP4Parse.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 1F6E3A3B1D45177A0008CDD5;
+			remoteInfo = MP4Parse;
+		};
 		1F9F19C31CDD18F100DE819B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 1F9F19A31CDD18F100DE819B /* Project object */;
@@ -39,6 +54,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1F6E3C421D4523210008CDD5 /* MP4Parse.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MP4Parse.xcodeproj; path = Libraries/MP4Parse/MP4Parse.xcodeproj; sourceTree = "<group>"; };
 		1F81F5811CE16FE100544F85 /* VideoDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoDetailsViewController.swift; sourceTree = "<group>"; };
 		1F9F19AB1CDD18F100DE819B /* VideoInfoViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoInfoViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F9F19AE1CDD18F100DE819B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -67,6 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F6E3C4A1D4527890008CDD5 /* libMP4Parse.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,6 +104,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F6E3C281D45208C0008CDD5 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				1F6E3C421D4523210008CDD5 /* MP4Parse.xcodeproj */,
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
+		1F6E3C431D4523210008CDD5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1F6E3C471D4523210008CDD5 /* libMP4Parse.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		1F9F19A21CDD18F100DE819B = {
 			isa = PBXGroup;
 			children = (
@@ -94,6 +127,7 @@
 				1F9F19C51CDD18F100DE819B /* VideoInfoViewerTests */,
 				1F9F19D01CDD18F200DE819B /* VideoInfoViewerUITests */,
 				1F9F19AC1CDD18F100DE819B /* Products */,
+				1F6E3C281D45208C0008CDD5 /* Libraries */,
 			);
 			sourceTree = "<group>";
 		};
@@ -160,6 +194,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				1F6E3C491D4527720008CDD5 /* PBXTargetDependency */,
 			);
 			name = VideoInfoViewer;
 			productName = VideoInfoViewer;
@@ -237,6 +272,12 @@
 			mainGroup = 1F9F19A21CDD18F100DE819B;
 			productRefGroup = 1F9F19AC1CDD18F100DE819B /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 1F6E3C431D4523210008CDD5 /* Products */;
+					ProjectRef = 1F6E3C421D4523210008CDD5 /* MP4Parse.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				1F9F19AA1CDD18F100DE819B /* VideoInfoViewer */,
@@ -245,6 +286,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		1F6E3C471D4523210008CDD5 /* libMP4Parse.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libMP4Parse.a;
+			remoteRef = 1F6E3C461D4523210008CDD5 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		1F9F19A91CDD18F100DE819B /* Resources */ = {
@@ -307,6 +358,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		1F6E3C491D4527720008CDD5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MP4Parse;
+			targetProxy = 1F6E3C481D4527720008CDD5 /* PBXContainerItemProxy */;
+		};
 		1F9F19C41CDD18F100DE819B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 1F9F19AA1CDD18F100DE819B /* VideoInfoViewer */;
@@ -431,6 +487,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/Libraries/MP4Parse/source/include";
 				INFOPLIST_FILE = VideoInfoViewer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -449,6 +506,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/Libraries/MP4Parse/source/include";
 				INFOPLIST_FILE = VideoInfoViewer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
