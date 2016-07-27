@@ -13,7 +13,7 @@ class CPPTest
 {
 public:
     
-    static void test(unsigned int test);
+    static void test(const char* test);
 };
 
 #endif /* CPPTest_hpp */

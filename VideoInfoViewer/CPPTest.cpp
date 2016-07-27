@@ -12,12 +12,12 @@
 #include "MP4.Parser.h"
 using namespace MP4;
 
-void CPPTest::test(unsigned int test)
+void CPPTest::test(const char* test)
 {
     std::cout << "C++ printing test: " << test;
     MP4::Parser * parser;
     
-    parser = new MP4::Parser();
+    parser = new MP4::Parser((char*)test);
     
     delete parser;
 

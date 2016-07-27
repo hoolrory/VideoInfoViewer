@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface ObjC : NSObject
-+ (void) test: (NSInteger) test;
++ (void) test: (NSString*) test;
 @end

@@ -8,12 +8,16 @@
 
 #import "ObjC.h"
 
+#include <iostream>
+
 #import "CPPTest.h"
 
 @implementation ObjC
 
-+ (void) test: (NSInteger) test
++ (void) test: (NSString*) test
 {
-    CPPTest::test((unsigned int)test);
+    // std::string *bar = new std::string([test UTF8String]);
+    const char *cfilename=[test UTF8String];
+    CPPTest::test(cfilename);
 }
 @end
