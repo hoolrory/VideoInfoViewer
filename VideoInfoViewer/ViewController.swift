@@ -33,8 +33,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         self.title = "Video Info Viewer"
         
-        ObjC.test(2)
-        
         let openButton = UIBarButtonItem()
         openButton.title = "Open"
         openButton.action = #selector(ViewController.clickOpen(_:))

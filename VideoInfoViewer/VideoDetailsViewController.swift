@@ -17,6 +17,8 @@ class VideoDetailsViewController: UIViewController {
     
     @IBOutlet weak var textView: UITextView!
     
+    @IBOutlet weak var atomStructureButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -62,5 +64,14 @@ class VideoDetailsViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }    
+    
+    @IBAction func onClickAtomStructureButton(sender: UIButton) {
+        let nc = parentViewController as? UINavigationController
+        if let navController = nc {
+            let atomStructureController = self.storyboard!.instantiateViewControllerWithIdentifier("atomStructure") as! AtomStructureViewController
+            atomStructureController.videoURL = videoURL
+            navController.pushViewController(atomStructureController, animated: true)
+        }
     }
 }

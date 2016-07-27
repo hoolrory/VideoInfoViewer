@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="wMF-fP-dbU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="wMF-fP-dbU">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -81,15 +81,19 @@
                                 </constraints>
                             </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="NCw-MQ-fLM">
-                                <rect key="frame" x="40" y="130" width="520" height="300"/>
+                                <rect key="frame" x="40" y="130" width="520" height="420"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="300" id="9T2-HD-Cne"/>
-                                </constraints>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7BT-mJ-8IT">
+                                <rect key="frame" x="229" y="550" width="142" height="30"/>
+                                <state key="normal" title="View Atom Structure"/>
+                                <connections>
+                                    <action selector="onClickAtomStructureButton:" destination="e2t-Sl-SrL" eventType="touchUpInside" id="fHe-aD-eSQ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -97,17 +101,50 @@
                             <constraint firstItem="NCw-MQ-fLM" firstAttribute="trailing" secondItem="7n8-Ni-Zzd" secondAttribute="trailingMargin" constant="-20" id="Fkc-mK-zE3"/>
                             <constraint firstItem="qzo-pL-ROr" firstAttribute="leading" secondItem="7n8-Ni-Zzd" secondAttribute="leadingMargin" id="K33-G6-mke"/>
                             <constraint firstItem="NCw-MQ-fLM" firstAttribute="leading" secondItem="7n8-Ni-Zzd" secondAttribute="leadingMargin" constant="20" id="Lk8-Iy-lsd"/>
+                            <constraint firstItem="7BT-mJ-8IT" firstAttribute="centerX" secondItem="7n8-Ni-Zzd" secondAttribute="centerX" id="NeT-bl-Ucg"/>
+                            <constraint firstItem="7BT-mJ-8IT" firstAttribute="top" secondItem="NCw-MQ-fLM" secondAttribute="bottom" id="Ugj-dr-hdA"/>
                             <constraint firstItem="NCw-MQ-fLM" firstAttribute="top" secondItem="qzo-pL-ROr" secondAttribute="bottom" constant="10" id="mcK-yq-EjH"/>
                             <constraint firstItem="qzo-pL-ROr" firstAttribute="top" secondItem="2Mf-r5-IBb" secondAttribute="bottom" id="scT-l1-eEx"/>
+                            <constraint firstItem="7BT-mJ-8IT" firstAttribute="bottom" secondItem="bkh-wf-Mv0" secondAttribute="top" constant="-20" id="v3p-FK-Ofz"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="atomStructureButton" destination="7BT-mJ-8IT" id="21O-fa-qnV"/>
                         <outlet property="textView" destination="NCw-MQ-fLM" id="IaH-Zb-MYk"/>
                         <outlet property="thumbnailView" destination="qzo-pL-ROr" id="LtI-2D-nJl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aif-8a-I95" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="333" y="-311"/>
+        </scene>
+        <!--Atom Structure View Controller-->
+        <scene sceneID="2OW-Rw-dfG">
+            <objects>
+                <tableViewController storyboardIdentifier="atomStructure" id="N75-Ot-nJP" customClass="AtomStructureViewController" customModule="VideoInfoViewer" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Bed-w8-dQz">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="00D-uv-Rcr">
+                                <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="00D-uv-Rcr" id="Ey4-Nd-cmQ">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="N75-Ot-nJP" id="f0V-dy-7f1"/>
+                            <outlet property="delegate" destination="N75-Ot-nJP" id="YSW-oC-0YF"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="foJ-Lf-4G0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-54" y="481"/>
         </scene>
     </scenes>
 </document>

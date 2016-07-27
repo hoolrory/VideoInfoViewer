@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F65164B1D478EB8000851B2 /* AtomStructureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F65164A1D478EB8000851B2 /* AtomStructureViewController.swift */; };
 		1F6E3C4A1D4527890008CDD5 /* libMP4Parse.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F6E3C471D4523210008CDD5 /* libMP4Parse.a */; };
 		1F81F5821CE16FE100544F85 /* VideoDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F81F5811CE16FE100544F85 /* VideoDetailsViewController.swift */; };
 		1F9F19AF1CDD18F100DE819B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F19AE1CDD18F100DE819B /* AppDelegate.swift */; };
@@ -54,6 +55,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1F65164A1D478EB8000851B2 /* AtomStructureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AtomStructureViewController.swift; sourceTree = "<group>"; };
 		1F6E3C421D4523210008CDD5 /* MP4Parse.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MP4Parse.xcodeproj; path = Libraries/MP4Parse/MP4Parse.xcodeproj; sourceTree = "<group>"; };
 		1F81F5811CE16FE100544F85 /* VideoDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoDetailsViewController.swift; sourceTree = "<group>"; };
 		1F9F19AB1CDD18F100DE819B /* VideoInfoViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoInfoViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -158,6 +160,7 @@
 				1FFC736F1D42B25300757F78 /* VideoInfoViewer-Bridging-Header.h */,
 				1FFC73751D42B31100757F78 /* ObjC.mm */,
 				1FFC73771D42B36900757F78 /* ObjC.h */,
+				1F65164A1D478EB8000851B2 /* AtomStructureViewController.swift */,
 			);
 			path = VideoInfoViewer;
 			sourceTree = "<group>";
@@ -336,6 +339,7 @@
 				1F81F5821CE16FE100544F85 /* VideoDetailsViewController.swift in Sources */,
 				1F9F19AF1CDD18F100DE819B /* AppDelegate.swift in Sources */,
 				1FFC73721D42B25300757F78 /* CPPTest.cpp in Sources */,
+				1F65164B1D478EB8000851B2 /* AtomStructureViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
