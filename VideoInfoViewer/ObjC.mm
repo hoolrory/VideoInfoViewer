@@ -14,10 +14,9 @@
 
 @implementation ObjC
 
-+ (void) test: (NSString*) test
++ (void) test: (NSString*) filePath
 {
-    // std::string *bar = new std::string([test UTF8String]);
-    const char *cfilename=[test UTF8String];
-    CPPTest::test(cfilename);
+    const char *cFilePath=[filePath UTF8String];
+    CPPTest::test(cFilePath);
 }
 @end
