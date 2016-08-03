@@ -79,105 +79,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let videoRequestOptions = PHVideoRequestOptions()
         videoRequestOptions.version = .Original
         videoRequestOptions.networkAccessAllowed = true
-        // videoRequestOptions.deliveryMode = .HighQualityFormat
       
         PHImageManager().requestAVAssetForVideo(
             asset, options:
             videoRequestOptions,
             resultHandler: handleAVAssetRequestResult )
-               
-               /*{ (avasset, audioMix, info ) in
-               
-               if let avurlasset = avasset as? AVURLAsset {
-                  let filemgr = NSFileManager.defaultManager()
-               
-                  var videoName = "video_\(NSDate().timeIntervalSince1970).MOV"
-                  if let lastPathCompontent = srcURL.lastPathComponent {
-                     videoName = lastPathCompontent
-                  }
-               
-                  let toURL = self.getDocumentUrl(videoName)
-               
-                  do {
-                     try filemgr.copyItemAtURL(avurlasset.URL, toURL: toURL)
-                  } catch _ {
-                     print("Failed to copy")
-                     return
-                  }
-                  
-                  let thumbnailURL = self.getDocumentUrl("\(videoName).png")
-                  let duration = MediaUtils.getVideoDuration(toURL)
-                  let thumbTime = CMTime(seconds: duration.seconds / 2.0, preferredTimescale: duration.timescale)
-                  MediaUtils.renderThumbnailFromVideo(toURL, thumbnailURL: thumbnailURL, time: thumbTime)
-                  
-                  self.saveVideo(toURL, thumbnailURL: thumbnailURL)
-               }
-
-         })*/
-         
-                   /* PHImageManager().requestExportSessionForVideo(
-                        asset,
-                        options: videoRequestOptions,
-                        exportPreset: AVAssetExportPresetPassthrough,
-                        resultHandler:  { ( exportSession, info) in
-                            guard let exportSession = exportSession else { return }
-                            print(info)
-                            print("WELP")
-                            print(asset)
-                            var videoName = "video_\(NSDate().timeIntervalSince1970).mp4"
-                            if let lastPathCompontent = srcURL.lastPathComponent {
-                                videoName = lastPathCompontent
-                            }
-                            
-                            let toURL = self.getDocumentUrl(videoName)
-                            exportSession.outputFileType = AVFileTypeMPEG4
-                            print("HERE " + exportSession.outputFileType!)
-                            exportSession.outputURL = toURL
-                            exportSession.shouldOptimizeForNetworkUse = true
-                            exportSession.exportAsynchronouslyWithCompletionHandler({ () -> Void in
-                                guard exportSession.status == .Completed else {
-                                    if let error = exportSession.error {
-                                        print(error)
-                                        // errorHandler(error: error)
-                                    }
-                                    return;
-                                }
-                                print("succeeded")
-                                let thumbnailURL = self.getDocumentUrl("\(videoName).png")
-                                let duration = MediaUtils.getVideoDuration(toURL)
-                                let thumbTime = CMTime(seconds: duration.seconds / 2.0, preferredTimescale: duration.timescale)
-                                MediaUtils.renderThumbnailFromVideo(toURL, thumbnailURL: thumbnailURL, time: thumbTime)
-                                
-                                self.saveVideo(toURL, thumbnailURL: thumbnailURL)
-                                // successHandler(resultingSize: CGSize(width: self.pixelWidth, height: self.pixelHeight))
-                            })
-                    });*/
-            
-            
-            /*
-            let filemgr = NSFileManager.defaultManager()
-            
-            var videoName = "video_\(NSDate().timeIntervalSince1970).MOV"
-            if let lastPathCompontent = srcURL.lastPathComponent {
-                videoName = lastPathCompontent
-            }
-        
-            let toURL = getDocumentUrl(videoName)
-        
-            do {
-                try filemgr.copyItemAtURL(srcURL, toURL: toURL)
-            } catch _ {
-                print("Failed to copy")
-                return
-            }
-            
-            let thumbnailURL = getDocumentUrl("\(videoName).png")
-            let duration = MediaUtils.getVideoDuration(toURL)
-            let thumbTime = CMTime(seconds: duration.seconds / 2.0, preferredTimescale: duration.timescale)
-            MediaUtils.renderThumbnailFromVideo(toURL, thumbnailURL: thumbnailURL, time: thumbTime)
-            
-            saveVideo(toURL, thumbnailURL: thumbnailURL)
-            print(videos.count)*/
     }
    
    func handleAVAssetRequestResult(avAsset: AVAsset?, audioMix: AVAudioMix?, info: [NSObject: AnyObject]?) {
@@ -263,7 +169,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         if let tf = thumbnailFile {
             let thumbnailURL = getDocumentUrl(tf)
-            // print("Binding to \(thumbnailURL.path!)")
             cell.imageView?.image = UIImage(named: thumbnailURL.path! )
         }
         
