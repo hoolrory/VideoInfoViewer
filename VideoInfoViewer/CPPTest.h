@@ -13,7 +13,7 @@ class CPPTest
 {
 public:
     
-    static void test(const char* test);
+    static void parseFile(const char* filePath);
 };
 
 #endif /* CPPTest_hpp */
