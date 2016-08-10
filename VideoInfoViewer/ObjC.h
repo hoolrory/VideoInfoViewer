@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+@class Atom;
+struct AtomWrapper;
+
 @interface ObjC : NSObject
-+ (void) test: (NSString*) test;
++ (Atom*) parseFile: (NSString*) filePath;
++ (Atom*) transformAtom: (struct AtomWrapper) atomWrapper;
 @end

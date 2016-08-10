@@ -10,13 +10,23 @@ import Foundation
 
 import UIKit
 
-class AtomStructureViewController: UITableViewController {
+internal class AtomStructureViewController: UITableViewController {
     
     var videoURL: NSURL?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        ObjC.test(videoURL?.path)
+        let atom = ObjC.parseFile(videoURL?.path)
+        print(atom.name);
+        if let atom = atom as? Atom {
+            if let children = atom.children {
+                for child in children {
+                    if let child = child as? Atom {
+                        print( " - " + child.name );
+                    }
+                }
+            }
+        }
     }
 }
