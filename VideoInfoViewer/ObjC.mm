@@ -10,10 +10,7 @@
 
 #import "Atom.h"
 #include "MP4.Parser.h"
-
-struct AtomWrapper {
-    MP4::Atom* atom;
-};
+#import "AtomWrapper.h"
 
 @implementation ObjC
 

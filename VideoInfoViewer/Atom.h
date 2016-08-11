@@ -9,6 +9,7 @@
 #ifndef Atom_h
 #define Atom_h
 
+struct AtomWrapper;
 @interface Atom : NSObject
 
 @property NSString *type;

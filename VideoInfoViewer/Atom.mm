@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Atom.h"
+#import "AtomWrapper.h"
 
 @implementation Atom
 
