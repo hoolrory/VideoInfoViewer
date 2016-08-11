@@ -20,21 +20,68 @@ import UIKit
 
 internal class AtomStructureViewController: UITableViewController {
     
+    let atomCellIdentifier = "atomCell";
+    
     var videoURL: NSURL?
+    
+    var rootAtom: Atom?
+    var count: Int = 0
+    var atoms = [Atom]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let atom = ObjC.parseFile(videoURL?.path)
-        print(atom.name);
-        if let atom = atom as? Atom {
-            if let children = atom.children {
-                for child in children {
-                    if let child = child as? Atom {
-                        print( " - " + child.name );
-                    }
-                }
+        self.title = "Atoms"
+        
+        rootAtom = ObjC.parseFile(videoURL?.path)
+        displayAtom( rootAtom!, depth: 0 );
+        
+        tableView.reloadData()
+    }
+    
+    func displayAtom( atom: Atom, depth: Int ) {
+        if ( depth > 0 ) {
+            let indent = String( count: depth, repeatedValue: Character( " " ) )
+            print( indent + atom.type + " - " + atom.name)
+            atoms.append( atom )
+            count += 1
+        }
+        for child in atom.children {
+            if let child = child as? Atom {
+                displayAtom( child, depth: depth + 1 )
             }
+        }
+    }
+    
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1;
+    }
+    
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return count;
+    }
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier(atomCellIdentifier) ?? UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: atomCellIdentifier)
+        cell.accessoryType = .DetailButton
+        cell.textLabel?.text = atoms[indexPath.item].type
+        cell.detailTextLabel?.text = atoms[indexPath.item].name
+        
+        return cell;
+
+    }
+    
+    override func tableView(tableView: UITableView,
+                            didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+    }
+    
+    override func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
+        let nc = parentViewController as? UINavigationController
+        if let navController = nc {
+            let atomController = self.storyboard!.instantiateViewControllerWithIdentifier("atom") as! AtomViewController
+            atomController.atom = atoms[indexPath.item]
+            navController.pushViewController(atomController, animated: true)
         }
     }
 }

@@ -146,5 +146,23 @@
             </objects>
             <point key="canvasLocation" x="-54" y="481"/>
         </scene>
+        <!--Atom View Controller-->
+        <scene sceneID="WNf-wp-fkg">
+            <objects>
+                <viewController storyboardIdentifier="atom" id="6i2-t0-IC1" customClass="AtomViewController" customModule="VideoInfoViewer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="d6B-nA-Esl"/>
+                        <viewControllerLayoutGuide type="bottom" id="xVY-RN-yP4"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="NBN-45-ZhB">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UgZ-zY-NO9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-60" y="1288"/>
+        </scene>
     </scenes>
 </document>
