@@ -20,7 +20,7 @@ import CoreData
 import AVFoundation
 import Photos
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate,UITableViewDataSource {
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
     
     let imagePicker = UIImagePickerController()
     
