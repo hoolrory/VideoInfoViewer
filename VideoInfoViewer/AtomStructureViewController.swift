@@ -42,7 +42,7 @@ internal class AtomStructureViewController: UITableViewController {
     func displayAtom( atom: Atom, depth: Int ) {
         if ( depth > 0 ) {
             let indent = String( count: depth, repeatedValue: Character( " " ) )
-            print( indent + atom.type + " - " + atom.name)
+            print( indent + atom.getType() + " - " + atom.getName())
             atoms.append( atom )
             count += 1
         }
@@ -64,8 +64,8 @@ internal class AtomStructureViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(atomCellIdentifier) ?? UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: atomCellIdentifier)
         cell.accessoryType = .DetailButton
-        cell.textLabel?.text = atoms[indexPath.item].type
-        cell.detailTextLabel?.text = atoms[indexPath.item].name
+        cell.textLabel?.text = atoms[indexPath.item].getType()
+        cell.detailTextLabel?.text = atoms[indexPath.item].getName()
         
         return cell;
 
