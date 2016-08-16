@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="wMF-fP-dbU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="wMF-fP-dbU">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -157,8 +157,34 @@
                     <view key="view" contentMode="scaleToFill" id="NBN-45-ZhB">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z9e-FS-SZB">
+                                <rect key="frame" x="40" y="40" width="520" height="253"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Atom Description" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t5P-yZ-szz">
+                                <rect key="frame" x="40" y="313" width="520" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="z9e-FS-SZB" secondAttribute="trailing" constant="20" id="Zrf-x1-gM2"/>
+                            <constraint firstItem="xVY-RN-yP4" firstAttribute="top" secondItem="t5P-yZ-szz" secondAttribute="bottom" constant="266.5" id="bm6-kK-qDz"/>
+                            <constraint firstItem="z9e-FS-SZB" firstAttribute="leading" secondItem="NBN-45-ZhB" secondAttribute="leadingMargin" constant="20" id="cWu-GX-w7B"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="t5P-yZ-szz" secondAttribute="trailing" constant="20" id="fMc-Nw-ntU"/>
+                            <constraint firstItem="t5P-yZ-szz" firstAttribute="leading" secondItem="NBN-45-ZhB" secondAttribute="leadingMargin" constant="20" id="g8t-vP-bm4"/>
+                            <constraint firstItem="z9e-FS-SZB" firstAttribute="top" secondItem="d6B-nA-Esl" secondAttribute="bottom" constant="20" id="mmy-3s-cF7"/>
+                            <constraint firstItem="t5P-yZ-szz" firstAttribute="top" secondItem="z9e-FS-SZB" secondAttribute="bottom" constant="20" id="rVu-fW-ybe"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="atomDescription" destination="t5P-yZ-szz" id="P2c-Ow-8jM"/>
+                        <outlet property="atomName" destination="z9e-FS-SZB" id="3T4-ML-Vyk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UgZ-zY-NO9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
