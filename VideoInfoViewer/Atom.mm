@@ -17,4 +17,29 @@
     
     return self;
 }
+
+- (NSString*) getType {
+    return [NSString stringWithCString:_atomWrapper.atom->getType().c_str()
+                              encoding:[NSString defaultCStringEncoding]];
+}
+
+- (NSString*) getName {
+    return [NSString stringWithCString:_atomWrapper.atom->getName().c_str()
+                              encoding:[NSString defaultCStringEncoding]];
+}
+
+- (NSString*) getDescription {
+    return [NSString stringWithCString:_atomWrapper.atom->description(1).c_str()
+                       encoding:[NSString defaultCStringEncoding]];
+}
+
+- (NSString*) getHexString {
+    return @"";
+}
+
+- (int) getDepth {
+    return _depth;
+}
+
+
 @end

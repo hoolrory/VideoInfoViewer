@@ -13,5 +13,5 @@ struct AtomWrapper;
 
 @interface ObjC : NSObject
 + (Atom*) parseFile: (NSString*) filePath;
-+ (Atom*) transformAtom: (struct AtomWrapper) atomWrapper;
++ (Atom*) transformAtom: (struct AtomWrapper) atomWrapper : (NSInteger) depth;
 @end

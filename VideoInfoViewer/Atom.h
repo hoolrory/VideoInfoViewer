@@ -12,12 +12,15 @@
 struct AtomWrapper;
 @interface Atom : NSObject
 
-@property NSString *type;
-@property NSString *name;
 @property (nonatomic, retain) NSMutableArray<Atom*>* children;
+@property struct AtomWrapper atomWrapper;
+@property int depth;
 
-+ (NSString*) getDescription;
-+ (NSString*) getHexString;
+- (NSString*) getType;
+- (NSString*) getName;
+- (NSString*) getDescription;
+- (NSString*) getHexString;
+- (int) getDepth;
 
 @end
 
