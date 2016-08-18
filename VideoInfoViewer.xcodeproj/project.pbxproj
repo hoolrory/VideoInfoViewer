@@ -12,6 +12,7 @@
 		1F81F5821CE16FE100544F85 /* VideoDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F81F5811CE16FE100544F85 /* VideoDetailsViewController.swift */; };
 		1F8BF57F1D5A745D002229BF /* Atom.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1F8BF57E1D5A745D002229BF /* Atom.mm */; };
 		1F8BF5CF1D5C1CFE002229BF /* AtomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8BF5CE1D5C1CFE002229BF /* AtomViewController.swift */; };
+		1F908C551D63212E00B2C552 /* AtomStructureViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F908C541D63212E00B2C552 /* AtomStructureViewCell.swift */; };
 		1F9F19AF1CDD18F100DE819B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F19AE1CDD18F100DE819B /* AppDelegate.swift */; };
 		1F9F19B11CDD18F100DE819B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F19B01CDD18F100DE819B /* ViewController.swift */; };
 		1F9F19B41CDD18F100DE819B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F9F19B21CDD18F100DE819B /* Main.storyboard */; };
@@ -64,6 +65,7 @@
 		1F8BF5801D5A746C002229BF /* Atom.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Atom.h; sourceTree = "<group>"; };
 		1F8BF5CE1D5C1CFE002229BF /* AtomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AtomViewController.swift; sourceTree = "<group>"; };
 		1F8BF5D01D5CAB96002229BF /* AtomWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AtomWrapper.h; sourceTree = "<group>"; };
+		1F908C541D63212E00B2C552 /* AtomStructureViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AtomStructureViewCell.swift; sourceTree = "<group>"; };
 		1F9F19AB1CDD18F100DE819B /* VideoInfoViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoInfoViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F9F19AE1CDD18F100DE819B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1F9F19B01CDD18F100DE819B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 				1FFC73751D42B31100757F78 /* ObjC.mm */,
 				1FFC73771D42B36900757F78 /* ObjC.h */,
 				1F65164A1D478EB8000851B2 /* AtomStructureViewController.swift */,
+				1F908C541D63212E00B2C552 /* AtomStructureViewCell.swift */,
 				1F8BF5CE1D5C1CFE002229BF /* AtomViewController.swift */,
 				1F8BF57E1D5A745D002229BF /* Atom.mm */,
 				1F8BF5801D5A746C002229BF /* Atom.h */,
@@ -351,6 +354,7 @@
 				1F9F19AF1CDD18F100DE819B /* AppDelegate.swift in Sources */,
 				1F8BF5CF1D5C1CFE002229BF /* AtomViewController.swift in Sources */,
 				1FFC73721D42B25300757F78 /* CPPTest.cpp in Sources */,
+				1F908C551D63212E00B2C552 /* AtomStructureViewCell.swift in Sources */,
 				1F65164B1D478EB8000851B2 /* AtomStructureViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

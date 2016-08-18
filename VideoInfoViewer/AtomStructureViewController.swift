@@ -36,13 +36,16 @@ internal class AtomStructureViewController: UITableViewController {
         rootAtom = ObjC.parseFile(videoURL?.path)
         displayAtom( rootAtom!, depth: 0 );
         
+        tableView.layoutMargins = UIEdgeInsetsZero
+        tableView.separatorInset = UIEdgeInsetsZero
+        
         tableView.reloadData()
     }
     
     func displayAtom( atom: Atom, depth: Int ) {
         if ( depth > 0 ) {
             let indent = String( count: depth, repeatedValue: Character( " " ) )
-            print( indent + atom.getType() + " - " + atom.getName())
+            print( indent + atom.getType() + " - " + atom.getName() )
             atoms.append( atom )
             count += 1
         }
@@ -62,18 +65,72 @@ internal class AtomStructureViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(atomCellIdentifier) ?? UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: atomCellIdentifier)
+        let cell = tableView.dequeueReusableCellWithIdentifier(atomCellIdentifier) as? AtomStructureViewCell ?? AtomStructureViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: atomCellIdentifier)
         cell.accessoryType = .DetailButton
-        cell.textLabel?.text = atoms[indexPath.item].getType()
-        cell.detailTextLabel?.text = atoms[indexPath.item].getName()
         
-        return cell;
+        let atom = atoms[indexPath.item]
+        
+        cell.typeLabel?.text = atom.getType()
+        cell.nameLabel?.text = atom.getName()
+        
+        let height = cell.contentView.frame.height + CGFloat(10)
+        let image = createImage(atom.getDepth(), totalHeight: height)
+        if let image = image {
+            cell.paddingView?.image = image
+            cell.paddingView?.frame = CGRectMake(0, -10, image.size.width, image.size.height + 10)
+            cell.collapseImageView?.leadingAnchor.constraintEqualToAnchor(cell.collapseImageView?.superview!.leadingAnchor).active = false
+            cell.collapseImageView?.leadingAnchor.constraintEqualToAnchor(cell.paddingView?.trailingAnchor).active = true
+            
+            print("atom \(atom.getType()) - image size = \(image.size.width)")
+        } else {
+            cell.paddingView?.image = nil
+            cell.collapseImageView?.leadingAnchor.constraintEqualToAnchor(cell.collapseImageView?.superview!.leadingAnchor).active = true
+            cell.collapseImageView?.leadingAnchor.constraintEqualToAnchor(cell.paddingView?.trailingAnchor).active = false
+        }
+        
+        if atom.children.count > 0 {
+            cell.collapseImageView?.image = UIImage(named:"ic_keyboard_arrow_down.png")
+        } else {
+            cell.collapseImageView?.image = UIImage(named:"empty_space.png")
+        }
+        
+        cell.separatorInset = UIEdgeInsetsZero
+        cell.layoutMargins = UIEdgeInsetsZero
+        cell.contentView.layoutMargins = UIEdgeInsetsZero
+        cell.tintColor = UIColor.blackColor()
+        
+        print(cell.contentView.layer.borderWidth);
+        let bgColorView = UIView()
+        bgColorView.backgroundColor =  UIColor(red: 66/255, green: 163/255, blue: 225/255, alpha: 1)
+        cell.selectedBackgroundView = bgColorView
 
+        return cell;
     }
     
     override func tableView(tableView: UITableView,
                             didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
+    }
+    
+    func createImage(depth: Int32, totalHeight: CGFloat?) -> UIImage? {
+        
+        if ( depth == 1 ) {
+            return nil
+        }
+        let offset = CGFloat((depth-1) * 10)
+        
+        UIGraphicsBeginImageContextWithOptions(CGSizeMake( offset, totalHeight!), false, 0.0)
+        let context: CGContextRef = UIGraphicsGetCurrentContext()!
+        UIGraphicsPushContext(context)
+        CGContextSetFillColorWithColor(context, UIColor(red: 200/255, green:199/255, blue:204/255, alpha:1).CGColor)
+        CGContextFillRect(context, CGRectMake(0, 0, offset, totalHeight!))
+        UIGraphicsPopContext()
+        
+        let outputImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()
+        
+        UIGraphicsEndImageContext()
+        
+        return outputImage
     }
     
     override func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
