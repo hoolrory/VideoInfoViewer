@@ -29,7 +29,7 @@
 }
 
 - (NSString*) getDescription {
-    return [NSString stringWithCString:_atomWrapper.atom->description(1).c_str()
+    return [NSString stringWithCString:_atomWrapper.atom->getContent().c_str()
                        encoding:[NSString defaultCStringEncoding]];
 }
 
