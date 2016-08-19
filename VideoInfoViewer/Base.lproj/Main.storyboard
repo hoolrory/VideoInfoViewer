@@ -137,33 +137,34 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b3w-au-tZV">
-                                            <rect key="frame" x="56" y="12" width="38" height="18"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b3w-au-tZV">
+                                            <rect key="frame" x="0.0" y="12" width="38" height="18"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bFw-92-tfF">
-                                            <rect key="frame" x="56" y="30" width="31" height="15"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bFw-92-tfF">
+                                            <rect key="frame" x="0.0" y="30" width="31" height="15"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_keyboard_arrow_down_48pt" translatesAutoresizingMaskIntoConstraints="NO" id="IIm-vp-Clv">
-                                            <rect key="frame" x="8" y="-2" width="48" height="48"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="empty_space" translatesAutoresizingMaskIntoConstraints="NO" id="IIm-vp-Clv">
+                                            <rect key="frame" x="-24" y="10" width="24" height="24"/>
                                         </imageView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rbG-wm-UCy"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rbG-wm-UCy">
+                                            <rect key="frame" x="8" y="22" width="0.0" height="0.0"/>
+                                        </imageView>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstItem="b3w-au-tZV" firstAttribute="top" secondItem="Ey4-Nd-cmQ" secondAttribute="topMargin" constant="4" id="GBI-fV-bEn"/>
                                         <constraint firstItem="rbG-wm-UCy" firstAttribute="centerY" secondItem="Ey4-Nd-cmQ" secondAttribute="centerY" id="SdY-nx-zBe"/>
                                         <constraint firstItem="bFw-92-tfF" firstAttribute="top" secondItem="b3w-au-tZV" secondAttribute="bottom" id="cbT-tr-foM"/>
-                                        <constraint firstItem="rbG-wm-UCy" firstAttribute="leading" secondItem="Ey4-Nd-cmQ" secondAttribute="leadingMargin" id="dFg-3D-ewR"/>
-                                        <constraint firstItem="IIm-vp-Clv" firstAttribute="trailing" secondItem="b3w-au-tZV" secondAttribute="leading" id="ihs-PF-LfF"/>
-                                        <constraint firstItem="IIm-vp-Clv" firstAttribute="trailing" secondItem="bFw-92-tfF" secondAttribute="leading" id="lca-Th-2Bp"/>
+                                        <constraint firstItem="b3w-au-tZV" firstAttribute="leading" secondItem="IIm-vp-Clv" secondAttribute="trailing" id="ihs-PF-LfF"/>
+                                        <constraint firstItem="rbG-wm-UCy" firstAttribute="leading" secondItem="Ey4-Nd-cmQ" secondAttribute="leadingMargin" id="kdq-eL-UxP"/>
+                                        <constraint firstItem="bFw-92-tfF" firstAttribute="leading" secondItem="IIm-vp-Clv" secondAttribute="trailing" id="lca-Th-2Bp"/>
                                         <constraint firstItem="IIm-vp-Clv" firstAttribute="centerY" secondItem="Ey4-Nd-cmQ" secondAttribute="centerY" id="ofT-gf-PcI"/>
-                                        <constraint firstItem="IIm-vp-Clv" firstAttribute="leading" secondItem="Ey4-Nd-cmQ" secondAttribute="leadingMargin" placeholder="YES" identifier="CollapseLeading" id="szS-cj-yAl"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -231,6 +232,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="ic_keyboard_arrow_down_48pt" width="48" height="48"/>
+        <image name="empty_space" width="24" height="24"/>
     </resources>
 </document>

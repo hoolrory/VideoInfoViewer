@@ -17,4 +17,6 @@ class AtomStructureViewCell: UITableViewCell {
     @IBOutlet var nameLabel: UILabel?
     @IBOutlet var paddingView: UIImageView?
     
+    var leftConstraint: NSLayoutConstraint?
+    
 }

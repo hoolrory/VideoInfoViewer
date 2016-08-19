@@ -77,15 +77,15 @@ internal class AtomStructureViewController: UITableViewController {
         let image = createImage(atom.getDepth(), totalHeight: height)
         if let image = image {
             cell.paddingView?.image = image
-            cell.paddingView?.frame = CGRectMake(0, -10, image.size.width, image.size.height + 10)
-            cell.collapseImageView?.leadingAnchor.constraintEqualToAnchor(cell.collapseImageView?.superview!.leadingAnchor).active = false
-            cell.collapseImageView?.leadingAnchor.constraintEqualToAnchor(cell.paddingView?.trailingAnchor).active = true
+            cell.paddingView?.frame = CGRectMake(0, 0, image.size.width, image.size.height)
+            
+            //cell.collapseImageView?.leadingAnchor.constraintEqualToAnchor(cell.collapseImageView?.superview!.trailingAnchor).active = false
+            //cell.collapseImageView?.leadingAnchor.constraintEqualToAnchor(cell.paddingView?.trailingAnchor).active = true
             
             print("atom \(atom.getType()) - image size = \(image.size.width)")
         } else {
             cell.paddingView?.image = nil
-            cell.collapseImageView?.leadingAnchor.constraintEqualToAnchor(cell.collapseImageView?.superview!.leadingAnchor).active = true
-            cell.collapseImageView?.leadingAnchor.constraintEqualToAnchor(cell.paddingView?.trailingAnchor).active = false
+            
         }
         
         if atom.children.count > 0 {
@@ -93,6 +93,16 @@ internal class AtomStructureViewController: UITableViewController {
         } else {
             cell.collapseImageView?.image = UIImage(named:"empty_space.png")
         }
+        
+        // let margins = cell.contentView
+        let offset = CGFloat((atom.getDepth()-1) * 10)
+        print("atom \(atom.getType()) - Setting collapseImageView anchor to constant \(offset)")
+        if let oldConstraint = cell.leftConstraint {
+            oldConstraint.active = false
+        }
+        cell.leftConstraint = cell.collapseImageView?.leadingAnchor.constraintEqualToAnchor(cell.collapseImageView?.superview?.leadingAnchor, constant: offset )
+        cell.leftConstraint?.active = true
+        
         
         cell.separatorInset = UIEdgeInsetsZero
         cell.layoutMargins = UIEdgeInsetsZero
