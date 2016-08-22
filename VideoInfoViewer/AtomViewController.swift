@@ -22,8 +22,8 @@ internal class AtomViewController: UIViewController {
     
     var atom: Atom?
 
-    @IBOutlet weak var atomDescription: UILabel!
     @IBOutlet weak var atomName: UILabel!
+    @IBOutlet weak var atomContent: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +31,7 @@ internal class AtomViewController: UIViewController {
         
         self.title = atom?.getType()
         atomName.text = atom?.getName()
-        atomDescription.text = atom?.getDescription()
+        atomContent.text = atom?.getDescription()
     }
     
 }

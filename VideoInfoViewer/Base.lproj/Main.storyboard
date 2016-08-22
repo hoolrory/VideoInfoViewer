@@ -197,32 +197,33 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z9e-FS-SZB">
-                                <rect key="frame" x="40" y="40" width="520" height="253"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z9e-FS-SZB">
+                                <rect key="frame" x="40" y="40" width="520" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Atom Description" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t5P-yZ-szz">
-                                <rect key="frame" x="40" y="313" width="520" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="1sz-U0-QMr" userLabel="Atom Content">
+                                <rect key="frame" x="30" y="70.5" width="540" height="519.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="z9e-FS-SZB" secondAttribute="trailing" constant="20" id="Zrf-x1-gM2"/>
-                            <constraint firstItem="xVY-RN-yP4" firstAttribute="top" secondItem="t5P-yZ-szz" secondAttribute="bottom" constant="266.5" id="bm6-kK-qDz"/>
+                            <constraint firstItem="1sz-U0-QMr" firstAttribute="trailing" secondItem="NBN-45-ZhB" secondAttribute="trailingMargin" constant="-10" id="6hd-Xm-mhe"/>
+                            <constraint firstItem="1sz-U0-QMr" firstAttribute="top" secondItem="z9e-FS-SZB" secondAttribute="bottom" constant="10" id="Pcg-37-sPv"/>
+                            <constraint firstItem="1sz-U0-QMr" firstAttribute="leading" secondItem="NBN-45-ZhB" secondAttribute="leadingMargin" constant="10" id="VkY-wO-TPN"/>
+                            <constraint firstItem="z9e-FS-SZB" firstAttribute="trailing" secondItem="NBN-45-ZhB" secondAttribute="trailingMargin" constant="-20" id="Zrf-x1-gM2"/>
                             <constraint firstItem="z9e-FS-SZB" firstAttribute="leading" secondItem="NBN-45-ZhB" secondAttribute="leadingMargin" constant="20" id="cWu-GX-w7B"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="t5P-yZ-szz" secondAttribute="trailing" constant="20" id="fMc-Nw-ntU"/>
-                            <constraint firstItem="t5P-yZ-szz" firstAttribute="leading" secondItem="NBN-45-ZhB" secondAttribute="leadingMargin" constant="20" id="g8t-vP-bm4"/>
                             <constraint firstItem="z9e-FS-SZB" firstAttribute="top" secondItem="d6B-nA-Esl" secondAttribute="bottom" constant="20" id="mmy-3s-cF7"/>
-                            <constraint firstItem="t5P-yZ-szz" firstAttribute="top" secondItem="z9e-FS-SZB" secondAttribute="bottom" constant="20" id="rVu-fW-ybe"/>
+                            <constraint firstItem="1sz-U0-QMr" firstAttribute="bottom" secondItem="xVY-RN-yP4" secondAttribute="top" constant="-10" id="vyY-Ws-Tme"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="atomDescription" destination="t5P-yZ-szz" id="P2c-Ow-8jM"/>
+                        <outlet property="atomContent" destination="1sz-U0-QMr" id="x80-rd-8XO"/>
                         <outlet property="atomName" destination="z9e-FS-SZB" id="3T4-ML-Vyk"/>
                     </connections>
                 </viewController>
