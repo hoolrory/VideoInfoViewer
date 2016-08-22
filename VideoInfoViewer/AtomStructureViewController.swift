@@ -85,7 +85,6 @@ internal class AtomStructureViewController: UITableViewController {
             print("atom \(atom.getType()) - image size = \(image.size.width)")
         } else {
             cell.paddingView?.image = nil
-            
         }
         
         if atom.children.count > 0 {
@@ -117,9 +116,24 @@ internal class AtomStructureViewController: UITableViewController {
         return cell;
     }
     
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        
+        let atom = atoms[indexPath.item]
+        if ( atom.hidden ) {
+            return 0
+        } else {
+            return tableView.rowHeight
+        }
+    }
+    
     override func tableView(tableView: UITableView,
                             didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let atom = atoms[indexPath.item]
+        atom.setIsCollapsed(!atom.collapsed)
         
+        tableView.beginUpdates()
+        tableView.endUpdates()
     }
     
     func createImage(depth: Int32, totalHeight: CGFloat?) -> UIImage? {

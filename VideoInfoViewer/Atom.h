@@ -15,12 +15,16 @@ struct AtomWrapper;
 @property (nonatomic, retain) NSMutableArray<Atom*>* children;
 @property struct AtomWrapper atomWrapper;
 @property int depth;
+@property (nonatomic) bool hidden;
+@property (nonatomic) bool collapsed;
 
 - (NSString*) getType;
 - (NSString*) getName;
 - (NSString*) getDescription;
 - (NSString*) getHexString;
 - (int) getDepth;
+- (void) setIsHidden: (bool) hidden;
+- (void) setIsCollapsed: (bool) collapsed;
 
 @end
 

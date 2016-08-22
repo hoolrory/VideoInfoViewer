@@ -14,7 +14,8 @@
 
 - init {
      _children = [[NSMutableArray alloc] init];
-    
+    _hidden = false;
+    _collapsed = false;
     return self;
 }
 
@@ -39,6 +40,24 @@
 
 - (int) getDepth {
     return _depth;
+}
+
+- (void) setIsHidden:(bool)hidden {
+    _hidden = hidden;
+    
+    
+    if ( _hidden || !_collapsed ) {
+        for( Atom* atom in _children ) {
+            [atom setIsHidden:_hidden];
+        }
+    }
+}
+
+- (void) setIsCollapsed:(bool)collapsed {
+    _collapsed = collapsed;
+    for( Atom* atom in _children ) {
+        [atom setIsHidden:_collapsed];
+    }
 }
 
 
