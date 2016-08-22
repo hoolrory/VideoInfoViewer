@@ -34,7 +34,7 @@ internal class AtomStructureViewController: UITableViewController {
         self.title = "Atoms"
         
         rootAtom = ObjC.parseFile(videoURL?.path)
-        // displayAtom( rootAtom!, depth: 0 );
+        displayAtom( rootAtom!, depth: 0 );
         
         tableView.layoutMargins = UIEdgeInsetsZero
         tableView.separatorInset = UIEdgeInsetsZero
@@ -44,8 +44,8 @@ internal class AtomStructureViewController: UITableViewController {
     
     func displayAtom( atom: Atom, depth: Int ) {
         if ( depth > 0 ) {
-            let indent = String( count: depth, repeatedValue: Character( " " ) )
-            print( indent + atom.getType() + " - " + atom.getName() )
+            // let indent = String( count: depth, repeatedValue: Character( " " ) )
+            // print( indent + atom.getType() + " - " + atom.getName() )
             atoms.append( atom )
             count += 1
         }
