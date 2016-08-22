@@ -34,7 +34,7 @@ internal class AtomStructureViewController: UITableViewController {
         self.title = "Atoms"
         
         rootAtom = ObjC.parseFile(videoURL?.path)
-        displayAtom( rootAtom!, depth: 0 );
+        // displayAtom( rootAtom!, depth: 0 );
         
         tableView.layoutMargins = UIEdgeInsetsZero
         tableView.separatorInset = UIEdgeInsetsZero
@@ -79,10 +79,6 @@ internal class AtomStructureViewController: UITableViewController {
             cell.paddingView?.image = image
             cell.paddingView?.frame = CGRectMake(0, 0, image.size.width, image.size.height)
             
-            //cell.collapseImageView?.leadingAnchor.constraintEqualToAnchor(cell.collapseImageView?.superview!.trailingAnchor).active = false
-            //cell.collapseImageView?.leadingAnchor.constraintEqualToAnchor(cell.paddingView?.trailingAnchor).active = true
-            
-            print("atom \(atom.getType()) - image size = \(image.size.width)")
         } else {
             cell.paddingView?.image = nil
         }
@@ -93,29 +89,24 @@ internal class AtomStructureViewController: UITableViewController {
             cell.collapseImageView?.image = UIImage(named:"empty_space.png")
         }
         
-        // let margins = cell.contentView
         let offset = CGFloat((atom.getDepth()-1) * 10)
-        print("atom \(atom.getType()) - Setting collapseImageView anchor to constant \(offset)")
         if let oldConstraint = cell.leftConstraint {
             oldConstraint.active = false
         }
         cell.leftConstraint = cell.collapseImageView?.leadingAnchor.constraintEqualToAnchor(cell.collapseImageView?.superview?.leadingAnchor, constant: offset )
         cell.leftConstraint?.active = true
         
-        
         cell.separatorInset = UIEdgeInsetsZero
         cell.layoutMargins = UIEdgeInsetsZero
         cell.contentView.layoutMargins = UIEdgeInsetsZero
         cell.tintColor = UIColor.blackColor()
         
-        print(cell.contentView.layer.borderWidth);
         let bgColorView = UIView()
         bgColorView.backgroundColor =  UIColor(red: 66/255, green: 163/255, blue: 225/255, alpha: 1)
         cell.selectedBackgroundView = bgColorView
 
         return cell;
     }
-    
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
