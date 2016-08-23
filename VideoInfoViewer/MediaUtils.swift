@@ -68,6 +68,14 @@ class MediaUtils {
         return videoTracks[0].nominalFrameRate
     }
     
+    static func getVideoMimeType(videoURL:NSURL) -> String {
+        if videoURL.lastPathComponent!.containsString(".mov"){
+            return "video/quicktime"
+        } else {
+            return "video/mp4"
+        }
+    }
+    
     static func getVideoRotation(videoURL: NSURL) -> Float {
         let asset = AVURLAsset(URL: videoURL, options: nil)
         
