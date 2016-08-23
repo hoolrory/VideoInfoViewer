@@ -90,11 +90,24 @@ class MediaUtils {
         }
         
         let formatter = NSByteCountFormatter()
-        return formatter.stringFromByteCount(Int64(fileSize));
+        return formatter.stringFromByteCount(Int64(fileSize))
+    }
+    
+    static func getVideoDurationFormatted(videoURL:NSURL) -> String {
+        let totalSeconds = CMTimeGetSeconds(getVideoDuration(videoURL))
+        let hours = floor(totalSeconds / 3600);
+        let minutes = floor(totalSeconds % 3600 / 60);
+        let seconds = floor(totalSeconds % 3600 % 60);
+        
+        if hours == 0 {
+            return NSString(format:"%02.0f:%02.0f", minutes, seconds) as String
+        } else {
+            return NSString(format:"%02.0f:%02.0f:%02.0f", hours, minutes, seconds) as String
+        }
     }
     
     static func getVideoRotation(videoURL: NSURL) -> Float {
-        let asset = AVURLAsset(URL: videoURL, options: nil)
+        let asset = AVURLAsset(URL: videoURL)
         
         let videoTracks = asset.tracksWithMediaType(AVMediaTypeVideo)
         
