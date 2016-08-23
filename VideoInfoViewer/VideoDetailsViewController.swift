@@ -46,7 +46,7 @@ class VideoDetailsViewController: UIViewController {
             text += "Resolution: \(Int(size.width))x\(Int(size.height))\n"
             text += "MimeType:   \(MediaUtils.getVideoMimeType(videoURL!))\n"
             text += "Frame Rate: \(MediaUtils.getVideoFrameRate(videoURL!)) fps\n"
-            text += "File Size: \n"
+            text += "File Size:  \(MediaUtils.getVideoFileSize(videoURL!))\n"
             text += "Duration: \n"
             text += "Bitrate: \n"
             text += "Date: \n"

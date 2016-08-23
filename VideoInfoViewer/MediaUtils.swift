@@ -76,6 +76,23 @@ class MediaUtils {
         }
     }
     
+    static func getVideoFileSize(videoURL: NSURL) -> String {
+        var fileSize : UInt64 = 0
+        
+        do {
+            let attr : NSDictionary? = try NSFileManager.defaultManager().attributesOfItemAtPath(videoURL.path!)
+            
+            if let _attr = attr {
+                fileSize = _attr.fileSize();
+            }
+        } catch {
+            print("Error: \(error)")
+        }
+        
+        let formatter = NSByteCountFormatter()
+        return formatter.stringFromByteCount(Int64(fileSize));
+    }
+    
     static func getVideoRotation(videoURL: NSURL) -> Float {
         let asset = AVURLAsset(URL: videoURL, options: nil)
         
