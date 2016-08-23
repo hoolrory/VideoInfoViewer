@@ -116,11 +116,17 @@ internal class AtomStructureViewController: UITableViewController {
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
         let atom = atoms[indexPath.item]
-        if ( atom.hidden ) {
+        if atom.hidden {
             return 0
         } else {
             return tableView.rowHeight
         }
+    }
+    
+    override func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        
+        let atom = atoms[indexPath.item]
+        return atom.children.count > 0
     }
     
     override func tableView(tableView: UITableView,
