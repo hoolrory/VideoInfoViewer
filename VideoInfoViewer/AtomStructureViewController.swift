@@ -73,8 +73,7 @@ internal class AtomStructureViewController: UITableViewController {
         cell.typeLabel?.text = atom.getType()
         cell.nameLabel?.text = atom.getName()
         
-        let height = cell.contentView.frame.height + CGFloat(10)
-        let image = createImage(atom.getDepth(), totalHeight: height)
+        let image = createImage(atom.getDepth(), totalHeight: 50)
         if let image = image {
             cell.paddingView?.image = image
             cell.paddingView?.frame = CGRectMake(0, 0, image.size.width, image.size.height)
@@ -87,6 +86,12 @@ internal class AtomStructureViewController: UITableViewController {
             cell.collapseImageView?.image = UIImage(named:"ic_keyboard_arrow_down.png")
         } else {
             cell.collapseImageView?.image = UIImage(named:"empty_space.png")
+        }
+        
+        if atom.collapsed {
+            cell.collapseImageView?.transform = CGAffineTransformMakeRotation(-90*CGFloat(M_PI/180))
+        } else {
+            cell.collapseImageView?.transform = CGAffineTransformMakeRotation(0)
         }
         
         let offset = CGFloat((atom.getDepth()-1) * 10)
@@ -122,9 +127,19 @@ internal class AtomStructureViewController: UITableViewController {
                             didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let atom = atoms[indexPath.item]
         atom.setIsCollapsed(!atom.collapsed)
-        
+            if let cell = tableView.cellForRowAtIndexPath(indexPath) as? AtomStructureViewCell {
+                
+                let degrees = atom.collapsed ? CGFloat(-90) : CGFloat(0)
+                
+                UIView.animateWithDuration(0.5) { () -> Void in
+                    
+                    cell.collapseImageView?.transform = CGAffineTransformMakeRotation(degrees * CGFloat(M_PI/180))
+                }
+            }
+    
         tableView.beginUpdates()
         tableView.endUpdates()
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
     func createImage(depth: Int32, totalHeight: CGFloat?) -> UIImage? {
