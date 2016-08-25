@@ -38,17 +38,18 @@ class VideoDetailsViewController: UIViewController {
     
     func updateProperties() {
         if let tv = textView {
-            let size = MediaUtils.getVideoResolution(videoURL!)
+            let size = MediaUtils.getVideoResolution(videoURL)
             var text = ""
-            if let name = videoURL?.lastPathComponent {
-                text += "Name: \(name)\n"
+            if let name = videoURL.lastPathComponent {
+                text += "Name:       \(name)\n"
             }
             text += "Resolution: \(Int(size.width))x\(Int(size.height))\n"
-            text += "MimeType:   \(MediaUtils.getVideoMimeType(videoURL!))\n"
-            text += "Frame Rate: \(MediaUtils.getVideoFrameRate(videoURL!)) fps\n"
-            text += "File Size:  \(MediaUtils.getVideoFileSize(videoURL!))\n"
-            text += "Duration:   \(MediaUtils.getVideoDurationFormatted(videoURL!))\n"
-            text += "Bitrate: \n"
+            text += "MimeType:   \(MediaUtils.getVideoMimeType(videoURL))\n"
+            text += "Frame Rate: \(MediaUtils.getVideoFrameRate(videoURL)) fps\n"
+            text += "File Size:  \(MediaUtils.getVideoFileSize(videoURL))\n"
+            text += "Duration:   \(MediaUtils.getVideoDurationFormatted(videoURL))\n"
+            text += "Bitrate:    \(MediaUtils.getVideoBitrate(videoURL))\n"
+            }
             text += "Date: \n"
             tv.text = text
         }

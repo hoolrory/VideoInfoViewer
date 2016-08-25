@@ -59,6 +59,7 @@ class MediaUtils {
     
     static func getVideoFrameRate(videoURL:NSURL) -> Float {
         let asset = AVURLAsset(URL: videoURL, options: nil)
+        
         let videoTracks = asset.tracksWithMediaType(AVMediaTypeVideo)
         
         if videoTracks.count == 0 {
@@ -104,6 +105,17 @@ class MediaUtils {
         } else {
             return NSString(format:"%02.0f:%02.0f:%02.0f", hours, minutes, seconds) as String
         }
+    }
+    
+    static func getVideoBitrate(videoURL: NSURL) -> String {
+        let asset = AVURLAsset(URL: videoURL)
+        let videoTracks = asset.tracksWithMediaType(AVMediaTypeVideo)
+        
+        if videoTracks.count == 0 {
+            return ""
+        }
+        
+        return String(format:"%.0f kbps", videoTracks[0].estimatedDataRate/1024)
     }
     
     static func getVideoRotation(videoURL: NSURL) -> Float {
