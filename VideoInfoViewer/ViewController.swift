@@ -20,14 +20,14 @@ import CoreData
 import AVFoundation
 import Photos
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
-    
-    let imagePicker = UIImagePickerController()
+class ViewController: UIViewController, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
     
     var videos = [NSManagedObject]()
     
     @IBOutlet
     var tableView: UITableView!
+    
+    var selectedAsset: PHAsset?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,8 +40,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         openButton.target = self
         
         self.navigationItem.rightBarButtonItem = openButton
-        
-        imagePicker.delegate = self
         
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         
@@ -60,26 +58,23 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     @IBAction func clickOpen(sender: UIBarButtonItem) {
-        imagePicker.allowsEditing = false
-        imagePicker.sourceType = .PhotoLibrary
-        imagePicker.mediaTypes = [kUTTypeMovie as String]
-        imagePicker.modalTransitionStyle = .PartialCurl
-        presentViewController(imagePicker, animated: true, completion: nil)
+        
+        let selectAlbumController = self.storyboard!.instantiateViewControllerWithIdentifier("selectAlbum") as! SelectAlbumController
+        
+        selectAlbumController.didSelectAsset = didSelectAsset
+        
+        if let navController = parentViewController as? UINavigationController {
+            navController.pushViewController(selectAlbumController, animated: true)
+        }
     }
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-        guard let mediaUrl = info[UIImagePickerControllerReferenceURL] as? NSURL else { return }
-        picker.dismissViewControllerAnimated(true, completion: nil)
-      
-        let fetchoptions = PHFetchOptions()
-        let fetchResult = PHAsset.fetchAssetsWithALAssetURLs([mediaUrl], options: fetchoptions)
-            
-        guard let asset = fetchResult.firstObject as? PHAsset else { return }
-      
+    func didSelectAsset(asset: PHAsset!) {
         let videoRequestOptions = PHVideoRequestOptions()
         videoRequestOptions.version = .Original
         videoRequestOptions.networkAccessAllowed = true
-      
+        
+        selectedAsset = asset
+        
         PHImageManager().requestAVAssetForVideo(
             asset, options:
             videoRequestOptions,
@@ -95,6 +90,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
          
       let toURL = getDocumentUrl(videoName)
          
+      selectedAsset = nil
       do {
          try filemgr.copyItemAtURL(avUrlAsset.URL, toURL: toURL)
       } catch _ {
