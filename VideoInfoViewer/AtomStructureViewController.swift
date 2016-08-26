@@ -22,7 +22,7 @@ internal class AtomStructureViewController: UITableViewController {
     
     let atomCellIdentifier = "atomCell";
     
-    var videoURL: NSURL?
+    var video: Video?
     
     var rootAtom: Atom?
     var count: Int = 0
@@ -33,8 +33,10 @@ internal class AtomStructureViewController: UITableViewController {
         
         self.title = "Atoms"
         
-        rootAtom = ObjC.parseFile(videoURL?.path)
-        displayAtom( rootAtom!, depth: 0 );
+        if let videoURL = video?.videoURL {
+            rootAtom = ObjC.parseFile(videoURL.path)
+            displayAtom( rootAtom!, depth: 0 );
+        }
         
         tableView.layoutMargins = UIEdgeInsetsZero
         tableView.separatorInset = UIEdgeInsetsZero

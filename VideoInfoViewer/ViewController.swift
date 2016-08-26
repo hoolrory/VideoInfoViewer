@@ -22,7 +22,7 @@ import Photos
 
 class ViewController: UIViewController, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
     
-    var videos = [NSManagedObject]()
+    var videos = [Video]()
     
     @IBOutlet
     var tableView: UITableView!
@@ -46,10 +46,13 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UITableV
         let managedContext = appDelegate.managedObjectContext
         
         let fetchRequest = NSFetchRequest(entityName: "Video")
-        
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "openDate", ascending: false)]
         do {
             let results = try managedContext.executeFetchRequest(fetchRequest)
-            videos = results as! [NSManagedObject]
+            let objects = results as! [NSManagedObject]
+            for object in objects {
+                videos.append(Video(fromObject: object))
+            }
         } catch let error as NSError {
             print("Could not fetch \(error), \(error.userInfo)")
         }
@@ -83,13 +86,13 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UITableV
    
    func handleAVAssetRequestResult(avAsset: AVAsset?, audioMix: AVAudioMix?, info: [NSObject: AnyObject]?) {
       guard let avUrlAsset = avAsset as? AVURLAsset else { return }
-      
+    
       let filemgr = NSFileManager.defaultManager()
       let lastPathComponent = avUrlAsset.URL.lastPathComponent
       let videoName = lastPathComponent != nil ? lastPathComponent! :"video_\(NSDate().timeIntervalSince1970).MOV"
          
       let toURL = getDocumentUrl(videoName)
-         
+      let creationDate = selectedAsset?.creationDate
       selectedAsset = nil
       do {
          try filemgr.copyItemAtURL(avUrlAsset.URL, toURL: toURL)
@@ -103,30 +106,30 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UITableV
       let thumbTime = CMTime(seconds: duration.seconds / 2.0, preferredTimescale: duration.timescale)
       MediaUtils.renderThumbnailFromVideo(toURL, thumbnailURL: thumbnailURL, time: thumbTime)
          
-      saveVideo(toURL, thumbnailURL: thumbnailURL)
-   }
-   
-   func getOutputType () {
-      AVFileTypeMPEG4
+      saveVideo(toURL, thumbnailURL: thumbnailURL, creationDate: creationDate)
    }
 
-    func saveVideo(videoURL: NSURL, thumbnailURL: NSURL) {
+    func saveVideo(videoURL: NSURL, thumbnailURL: NSURL, creationDate: NSDate?) {
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         
         let managedContext = appDelegate.managedObjectContext
         
         let entity =  NSEntityDescription.entityForName("Video", inManagedObjectContext:managedContext)
         
-        let video = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
+        let object = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
         
-        video.setValue(videoURL.lastPathComponent, forKey: "videoFile")
-        video.setValue(thumbnailURL.lastPathComponent, forKey: "thumbnailFile")
+        object.setValue(videoURL.lastPathComponent, forKey: "videoFile")
+        object.setValue(thumbnailURL.lastPathComponent, forKey: "thumbFile")
+        object.setValue(NSDate(), forKey: "openDate")
+        object.setValue(creationDate, forKey: "creationDate")
         
         do {
             try managedContext.save()
-            videos.append(video)
+            let video = Video(fromObject: object)
+            videos.insert(video, atIndex: 0)
             dispatch_async(dispatch_get_main_queue()) {
                 self.tableView.reloadData()
+                self.viewVideo(video)
             }
         } catch let error as NSError  {
             print("Could not save \(error), \(error.userInfo)")
@@ -142,11 +145,6 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UITableV
         
         return documentDirectory.URLByAppendingPathComponent(pathComponent)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return videos.count
@@ -155,32 +153,64 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UITableV
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell:UITableViewCell = self.tableView.dequeueReusableCellWithIdentifier("cell")! as UITableViewCell
         
-        let videoFile = self.videos[indexPath.row].valueForKey("videoFile") as? String
-        let thumbnailFile = self.videos[indexPath.row].valueForKey("thumbnailFile") as? String
+        let video = self.videos[indexPath.row]
         
-        if let vf = videoFile {
-            let videoURL = getDocumentUrl(vf)
+        if let videoURL = video.videoURL {
             cell.textLabel?.text = videoURL.lastPathComponent
         }
         
-        if let tf = thumbnailFile {
-            let thumbnailURL = getDocumentUrl(tf)
-            cell.imageView?.image = UIImage(named: thumbnailURL.path! )
+        if let thumbURL = video.thumbURL {
+            let imageSize = Double(cell.contentView.frame.height)
+            cell.imageView?.image = cropToBounds(UIImage(named: thumbURL.path!)!, width:imageSize, height:imageSize )
         }
         
         return cell
     }
     
+    func cropToBounds(image: UIImage, width: Double, height: Double) -> UIImage {
+        
+        let contextImage: UIImage = UIImage(CGImage: image.CGImage!)
+        
+        let contextSize: CGSize = contextImage.size
+        
+        var posX: CGFloat = 0.0
+        var posY: CGFloat = 0.0
+        var cgwidth: CGFloat = CGFloat(width)
+        var cgheight: CGFloat = CGFloat(height)
+        
+        // See what size is longer and create the center off of that
+        if contextSize.width > contextSize.height {
+            posX = ((contextSize.width - contextSize.height) / 2)
+            posY = 0
+            cgwidth = contextSize.height
+            cgheight = contextSize.height
+        } else {
+            posX = 0
+            posY = ((contextSize.height - contextSize.width) / 2)
+            cgwidth = contextSize.width
+            cgheight = contextSize.width
+        }
+        
+        let rect: CGRect = CGRectMake(posX, posY, cgwidth, cgheight)
+        
+        // Create bitmap image from context using the rect
+        let imageRef: CGImageRef = CGImageCreateWithImageInRect(contextImage.CGImage, rect)!
+        
+        // Create a new image based on the imageRef and rotate back to the original orientation
+        let image: UIImage = UIImage(CGImage: imageRef, scale: image.scale, orientation: image.imageOrientation)
+        
+        return image
+    }
+    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let videoFile = self.videos[indexPath.row].valueForKey("videoFile") as? String
-        let thumbnailFile = self.videos[indexPath.row].valueForKey("thumbnailFile") as? String
-        let videoURL = getDocumentUrl(videoFile!)
-        let thumbnailURL = getDocumentUrl(thumbnailFile!)
+        viewVideo(self.videos[indexPath.row])
+    }
+    
+    func viewVideo(video:Video) {
         let nc = parentViewController as? UINavigationController
         if let navController = nc {
             let videoDetailsController = self.storyboard!.instantiateViewControllerWithIdentifier("videoDetails") as! VideoDetailsViewController
-            videoDetailsController.videoURL = videoURL
-            videoDetailsController.thumbnailURL = thumbnailURL
+            videoDetailsController.video = video
             navController.pushViewController(videoDetailsController, animated: true)
         }
     }

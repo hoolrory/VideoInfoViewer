@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F3C15591D6F69E5003E8B7F /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3C15581D6F69E5003E8B7F /* Video.swift */; };
 		1F65164B1D478EB8000851B2 /* AtomStructureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F65164A1D478EB8000851B2 /* AtomStructureViewController.swift */; };
 		1F6E3C4A1D4527890008CDD5 /* libMP4Parse.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F6E3C471D4523210008CDD5 /* libMP4Parse.a */; };
 		1F806BFA1D6CA29F002A1F88 /* SelectAlbumController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F806BF91D6CA29F002A1F88 /* SelectAlbumController.swift */; };
@@ -60,6 +61,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1F3C15581D6F69E5003E8B7F /* Video.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 		1F65164A1D478EB8000851B2 /* AtomStructureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AtomStructureViewController.swift; sourceTree = "<group>"; };
 		1F6E3C421D4523210008CDD5 /* MP4Parse.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MP4Parse.xcodeproj; path = Libraries/MP4Parse/MP4Parse.xcodeproj; sourceTree = "<group>"; };
 		1F806BF91D6CA29F002A1F88 /* SelectAlbumController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectAlbumController.swift; sourceTree = "<group>"; };
@@ -180,6 +182,7 @@
 				1F8BF5D01D5CAB96002229BF /* AtomWrapper.h */,
 				1F806BF91D6CA29F002A1F88 /* SelectAlbumController.swift */,
 				1F806BFB1D6CA43D002A1F88 /* SelectVideoController.swift */,
+				1F3C15581D6F69E5003E8B7F /* Video.swift */,
 			);
 			path = VideoInfoViewer;
 			sourceTree = "<group>";
@@ -356,6 +359,7 @@
 				1F9F19B11CDD18F100DE819B /* ViewController.swift in Sources */,
 				1F806BFA1D6CA29F002A1F88 /* SelectAlbumController.swift in Sources */,
 				1F9F19B71CDD18F100DE819B /* VideoInfoViewer.xcdatamodeld in Sources */,
+				1F3C15591D6F69E5003E8B7F /* Video.swift in Sources */,
 				1F8BF57F1D5A745D002229BF /* Atom.mm in Sources */,
 				1F81F5821CE16FE100544F85 /* VideoDetailsViewController.swift in Sources */,
 				1F9F19AF1CDD18F100DE819B /* AppDelegate.swift in Sources */,

@@ -10,8 +10,7 @@ import UIKit
 
 class VideoDetailsViewController: UIViewController {
 
-    var videoURL: NSURL?
-    var thumbnailURL: NSURL?
+    var video: Video?
     
     @IBOutlet weak var thumbnailView: UIImageView!
     
@@ -31,28 +30,40 @@ class VideoDetailsViewController: UIViewController {
         
         self.navigationItem.leftBarButtonItem = backButton
         
-        thumbnailView?.image = UIImage(named: thumbnailURL!.path! )
+        thumbnailView?.image = UIImage(named: video!.thumbURL!.path! )
         
         updateProperties()
     }
     
     func updateProperties() {
         if let tv = textView {
-            let size = MediaUtils.getVideoResolution(videoURL)
-            var text = ""
-            if let name = videoURL.lastPathComponent {
-                text += "Name:       \(name)\n"
+            if let videoURL = video?.videoURL {
+                let size = MediaUtils.getVideoResolution(videoURL)
+                var text = ""
+                if let name = videoURL.lastPathComponent {
+                    text += "Name:       \(name)\n"
+                }
+                text += "Resolution: \(Int(size.width))x\(Int(size.height))\n"
+                text += "MimeType:   \(MediaUtils.getVideoMimeType(videoURL))\n"
+                text += "Frame Rate: \(MediaUtils.getVideoFrameRate(videoURL)) fps\n"
+                text += "File Size:  \(MediaUtils.getVideoFileSize(videoURL))\n"
+                text += "Duration:   \(MediaUtils.getVideoDurationFormatted(videoURL))\n"
+                text += "Bitrate:    \(MediaUtils.getVideoBitrate(videoURL))\n"
+                text += "Date:       \(formatDate(video?.creationDate))\n"
+                tv.text = text
             }
-            text += "Resolution: \(Int(size.width))x\(Int(size.height))\n"
-            text += "MimeType:   \(MediaUtils.getVideoMimeType(videoURL))\n"
-            text += "Frame Rate: \(MediaUtils.getVideoFrameRate(videoURL)) fps\n"
-            text += "File Size:  \(MediaUtils.getVideoFileSize(videoURL))\n"
-            text += "Duration:   \(MediaUtils.getVideoDurationFormatted(videoURL))\n"
-            text += "Bitrate:    \(MediaUtils.getVideoBitrate(videoURL))\n"
-            }
-            text += "Date: \n"
-            tv.text = text
         }
+    }
+    
+    func formatDate(date: NSDate?) -> String {
+        let formatter = NSDateFormatter()
+        formatter.dateStyle = NSDateFormatterStyle.MediumStyle
+        formatter.timeStyle = .ShortStyle
+        if let date = date {
+            return formatter.stringFromDate(date)
+        }
+        
+        return ""
     }
     
     @IBAction func clickBack(sender: UIBarButtonItem) {
@@ -71,7 +82,7 @@ class VideoDetailsViewController: UIViewController {
         let nc = parentViewController as? UINavigationController
         if let navController = nc {
             let atomStructureController = self.storyboard!.instantiateViewControllerWithIdentifier("atomStructure") as! AtomStructureViewController
-            atomStructureController.videoURL = videoURL
+            atomStructureController.video = video
             navController.pushViewController(atomStructureController, animated: true)
         }
     }
