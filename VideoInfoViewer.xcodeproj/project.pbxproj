@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		1F65164B1D478EB8000851B2 /* AtomStructureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F65164A1D478EB8000851B2 /* AtomStructureViewController.swift */; };
 		1F6E3C4A1D4527890008CDD5 /* libMP4Parse.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F6E3C471D4523210008CDD5 /* libMP4Parse.a */; };
+		1F806BFA1D6CA29F002A1F88 /* SelectAlbumController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F806BF91D6CA29F002A1F88 /* SelectAlbumController.swift */; };
+		1F806BFC1D6CA43D002A1F88 /* SelectVideoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F806BFB1D6CA43D002A1F88 /* SelectVideoController.swift */; };
 		1F81F5821CE16FE100544F85 /* VideoDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F81F5811CE16FE100544F85 /* VideoDetailsViewController.swift */; };
 		1F8BF57F1D5A745D002229BF /* Atom.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1F8BF57E1D5A745D002229BF /* Atom.mm */; };
 		1F8BF5CF1D5C1CFE002229BF /* AtomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8BF5CE1D5C1CFE002229BF /* AtomViewController.swift */; };
@@ -60,6 +62,8 @@
 /* Begin PBXFileReference section */
 		1F65164A1D478EB8000851B2 /* AtomStructureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AtomStructureViewController.swift; sourceTree = "<group>"; };
 		1F6E3C421D4523210008CDD5 /* MP4Parse.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MP4Parse.xcodeproj; path = Libraries/MP4Parse/MP4Parse.xcodeproj; sourceTree = "<group>"; };
+		1F806BF91D6CA29F002A1F88 /* SelectAlbumController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectAlbumController.swift; sourceTree = "<group>"; };
+		1F806BFB1D6CA43D002A1F88 /* SelectVideoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectVideoController.swift; sourceTree = "<group>"; };
 		1F81F5811CE16FE100544F85 /* VideoDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoDetailsViewController.swift; sourceTree = "<group>"; };
 		1F8BF57E1D5A745D002229BF /* Atom.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Atom.mm; sourceTree = "<group>"; };
 		1F8BF5801D5A746C002229BF /* Atom.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Atom.h; sourceTree = "<group>"; };
@@ -174,6 +178,8 @@
 				1F8BF57E1D5A745D002229BF /* Atom.mm */,
 				1F8BF5801D5A746C002229BF /* Atom.h */,
 				1F8BF5D01D5CAB96002229BF /* AtomWrapper.h */,
+				1F806BF91D6CA29F002A1F88 /* SelectAlbumController.swift */,
+				1F806BFB1D6CA43D002A1F88 /* SelectVideoController.swift */,
 			);
 			path = VideoInfoViewer;
 			sourceTree = "<group>";
@@ -265,7 +271,7 @@
 				TargetAttributes = {
 					1F9F19AA1CDD18F100DE819B = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = 8N66ELW28S;
+						DevelopmentTeam = Y7DPTH8469;
 					};
 					1F9F19C11CDD18F100DE819B = {
 						CreatedOnToolsVersion = 7.3;
@@ -348,11 +354,13 @@
 				1FC98CCE1CE5392900301B9E /* MediaUtils.swift in Sources */,
 				1FFC73761D42B31100757F78 /* ObjC.mm in Sources */,
 				1F9F19B11CDD18F100DE819B /* ViewController.swift in Sources */,
+				1F806BFA1D6CA29F002A1F88 /* SelectAlbumController.swift in Sources */,
 				1F9F19B71CDD18F100DE819B /* VideoInfoViewer.xcdatamodeld in Sources */,
 				1F8BF57F1D5A745D002229BF /* Atom.mm in Sources */,
 				1F81F5821CE16FE100544F85 /* VideoDetailsViewController.swift in Sources */,
 				1F9F19AF1CDD18F100DE819B /* AppDelegate.swift in Sources */,
 				1F8BF5CF1D5C1CFE002229BF /* AtomViewController.swift in Sources */,
+				1F806BFC1D6CA43D002A1F88 /* SelectVideoController.swift in Sources */,
 				1FFC73721D42B25300757F78 /* CPPTest.cpp in Sources */,
 				1F908C551D63212E00B2C552 /* AtomStructureViewCell.swift in Sources */,
 				1F65164B1D478EB8000851B2 /* AtomStructureViewController.swift in Sources */,
@@ -511,7 +519,7 @@
 				INFOPLIST_FILE = VideoInfoViewer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.roryhool.VideoInfoViewer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rory.hool.VideoInfoViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "VideoInfoViewer/VideoInfoViewer-Bridging-Header.h";
@@ -530,7 +538,7 @@
 				INFOPLIST_FILE = VideoInfoViewer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.roryhool.VideoInfoViewer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rory.hool.VideoInfoViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "VideoInfoViewer/VideoInfoViewer-Bridging-Header.h";
