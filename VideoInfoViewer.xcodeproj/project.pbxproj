@@ -17,7 +17,7 @@
 		1F8BF5CF1D5C1CFE002229BF /* AtomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8BF5CE1D5C1CFE002229BF /* AtomViewController.swift */; };
 		1F908C551D63212E00B2C552 /* AtomStructureViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F908C541D63212E00B2C552 /* AtomStructureViewCell.swift */; };
 		1F9F19AF1CDD18F100DE819B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F19AE1CDD18F100DE819B /* AppDelegate.swift */; };
-		1F9F19B11CDD18F100DE819B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F19B01CDD18F100DE819B /* ViewController.swift */; };
+		1F9F19B11CDD18F100DE819B /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F19B01CDD18F100DE819B /* MainViewController.swift */; };
 		1F9F19B41CDD18F100DE819B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F9F19B21CDD18F100DE819B /* Main.storyboard */; };
 		1F9F19B71CDD18F100DE819B /* VideoInfoViewer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F19B51CDD18F100DE819B /* VideoInfoViewer.xcdatamodeld */; };
 		1F9F19B91CDD18F100DE819B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F9F19B81CDD18F100DE819B /* Assets.xcassets */; };
@@ -74,7 +74,7 @@
 		1F908C541D63212E00B2C552 /* AtomStructureViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AtomStructureViewCell.swift; sourceTree = "<group>"; };
 		1F9F19AB1CDD18F100DE819B /* VideoInfoViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoInfoViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F9F19AE1CDD18F100DE819B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1F9F19B01CDD18F100DE819B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		1F9F19B01CDD18F100DE819B /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		1F9F19B31CDD18F100DE819B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1F9F19B61CDD18F100DE819B /* VideoInfoViewer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = VideoInfoViewer.xcdatamodel; sourceTree = "<group>"; };
 		1F9F19B81CDD18F100DE819B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -161,7 +161,7 @@
 			isa = PBXGroup;
 			children = (
 				1F9F19AE1CDD18F100DE819B /* AppDelegate.swift */,
-				1F9F19B01CDD18F100DE819B /* ViewController.swift */,
+				1F9F19B01CDD18F100DE819B /* MainViewController.swift */,
 				1F9F19B21CDD18F100DE819B /* Main.storyboard */,
 				1F9F19B81CDD18F100DE819B /* Assets.xcassets */,
 				1F9F19BA1CDD18F100DE819B /* LaunchScreen.storyboard */,
@@ -356,7 +356,7 @@
 			files = (
 				1FC98CCE1CE5392900301B9E /* MediaUtils.swift in Sources */,
 				1FFC73761D42B31100757F78 /* ParserBridge.mm in Sources */,
-				1F9F19B11CDD18F100DE819B /* ViewController.swift in Sources */,
+				1F9F19B11CDD18F100DE819B /* MainViewController.swift in Sources */,
 				1F806BFA1D6CA29F002A1F88 /* SelectAlbumController.swift in Sources */,
 				1F9F19B71CDD18F100DE819B /* VideoInfoViewer.xcdatamodeld in Sources */,
 				1F3C15591D6F69E5003E8B7F /* Video.swift in Sources */,

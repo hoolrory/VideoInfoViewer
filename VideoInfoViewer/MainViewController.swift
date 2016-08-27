@@ -20,7 +20,7 @@ import CoreData
 import AVFoundation
 import Photos
 
-class ViewController: UIViewController, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
+class MainViewController: UIViewController, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
     
     var videos = [Video]()
     
@@ -36,7 +36,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UITableV
         
         let openButton = UIBarButtonItem()
         openButton.title = "Open"
-        openButton.action = #selector(ViewController.clickOpen(_:))
+        openButton.action = #selector(MainViewController.clickOpen(_:))
         openButton.target = self
         
         self.navigationItem.rightBarButtonItem = openButton
