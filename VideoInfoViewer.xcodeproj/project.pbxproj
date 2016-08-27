@@ -120,6 +120,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F45A4A51D720EE400A2740A /* AtomView */ = {
+			isa = PBXGroup;
+			children = (
+				1F8BF5CE1D5C1CFE002229BF /* AtomViewController.swift */,
+				1F65164A1D478EB8000851B2 /* AtomStructureViewController.swift */,
+				1F908C541D63212E00B2C552 /* AtomStructureViewCell.swift */,
+			);
+			name = AtomView;
+			sourceTree = "<group>";
+		};
+		1F45A4A61D720F0000A2740A /* VideoSelection */ = {
+			isa = PBXGroup;
+			children = (
+				1F806BF91D6CA29F002A1F88 /* SelectAlbumController.swift */,
+				1F806BFB1D6CA43D002A1F88 /* SelectVideoController.swift */,
+			);
+			name = VideoSelection;
+			sourceTree = "<group>";
+		};
+		1F45A4A71D720F1000A2740A /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				1F8BF57E1D5A745D002229BF /* Atom.mm */,
+				1F8BF5801D5A746C002229BF /* Atom.h */,
+				1F8BF5D01D5CAB96002229BF /* AtomWrapper.h */,
+				1FFC73751D42B31100757F78 /* ParserBridge.mm */,
+				1FFC73771D42B36900757F78 /* ParserBridge.h */,
+				1F3C15581D6F69E5003E8B7F /* Video.swift */,
+				1FFC736F1D42B25300757F78 /* VideoInfoViewer-Bridging-Header.h */,
+			);
+			name = Data;
+			sourceTree = "<group>";
+		};
 		1F6E3C281D45208C0008CDD5 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -160,29 +193,20 @@
 		1F9F19AD1CDD18F100DE819B /* VideoInfoViewer */ = {
 			isa = PBXGroup;
 			children = (
+				1F45A4A71D720F1000A2740A /* Data */,
+				1F45A4A61D720F0000A2740A /* VideoSelection */,
+				1F45A4A51D720EE400A2740A /* AtomView */,
 				1F9F19AE1CDD18F100DE819B /* AppDelegate.swift */,
 				1F9F19B01CDD18F100DE819B /* MainViewController.swift */,
-				1F9F19B21CDD18F100DE819B /* Main.storyboard */,
-				1F9F19B81CDD18F100DE819B /* Assets.xcassets */,
-				1F9F19BA1CDD18F100DE819B /* LaunchScreen.storyboard */,
-				1F9F19BD1CDD18F100DE819B /* Info.plist */,
-				1F9F19B51CDD18F100DE819B /* VideoInfoViewer.xcdatamodeld */,
 				1F81F5811CE16FE100544F85 /* VideoDetailsViewController.swift */,
+				1F9F19B21CDD18F100DE819B /* Main.storyboard */,
+				1F9F19BA1CDD18F100DE819B /* LaunchScreen.storyboard */,
 				1FC98CCD1CE5392900301B9E /* MediaUtils.swift */,
 				1FFC73701D42B25300757F78 /* CPPTest.cpp */,
 				1FFC73711D42B25300757F78 /* CPPTest.h */,
-				1FFC736F1D42B25300757F78 /* VideoInfoViewer-Bridging-Header.h */,
-				1FFC73751D42B31100757F78 /* ParserBridge.mm */,
-				1FFC73771D42B36900757F78 /* ParserBridge.h */,
-				1F65164A1D478EB8000851B2 /* AtomStructureViewController.swift */,
-				1F908C541D63212E00B2C552 /* AtomStructureViewCell.swift */,
-				1F8BF5CE1D5C1CFE002229BF /* AtomViewController.swift */,
-				1F8BF57E1D5A745D002229BF /* Atom.mm */,
-				1F8BF5801D5A746C002229BF /* Atom.h */,
-				1F8BF5D01D5CAB96002229BF /* AtomWrapper.h */,
-				1F806BF91D6CA29F002A1F88 /* SelectAlbumController.swift */,
-				1F806BFB1D6CA43D002A1F88 /* SelectVideoController.swift */,
-				1F3C15581D6F69E5003E8B7F /* Video.swift */,
+				1F9F19B81CDD18F100DE819B /* Assets.xcassets */,
+				1F9F19B51CDD18F100DE819B /* VideoInfoViewer.xcdatamodeld */,
+				1F9F19BD1CDD18F100DE819B /* Info.plist */,
 			);
 			path = VideoInfoViewer;
 			sourceTree = "<group>";
