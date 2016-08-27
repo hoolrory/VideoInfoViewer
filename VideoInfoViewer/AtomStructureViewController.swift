@@ -41,6 +41,14 @@ internal class AtomStructureViewController: UITableViewController {
         tableView.layoutMargins = UIEdgeInsetsZero
         tableView.separatorInset = UIEdgeInsetsZero
         
+        
+        let footerView = UIView()
+        footerView.frame = CGRectMake(0, 0, tableView.frame.width, 0)
+        tableView.tableFooterView = footerView
+        
+        self.view.backgroundColor = UIColor(red: 200/255, green: 199/255, blue: 204/255, alpha: 1)
+        self.navigationController?.navigationBar.translucent = false
+        
         tableView.reloadData()
     }
     
