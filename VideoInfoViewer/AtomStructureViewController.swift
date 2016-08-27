@@ -27,14 +27,16 @@ internal class AtomStructureViewController: UITableViewController {
     var rootAtom: Atom?
     var count: Int = 0
     var atoms = [Atom]()
+    var obj: ObjC?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.title = "Atoms"
         
+        obj = ObjC()
         if let videoURL = video?.videoURL {
-            rootAtom = ObjC.parseFile(videoURL.path)
+            rootAtom = obj!.parseFile(videoURL.path)
             displayAtom( rootAtom!, depth: 0 );
         }
         

@@ -10,8 +10,12 @@
 
 @class Atom;
 struct AtomWrapper;
+struct ParserWrapper;
 
 @interface ObjC : NSObject
-+ (Atom*) parseFile: (NSString*) filePath;
-+ (Atom*) transformAtom: (struct AtomWrapper) atomWrapper : (NSInteger) depth;
+
+@property (nonatomic) struct ParserWrapper parserWrapper;
+
+- (Atom*) parseFile: (NSString*) filePath;
+- (Atom*) transformAtom: (struct AtomWrapper) atomWrapper : (NSInteger) depth;
 @end

@@ -12,23 +12,27 @@
 #include "MP4.Parser.h"
 #import "AtomWrapper.h"
 
+struct ParserWrapper {
+    MP4::Parser* parser;
+};
+
 @implementation ObjC
 
-+ (Atom*) parseFile: (NSString*) filePath
+- (Atom*) parseFile: (NSString*) filePath
 {
     const char *cFilePath=[filePath UTF8String];
-    MP4::Parser * parser;
     
-    parser = new MP4::Parser((char*)cFilePath);
+    _parserWrapper = ParserWrapper();
+    _parserWrapper.parser = new MP4::Parser((char*)cFilePath);
     
-    MP4::Atom *rootAtom = parser->getRootAtom();
+    MP4::Atom *rootAtom = _parserWrapper.parser->getRootAtom();
     
     AtomWrapper w;
     w.atom = rootAtom;
     return [self transformAtom:w:0];
 }
 
-+ (Atom*) transformAtom: (AtomWrapper) atomWrapper : (NSInteger) depth
+- (Atom*) transformAtom: (AtomWrapper) atomWrapper : (NSInteger) depth
 {
     Atom* atom = [[Atom alloc] init];
     atom.atomWrapper = atomWrapper;
