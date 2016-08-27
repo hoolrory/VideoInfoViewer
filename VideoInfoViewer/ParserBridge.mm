@@ -6,7 +6,7 @@
 //  Copyright © 2016 RoryHool. All rights reserved.
 //
 
-#import "ObjC.h"
+#import "ParserBridge.h"
 
 #import "Atom.h"
 #include "MP4.Parser.h"
@@ -16,7 +16,7 @@ struct ParserWrapper {
     MP4::Parser* parser;
 };
 
-@implementation ObjC
+@implementation ParserBridge
 
 - (Atom*) parseFile: (NSString*) filePath
 {

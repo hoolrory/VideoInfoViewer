@@ -27,22 +27,21 @@ internal class AtomStructureViewController: UITableViewController {
     var rootAtom: Atom?
     var count: Int = 0
     var atoms = [Atom]()
-    var obj: ObjC?
+    var parserBridge: ParserBridge?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.title = "Atoms"
         
-        obj = ObjC()
+        parserBridge = ParserBridge()
         if let videoURL = video?.videoURL {
-            rootAtom = obj!.parseFile(videoURL.path)
+            rootAtom = parserBridge!.parseFile(videoURL.path)
             displayAtom( rootAtom!, depth: 0 );
         }
         
         tableView.layoutMargins = UIEdgeInsetsZero
         tableView.separatorInset = UIEdgeInsetsZero
-        
         
         let footerView = UIView()
         footerView.frame = CGRectMake(0, 0, tableView.frame.width, 0)
@@ -186,7 +185,7 @@ internal class AtomStructureViewController: UITableViewController {
         if let navController = nc {
             let atomController = self.storyboard!.instantiateViewControllerWithIdentifier("atom") as! AtomViewController
             atomController.atom = atoms[indexPath.item]
-            atomController.objC = obj
+            atomController.parserBridge = parserBridge
             navController.pushViewController(atomController, animated: true)
         }
     }

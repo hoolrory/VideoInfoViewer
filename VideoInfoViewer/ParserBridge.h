@@ -12,7 +12,7 @@
 struct AtomWrapper;
 struct ParserWrapper;
 
-@interface ObjC : NSObject
+@interface ParserBridge : NSObject
 
 @property (nonatomic) struct ParserWrapper parserWrapper;
 

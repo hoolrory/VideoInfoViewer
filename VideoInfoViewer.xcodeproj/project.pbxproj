@@ -26,7 +26,7 @@
 		1F9F19D21CDD18F200DE819B /* VideoInfoViewerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F19D11CDD18F200DE819B /* VideoInfoViewerUITests.swift */; };
 		1FC98CCE1CE5392900301B9E /* MediaUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC98CCD1CE5392900301B9E /* MediaUtils.swift */; };
 		1FFC73721D42B25300757F78 /* CPPTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FFC73701D42B25300757F78 /* CPPTest.cpp */; };
-		1FFC73761D42B31100757F78 /* ObjC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1FFC73751D42B31100757F78 /* ObjC.mm */; };
+		1FFC73761D42B31100757F78 /* ParserBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1FFC73751D42B31100757F78 /* ParserBridge.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,8 +90,8 @@
 		1FFC736F1D42B25300757F78 /* VideoInfoViewer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VideoInfoViewer-Bridging-Header.h"; sourceTree = "<group>"; };
 		1FFC73701D42B25300757F78 /* CPPTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CPPTest.cpp; sourceTree = "<group>"; };
 		1FFC73711D42B25300757F78 /* CPPTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPTest.h; sourceTree = "<group>"; };
-		1FFC73751D42B31100757F78 /* ObjC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ObjC.mm; sourceTree = "<group>"; };
-		1FFC73771D42B36900757F78 /* ObjC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObjC.h; sourceTree = "<group>"; };
+		1FFC73751D42B31100757F78 /* ParserBridge.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ParserBridge.mm; sourceTree = "<group>"; };
+		1FFC73771D42B36900757F78 /* ParserBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParserBridge.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,8 +172,8 @@
 				1FFC73701D42B25300757F78 /* CPPTest.cpp */,
 				1FFC73711D42B25300757F78 /* CPPTest.h */,
 				1FFC736F1D42B25300757F78 /* VideoInfoViewer-Bridging-Header.h */,
-				1FFC73751D42B31100757F78 /* ObjC.mm */,
-				1FFC73771D42B36900757F78 /* ObjC.h */,
+				1FFC73751D42B31100757F78 /* ParserBridge.mm */,
+				1FFC73771D42B36900757F78 /* ParserBridge.h */,
 				1F65164A1D478EB8000851B2 /* AtomStructureViewController.swift */,
 				1F908C541D63212E00B2C552 /* AtomStructureViewCell.swift */,
 				1F8BF5CE1D5C1CFE002229BF /* AtomViewController.swift */,
@@ -355,7 +355,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1FC98CCE1CE5392900301B9E /* MediaUtils.swift in Sources */,
-				1FFC73761D42B31100757F78 /* ObjC.mm in Sources */,
+				1FFC73761D42B31100757F78 /* ParserBridge.mm in Sources */,
 				1F9F19B11CDD18F100DE819B /* ViewController.swift in Sources */,
 				1F806BFA1D6CA29F002A1F88 /* SelectAlbumController.swift in Sources */,
 				1F9F19B71CDD18F100DE819B /* VideoInfoViewer.xcdatamodeld in Sources */,

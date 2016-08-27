@@ -21,7 +21,7 @@ import UIKit
 internal class AtomViewController: UIViewController {
     
     var atom: Atom?
-    var objC: ObjC?
+    var parserBridge: ParserBridge?
 
     @IBOutlet weak var atomName: UILabel!
     @IBOutlet weak var atomContent: UITextView!
@@ -39,10 +39,10 @@ internal class AtomViewController: UIViewController {
     @IBAction func onClickLoadRawData(sender: AnyObject) {
         loadRawDataButton.removeFromSuperview()
         
-        if let objC = objC {
+        if let parserBridge = parserBridge {
             
             atomContent.text.appendContentsOf("\n")
-            let atomBytes = objC.getAtomBytes(atom!)
+            let atomBytes = parserBridge.getAtomBytes(atom!)
             if atomBytes != nil {
                 atomContent.text.appendContentsOf(atomBytes)
             }
