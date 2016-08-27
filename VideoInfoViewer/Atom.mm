@@ -60,5 +60,9 @@
     }
 }
 
+- (struct AtomWrapper) getAtomWrapper {
+    return _atomWrapper;
+}
+
 
 @end

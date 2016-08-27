@@ -25,6 +25,7 @@ struct AtomWrapper;
 - (int) getDepth;
 - (void) setIsHidden: (bool) hidden;
 - (void) setIsCollapsed: (bool) collapsed;
+- (struct AtomWrapper) getAtomWrapper;
 
 @end
 
