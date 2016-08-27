@@ -45,11 +45,17 @@ struct ParserWrapper {
             childWrapper.atom = ( * it );
             Atom* child = [self transformAtom:childWrapper:depth+1];
             [atom.children addObject:child];
-            // std::cout << "Adding Child " << ( * it )->getName() << " to container " << containerAtom->getType() << " with " << [atom.children count] << "\n";
         }
     }
     
     return atom;
+}
+
+
+- (NSString*) getAtomBytes: (Atom*) atom;
+{
+    std::string bytes = _parserWrapper.parser->getBytes(atom.getAtomWrapper.atom);
+    return [NSString stringWithFormat:@"%s",bytes.c_str()];
 }
 @end
 

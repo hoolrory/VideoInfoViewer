@@ -186,6 +186,7 @@ internal class AtomStructureViewController: UITableViewController {
         if let navController = nc {
             let atomController = self.storyboard!.instantiateViewControllerWithIdentifier("atom") as! AtomViewController
             atomController.atom = atoms[indexPath.item]
+            atomController.objC = obj
             navController.pushViewController(atomController, animated: true)
         }
     }

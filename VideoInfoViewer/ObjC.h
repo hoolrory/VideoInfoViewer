@@ -18,4 +18,5 @@ struct ParserWrapper;
 
 - (Atom*) parseFile: (NSString*) filePath;
 - (Atom*) transformAtom: (struct AtomWrapper) atomWrapper : (NSInteger) depth;
+- (NSString*) getAtomBytes: (Atom*) atom;
 @end

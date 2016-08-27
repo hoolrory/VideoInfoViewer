@@ -223,27 +223,40 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="1sz-U0-QMr" userLabel="Atom Content">
-                                <rect key="frame" x="30" y="70.5" width="540" height="519.5"/>
+                                <rect key="frame" x="30" y="70.5" width="540" height="439.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J6P-nc-bYQ">
+                                <rect key="frame" x="249" y="540" width="103" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="rcD-ew-h3X"/>
+                                </constraints>
+                                <state key="normal" title="Load Raw Data"/>
+                                <connections>
+                                    <action selector="onClickLoadRawData:" destination="6i2-t0-IC1" eventType="touchUpInside" id="5dP-f4-gfn"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="1sz-U0-QMr" firstAttribute="trailing" secondItem="NBN-45-ZhB" secondAttribute="trailingMargin" constant="-10" id="6hd-Xm-mhe"/>
+                            <constraint firstItem="J6P-nc-bYQ" firstAttribute="bottom" secondItem="xVY-RN-yP4" secondAttribute="top" constant="-30" id="EUX-iv-aNP"/>
                             <constraint firstItem="1sz-U0-QMr" firstAttribute="top" secondItem="z9e-FS-SZB" secondAttribute="bottom" constant="10" id="Pcg-37-sPv"/>
                             <constraint firstItem="1sz-U0-QMr" firstAttribute="leading" secondItem="NBN-45-ZhB" secondAttribute="leadingMargin" constant="10" id="VkY-wO-TPN"/>
                             <constraint firstItem="z9e-FS-SZB" firstAttribute="trailing" secondItem="NBN-45-ZhB" secondAttribute="trailingMargin" constant="-20" id="Zrf-x1-gM2"/>
                             <constraint firstItem="z9e-FS-SZB" firstAttribute="leading" secondItem="NBN-45-ZhB" secondAttribute="leadingMargin" constant="20" id="cWu-GX-w7B"/>
+                            <constraint firstItem="J6P-nc-bYQ" firstAttribute="centerX" secondItem="NBN-45-ZhB" secondAttribute="centerX" id="iTC-aw-voV"/>
                             <constraint firstItem="z9e-FS-SZB" firstAttribute="top" secondItem="d6B-nA-Esl" secondAttribute="bottom" constant="20" id="mmy-3s-cF7"/>
-                            <constraint firstItem="1sz-U0-QMr" firstAttribute="bottom" secondItem="xVY-RN-yP4" secondAttribute="top" constant="-10" id="vyY-Ws-Tme"/>
+                            <constraint firstItem="1sz-U0-QMr" firstAttribute="bottom" secondItem="xVY-RN-yP4" secondAttribute="top" constant="-90" id="yWy-rX-ca1"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="atomContent" destination="1sz-U0-QMr" id="x80-rd-8XO"/>
                         <outlet property="atomName" destination="z9e-FS-SZB" id="3T4-ML-Vyk"/>
+                        <outlet property="loadRawDataButton" destination="J6P-nc-bYQ" id="FCU-RE-6Q4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UgZ-zY-NO9" userLabel="First Responder" sceneMemberID="firstResponder"/>

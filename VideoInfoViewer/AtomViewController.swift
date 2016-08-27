@@ -21,9 +21,11 @@ import UIKit
 internal class AtomViewController: UIViewController {
     
     var atom: Atom?
+    var objC: ObjC?
 
     @IBOutlet weak var atomName: UILabel!
     @IBOutlet weak var atomContent: UITextView!
+    @IBOutlet weak var loadRawDataButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,4 +36,17 @@ internal class AtomViewController: UIViewController {
         atomContent.text = atom?.getDescription()
     }
     
+    @IBAction func onClickLoadRawData(sender: AnyObject) {
+        loadRawDataButton.removeFromSuperview()
+        
+        if let objC = objC {
+            
+            atomContent.text.appendContentsOf("\n")
+            let atomBytes = objC.getAtomBytes(atom!)
+            if atomBytes != nil {
+                atomContent.text.appendContentsOf(atomBytes)
+            }
+        }
+        
+    }
 }
