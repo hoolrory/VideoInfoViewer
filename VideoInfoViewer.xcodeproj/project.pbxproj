@@ -25,7 +25,6 @@
 		1F9F19C71CDD18F100DE819B /* VideoInfoViewerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F19C61CDD18F100DE819B /* VideoInfoViewerTests.swift */; };
 		1F9F19D21CDD18F200DE819B /* VideoInfoViewerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F19D11CDD18F200DE819B /* VideoInfoViewerUITests.swift */; };
 		1FC98CCE1CE5392900301B9E /* MediaUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC98CCD1CE5392900301B9E /* MediaUtils.swift */; };
-		1FFC73721D42B25300757F78 /* CPPTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FFC73701D42B25300757F78 /* CPPTest.cpp */; };
 		1FFC73761D42B31100757F78 /* ParserBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1FFC73751D42B31100757F78 /* ParserBridge.mm */; };
 /* End PBXBuildFile section */
 
@@ -88,8 +87,6 @@
 		1F9F19D31CDD18F200DE819B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1FC98CCD1CE5392900301B9E /* MediaUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaUtils.swift; sourceTree = "<group>"; };
 		1FFC736F1D42B25300757F78 /* VideoInfoViewer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VideoInfoViewer-Bridging-Header.h"; sourceTree = "<group>"; };
-		1FFC73701D42B25300757F78 /* CPPTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CPPTest.cpp; sourceTree = "<group>"; };
-		1FFC73711D42B25300757F78 /* CPPTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPTest.h; sourceTree = "<group>"; };
 		1FFC73751D42B31100757F78 /* ParserBridge.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ParserBridge.mm; sourceTree = "<group>"; };
 		1FFC73771D42B36900757F78 /* ParserBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParserBridge.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -202,8 +199,6 @@
 				1F9F19B21CDD18F100DE819B /* Main.storyboard */,
 				1F9F19BA1CDD18F100DE819B /* LaunchScreen.storyboard */,
 				1FC98CCD1CE5392900301B9E /* MediaUtils.swift */,
-				1FFC73701D42B25300757F78 /* CPPTest.cpp */,
-				1FFC73711D42B25300757F78 /* CPPTest.h */,
 				1F9F19B81CDD18F100DE819B /* Assets.xcassets */,
 				1F9F19B51CDD18F100DE819B /* VideoInfoViewer.xcdatamodeld */,
 				1F9F19BD1CDD18F100DE819B /* Info.plist */,
@@ -389,7 +384,6 @@
 				1F9F19AF1CDD18F100DE819B /* AppDelegate.swift in Sources */,
 				1F8BF5CF1D5C1CFE002229BF /* AtomViewController.swift in Sources */,
 				1F806BFC1D6CA43D002A1F88 /* SelectVideoController.swift in Sources */,
-				1FFC73721D42B25300757F78 /* CPPTest.cpp in Sources */,
 				1F908C551D63212E00B2C552 /* AtomStructureViewCell.swift in Sources */,
 				1F65164B1D478EB8000851B2 /* AtomStructureViewController.swift in Sources */,
 			);
