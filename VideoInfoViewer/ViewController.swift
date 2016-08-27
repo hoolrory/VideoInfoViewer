@@ -204,6 +204,8 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UITableV
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         viewVideo(self.videos[indexPath.row])
+        
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
     func viewVideo(video:Video) {
