@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1F1234A01D74FDE300286170 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F12349F1D74FDE300286170 /* GoogleMobileAds.framework */; };
 		1F1234A51D75171100286170 /* admob.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1F1234A41D75171100286170 /* admob.txt */; };
+		1F1234B61D751CC100286170 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F1234B51D751CC100286170 /* libGoogleAnalyticsServices.a */; };
 		1F3C15591D6F69E5003E8B7F /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3C15581D6F69E5003E8B7F /* Video.swift */; };
 		1F65164B1D478EB8000851B2 /* AtomStructureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F65164A1D478EB8000851B2 /* AtomStructureViewController.swift */; };
 		1F6E3C4A1D4527890008CDD5 /* libMP4Parse.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F6E3C471D4523210008CDD5 /* libMP4Parse.a */; };
@@ -64,6 +65,17 @@
 /* Begin PBXFileReference section */
 		1F12349F1D74FDE300286170 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileAds.framework; path = Frameworks/GoogleMobileAds.framework; sourceTree = "<group>"; };
 		1F1234A41D75171100286170 /* admob.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = admob.txt; sourceTree = "<group>"; };
+		1F1234AB1D751C8900286170 /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAI.h; path = GoogleAnalytics/GAI.h; sourceTree = "<group>"; };
+		1F1234AC1D751C8900286170 /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAIDictionaryBuilder.h; path = GoogleAnalytics/GAIDictionaryBuilder.h; sourceTree = "<group>"; };
+		1F1234AD1D751C8900286170 /* GAIEcommerceFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAIEcommerceFields.h; path = GoogleAnalytics/GAIEcommerceFields.h; sourceTree = "<group>"; };
+		1F1234AE1D751C8900286170 /* GAIEcommerceProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAIEcommerceProduct.h; path = GoogleAnalytics/GAIEcommerceProduct.h; sourceTree = "<group>"; };
+		1F1234AF1D751C8900286170 /* GAIEcommerceProductAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAIEcommerceProductAction.h; path = GoogleAnalytics/GAIEcommerceProductAction.h; sourceTree = "<group>"; };
+		1F1234B01D751C8900286170 /* GAIEcommercePromotion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAIEcommercePromotion.h; path = GoogleAnalytics/GAIEcommercePromotion.h; sourceTree = "<group>"; };
+		1F1234B11D751C8900286170 /* GAIFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAIFields.h; path = GoogleAnalytics/GAIFields.h; sourceTree = "<group>"; };
+		1F1234B21D751C8900286170 /* GAILogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAILogger.h; path = GoogleAnalytics/GAILogger.h; sourceTree = "<group>"; };
+		1F1234B31D751C8900286170 /* GAITrackedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAITrackedViewController.h; path = GoogleAnalytics/GAITrackedViewController.h; sourceTree = "<group>"; };
+		1F1234B41D751C8900286170 /* GAITracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAITracker.h; path = GoogleAnalytics/GAITracker.h; sourceTree = "<group>"; };
+		1F1234B51D751CC100286170 /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGoogleAnalyticsServices.a; path = Libraries/libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
 		1F3C15581D6F69E5003E8B7F /* Video.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 		1F65164A1D478EB8000851B2 /* AtomStructureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AtomStructureViewController.swift; sourceTree = "<group>"; };
 		1F6E3C421D4523210008CDD5 /* MP4Parse.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MP4Parse.xcodeproj; path = Libraries/MP4Parse/MP4Parse.xcodeproj; sourceTree = "<group>"; };
@@ -102,6 +114,7 @@
 			files = (
 				1F1234A01D74FDE300286170 /* GoogleMobileAds.framework in Frameworks */,
 				1F6E3C4A1D4527890008CDD5 /* libMP4Parse.a in Frameworks */,
+				1F1234B61D751CC100286170 /* libGoogleAnalyticsServices.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -128,6 +141,23 @@
 				1F12349F1D74FDE300286170 /* GoogleMobileAds.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1F1234AA1D751C7E00286170 /* GoogleAnalytics */ = {
+			isa = PBXGroup;
+			children = (
+				1F1234AB1D751C8900286170 /* GAI.h */,
+				1F1234AC1D751C8900286170 /* GAIDictionaryBuilder.h */,
+				1F1234AD1D751C8900286170 /* GAIEcommerceFields.h */,
+				1F1234AE1D751C8900286170 /* GAIEcommerceProduct.h */,
+				1F1234AF1D751C8900286170 /* GAIEcommerceProductAction.h */,
+				1F1234B01D751C8900286170 /* GAIEcommercePromotion.h */,
+				1F1234B11D751C8900286170 /* GAIFields.h */,
+				1F1234B21D751C8900286170 /* GAILogger.h */,
+				1F1234B31D751C8900286170 /* GAITrackedViewController.h */,
+				1F1234B41D751C8900286170 /* GAITracker.h */,
+			);
+			name = GoogleAnalytics;
 			sourceTree = "<group>";
 		};
 		1F45A4A51D720EE400A2740A /* AtomView */ = {
@@ -166,6 +196,7 @@
 		1F6E3C281D45208C0008CDD5 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				1F1234B51D751CC100286170 /* libGoogleAnalyticsServices.a */,
 				1F6E3C421D4523210008CDD5 /* MP4Parse.xcodeproj */,
 			);
 			name = Libraries;
@@ -204,6 +235,7 @@
 		1F9F19AD1CDD18F100DE819B /* VideoInfoViewer */ = {
 			isa = PBXGroup;
 			children = (
+				1F1234AA1D751C7E00286170 /* GoogleAnalytics */,
 				1F45A4A71D720F1000A2740A /* Data */,
 				1F45A4A61D720F0000A2740A /* VideoSelection */,
 				1F45A4A51D720EE400A2740A /* AtomView */,
@@ -561,6 +593,10 @@
 				INFOPLIST_FILE = VideoInfoViewer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Libraries",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.rory.hool.VideoInfoViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -584,6 +620,10 @@
 				INFOPLIST_FILE = VideoInfoViewer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Libraries",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.rory.hool.VideoInfoViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
