@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F1234A01D74FDE300286170 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F12349F1D74FDE300286170 /* GoogleMobileAds.framework */; };
+		1F1234A51D75171100286170 /* admob.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1F1234A41D75171100286170 /* admob.txt */; };
 		1F3C15591D6F69E5003E8B7F /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3C15581D6F69E5003E8B7F /* Video.swift */; };
 		1F65164B1D478EB8000851B2 /* AtomStructureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F65164A1D478EB8000851B2 /* AtomStructureViewController.swift */; };
 		1F6E3C4A1D4527890008CDD5 /* libMP4Parse.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F6E3C471D4523210008CDD5 /* libMP4Parse.a */; };
@@ -60,6 +62,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1F12349F1D74FDE300286170 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileAds.framework; path = Frameworks/GoogleMobileAds.framework; sourceTree = "<group>"; };
+		1F1234A41D75171100286170 /* admob.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = admob.txt; sourceTree = "<group>"; };
 		1F3C15581D6F69E5003E8B7F /* Video.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 		1F65164A1D478EB8000851B2 /* AtomStructureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AtomStructureViewController.swift; sourceTree = "<group>"; };
 		1F6E3C421D4523210008CDD5 /* MP4Parse.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MP4Parse.xcodeproj; path = Libraries/MP4Parse/MP4Parse.xcodeproj; sourceTree = "<group>"; };
@@ -96,6 +100,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F1234A01D74FDE300286170 /* GoogleMobileAds.framework in Frameworks */,
 				1F6E3C4A1D4527890008CDD5 /* libMP4Parse.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -117,6 +122,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F1234A11D74FDEB00286170 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1F12349F1D74FDE300286170 /* GoogleMobileAds.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		1F45A4A51D720EE400A2740A /* AtomView */ = {
 			isa = PBXGroup;
 			children = (
@@ -174,6 +187,7 @@
 				1F9F19D01CDD18F200DE819B /* VideoInfoViewerUITests */,
 				1F9F19AC1CDD18F100DE819B /* Products */,
 				1F6E3C281D45208C0008CDD5 /* Libraries */,
+				1F1234A11D74FDEB00286170 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -202,6 +216,7 @@
 				1F9F19B81CDD18F100DE819B /* Assets.xcassets */,
 				1F9F19B51CDD18F100DE819B /* VideoInfoViewer.xcdatamodeld */,
 				1F9F19BD1CDD18F100DE819B /* Info.plist */,
+				1F1234A41D75171100286170 /* admob.txt */,
 			);
 			path = VideoInfoViewer;
 			sourceTree = "<group>";
@@ -348,6 +363,7 @@
 			files = (
 				1F9F19BC1CDD18F100DE819B /* LaunchScreen.storyboard in Resources */,
 				1F9F19B91CDD18F100DE819B /* Assets.xcassets in Resources */,
+				1F1234A51D75171100286170 /* admob.txt in Resources */,
 				1F9F19B41CDD18F100DE819B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -537,6 +553,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
+				);
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/Libraries/MP4Parse/source/include";
 				INFOPLIST_FILE = VideoInfoViewer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
@@ -556,6 +576,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
+				);
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/Libraries/MP4Parse/source/include";
 				INFOPLIST_FILE = VideoInfoViewer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;

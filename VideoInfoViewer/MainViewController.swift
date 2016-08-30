@@ -19,6 +19,7 @@ import MobileCoreServices
 import CoreData
 import AVFoundation
 import Photos
+import GoogleMobileAds
 
 class MainViewController: UIViewController, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
     
@@ -28,6 +29,8 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UITa
     var tableView: UITableView!
     
     var selectedAsset: PHAsset?
+    
+    var bannerView: GADBannerView?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,6 +61,29 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UITa
         }
         
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        
+        setupAd()
+    }
+    
+    func setupAd() {
+        if let admobFile = NSBundle.mainBundle().URLForResource("admob", withExtension: "txt") {
+            do {
+                let adUnitId = try NSString(contentsOfURL: admobFile, encoding: NSUTF8StringEncoding)
+                
+                if adUnitId.length > 0 {
+                    self.navigationController!.setToolbarHidden(false, animated: false)
+                    bannerView = GADBannerView(adSize: kGADAdSizeBanner)
+                    bannerView?.adUnitID = adUnitId as String
+                    bannerView?.rootViewController = self
+                    self.navigationController?.toolbar.addSubview(bannerView!)
+                    let request = GADRequest()
+                    request.testDevices = [kGADSimulatorID]
+                    bannerView?.loadRequest(request)
+                }
+            } catch _ {
+                print("Failed to load ad")
+            }
+        }
     }
     
     @IBAction func clickOpen(sender: UIBarButtonItem) {
