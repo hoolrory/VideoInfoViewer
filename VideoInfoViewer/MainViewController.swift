@@ -121,6 +121,31 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UITa
         
         selectedAsset = asset
         
+        if let assetId = selectedAsset?.localIdentifier {
+            
+            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            let managedContext = appDelegate.managedObjectContext
+            let fetchRequest = NSFetchRequest(entityName: "Video")
+            fetchRequest.predicate = NSPredicate(format: "assetId == %@", assetId)
+            
+            do {
+                let result = try managedContext.executeFetchRequest(fetchRequest) as! [NSManagedObject]
+                if (result.count == 1) {
+                    let object = result[0]
+                    object.setValue(NSDate(), forKey: "openDate")
+                    try managedContext.save()
+                    dispatch_async(dispatch_get_main_queue()) {
+                        self.loadVideos()
+                        let video = Video(fromObject: object)
+                        self.viewVideo(video)
+                    }
+                    return
+                }
+            } catch {
+                fatalError("Failed to fetch video: \(error)")
+            }
+        }
+        
         PHImageManager().requestAVAssetForVideo(
             asset, options:
             videoRequestOptions,
@@ -136,6 +161,8 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UITa
         
         let videoURL = getDocumentUrl(videoName)
         let creationDate = selectedAsset?.creationDate
+        let assetId = selectedAsset?.localIdentifier
+        
         selectedAsset = nil
         do {
             try filemgr.copyItemAtURL(avUrlAsset.URL, toURL: videoURL)
@@ -158,6 +185,7 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UITa
         
         let object = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
         
+        object.setValue(assetId, forKey: "assetId")
         object.setValue(videoURL.lastPathComponent, forKey: "videoFile")
         object.setValue(thumbnailURL.lastPathComponent, forKey: "thumbFile")
         object.setValue(NSDate(), forKey: "openDate")
@@ -171,8 +199,8 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UITa
                 self.tableView.reloadData()
                 self.viewVideo(video)
             }
-        } catch let error as NSError  {
-            print("Could not save \(error), \(error.userInfo)")
+        } catch let error  {
+            print("Could not save \(error))")
         }
     }
     
