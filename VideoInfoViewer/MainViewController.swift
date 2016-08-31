@@ -127,22 +127,22 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UITa
       let lastPathComponent = avUrlAsset.URL.lastPathComponent
       let videoName = lastPathComponent != nil ? lastPathComponent! :"video_\(NSDate().timeIntervalSince1970).MOV"
          
-      let toURL = getDocumentUrl(videoName)
+      let videoURL = getDocumentUrl(videoName)
       let creationDate = selectedAsset?.creationDate
       selectedAsset = nil
       do {
-         try filemgr.copyItemAtURL(avUrlAsset.URL, toURL: toURL)
+         try filemgr.copyItemAtURL(avUrlAsset.URL, toURL: videoURL)
       } catch _ {
          print("Failed to copy")
          return
       }
       
       let thumbnailURL = getDocumentUrl("\(videoName).png")
-      let duration = MediaUtils.getVideoDuration(toURL)
+      let duration = MediaUtils.getVideoDuration(videoURL)
       let thumbTime = CMTime(seconds: duration.seconds / 2.0, preferredTimescale: duration.timescale)
-      MediaUtils.renderThumbnailFromVideo(toURL, thumbnailURL: thumbnailURL, time: thumbTime)
+      MediaUtils.renderThumbnailFromVideo(videoURL, thumbnailURL: thumbnailURL, time: thumbTime)
          
-      saveVideo(toURL, thumbnailURL: thumbnailURL, creationDate: creationDate)
+      saveVideo(videoURL, thumbnailURL: thumbnailURL, creationDate: creationDate)
    }
 
     func saveVideo(videoURL: NSURL, thumbnailURL: NSURL, creationDate: NSDate?) {
