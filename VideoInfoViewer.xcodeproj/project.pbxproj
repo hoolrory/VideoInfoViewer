@@ -10,6 +10,9 @@
 		1F1234A01D74FDE300286170 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F12349F1D74FDE300286170 /* GoogleMobileAds.framework */; };
 		1F1234A51D75171100286170 /* admob.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1F1234A41D75171100286170 /* admob.txt */; };
 		1F1234B61D751CC100286170 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F1234B51D751CC100286170 /* libGoogleAnalyticsServices.a */; };
+		1F1234B81D75B41A00286170 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F1234B71D75B41A00286170 /* libsqlite3.tbd */; };
+		1F1234BA1D75B43500286170 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F1234B91D75B43500286170 /* libz.tbd */; };
+		1F1234BC1D75B63900286170 /* googleAnalytics.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1F1234BB1D75B63900286170 /* googleAnalytics.txt */; };
 		1F3C15591D6F69E5003E8B7F /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3C15581D6F69E5003E8B7F /* Video.swift */; };
 		1F65164B1D478EB8000851B2 /* AtomStructureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F65164A1D478EB8000851B2 /* AtomStructureViewController.swift */; };
 		1F6E3C4A1D4527890008CDD5 /* libMP4Parse.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F6E3C471D4523210008CDD5 /* libMP4Parse.a */; };
@@ -76,6 +79,9 @@
 		1F1234B31D751C8900286170 /* GAITrackedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAITrackedViewController.h; path = GoogleAnalytics/GAITrackedViewController.h; sourceTree = "<group>"; };
 		1F1234B41D751C8900286170 /* GAITracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAITracker.h; path = GoogleAnalytics/GAITracker.h; sourceTree = "<group>"; };
 		1F1234B51D751CC100286170 /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGoogleAnalyticsServices.a; path = Libraries/libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
+		1F1234B71D75B41A00286170 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		1F1234B91D75B43500286170 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		1F1234BB1D75B63900286170 /* googleAnalytics.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = googleAnalytics.txt; sourceTree = "<group>"; };
 		1F3C15581D6F69E5003E8B7F /* Video.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 		1F65164A1D478EB8000851B2 /* AtomStructureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AtomStructureViewController.swift; sourceTree = "<group>"; };
 		1F6E3C421D4523210008CDD5 /* MP4Parse.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MP4Parse.xcodeproj; path = Libraries/MP4Parse/MP4Parse.xcodeproj; sourceTree = "<group>"; };
@@ -112,6 +118,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F1234BA1D75B43500286170 /* libz.tbd in Frameworks */,
+				1F1234B81D75B41A00286170 /* libsqlite3.tbd in Frameworks */,
 				1F1234A01D74FDE300286170 /* GoogleMobileAds.framework in Frameworks */,
 				1F6E3C4A1D4527890008CDD5 /* libMP4Parse.a in Frameworks */,
 				1F1234B61D751CC100286170 /* libGoogleAnalyticsServices.a in Frameworks */,
@@ -138,6 +146,8 @@
 		1F1234A11D74FDEB00286170 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1F1234B91D75B43500286170 /* libz.tbd */,
+				1F1234B71D75B41A00286170 /* libsqlite3.tbd */,
 				1F12349F1D74FDE300286170 /* GoogleMobileAds.framework */,
 			);
 			name = Frameworks;
@@ -249,6 +259,7 @@
 				1F9F19B51CDD18F100DE819B /* VideoInfoViewer.xcdatamodeld */,
 				1F9F19BD1CDD18F100DE819B /* Info.plist */,
 				1F1234A41D75171100286170 /* admob.txt */,
+				1F1234BB1D75B63900286170 /* googleAnalytics.txt */,
 			);
 			path = VideoInfoViewer;
 			sourceTree = "<group>";
@@ -395,6 +406,7 @@
 			files = (
 				1F9F19BC1CDD18F100DE819B /* LaunchScreen.storyboard in Resources */,
 				1F9F19B91CDD18F100DE819B /* Assets.xcassets in Resources */,
+				1F1234BC1D75B63900286170 /* googleAnalytics.txt in Resources */,
 				1F1234A51D75171100286170 /* admob.txt in Resources */,
 				1F9F19B41CDD18F100DE819B /* Main.storyboard in Resources */,
 			);
@@ -589,7 +601,10 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
 				);
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/Libraries/MP4Parse/source/include";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Libraries/MP4Parse/source/include",
+					"$(SRCROOT)/Frameworks/",
+				);
 				INFOPLIST_FILE = VideoInfoViewer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -616,7 +631,10 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
 				);
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/Libraries/MP4Parse/source/include";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/Libraries/MP4Parse/source/include",
+					"$(SRCROOT)/Frameworks/",
+				);
 				INFOPLIST_FILE = VideoInfoViewer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
