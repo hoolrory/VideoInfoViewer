@@ -31,7 +31,7 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UITa
     var selectedAsset: PHAsset?
     
     var bannerView: GADBannerView?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -119,30 +119,30 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UITa
             videoRequestOptions,
             resultHandler: handleAVAssetRequestResult )
     }
-   
-   func handleAVAssetRequestResult(avAsset: AVAsset?, audioMix: AVAudioMix?, info: [NSObject: AnyObject]?) {
-      guard let avUrlAsset = avAsset as? AVURLAsset else { return }
     
-      let filemgr = NSFileManager.defaultManager()
-      let lastPathComponent = avUrlAsset.URL.lastPathComponent
-      let videoName = lastPathComponent != nil ? lastPathComponent! :"video_\(NSDate().timeIntervalSince1970).MOV"
-         
-      let videoURL = getDocumentUrl(videoName)
-      let creationDate = selectedAsset?.creationDate
-      selectedAsset = nil
-      do {
-         try filemgr.copyItemAtURL(avUrlAsset.URL, toURL: videoURL)
-      } catch _ {
-         print("Failed to copy")
-         return
-      }
-      
-      let thumbnailURL = getDocumentUrl("\(videoName).png")
-      let duration = MediaUtils.getVideoDuration(videoURL)
-      let thumbTime = CMTime(seconds: duration.seconds / 2.0, preferredTimescale: duration.timescale)
-    
-      MediaUtils.renderThumbnailFromVideo(videoURL, thumbnailURL: thumbnailURL, time: thumbTime)
-    
+    func handleAVAssetRequestResult(avAsset: AVAsset?, audioMix: AVAudioMix?, info: [NSObject: AnyObject]?) {
+        guard let avUrlAsset = avAsset as? AVURLAsset else { return }
+        
+        let filemgr = NSFileManager.defaultManager()
+        let lastPathComponent = avUrlAsset.URL.lastPathComponent
+        let videoName = lastPathComponent != nil ? lastPathComponent! :"video_\(NSDate().timeIntervalSince1970).MOV"
+        
+        let videoURL = getDocumentUrl(videoName)
+        let creationDate = selectedAsset?.creationDate
+        selectedAsset = nil
+        do {
+            try filemgr.copyItemAtURL(avUrlAsset.URL, toURL: videoURL)
+        } catch _ {
+            print("Failed to copy")
+            return
+        }
+        
+        let thumbnailURL = getDocumentUrl("\(videoName).png")
+        let duration = MediaUtils.getVideoDuration(videoURL)
+        let thumbTime = CMTime(seconds: duration.seconds / 2.0, preferredTimescale: duration.timescale)
+        
+        MediaUtils.renderThumbnailFromVideo(videoURL, thumbnailURL: thumbnailURL, time: thumbTime)
+        
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         
         let managedContext = appDelegate.managedObjectContext
