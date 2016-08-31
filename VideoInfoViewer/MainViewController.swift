@@ -140,12 +140,9 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UITa
       let thumbnailURL = getDocumentUrl("\(videoName).png")
       let duration = MediaUtils.getVideoDuration(videoURL)
       let thumbTime = CMTime(seconds: duration.seconds / 2.0, preferredTimescale: duration.timescale)
+    
       MediaUtils.renderThumbnailFromVideo(videoURL, thumbnailURL: thumbnailURL, time: thumbTime)
-         
-      saveVideo(videoURL, thumbnailURL: thumbnailURL, creationDate: creationDate)
-   }
-
-    func saveVideo(videoURL: NSURL, thumbnailURL: NSURL, creationDate: NSDate?) {
+    
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         
         let managedContext = appDelegate.managedObjectContext
