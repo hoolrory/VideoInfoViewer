@@ -36,6 +36,16 @@ internal class AtomViewController: UIViewController {
         atomContent.text = atom?.getDescription()
     }
     
+    override func viewDidAppear(animated:Bool) {
+        super.viewDidAppear(animated)
+        
+        if let tracker = GAI.sharedInstance().defaultTracker {
+            tracker.set(kGAIScreenName, value: "AtomViewController")
+            let builder: NSObject = GAIDictionaryBuilder.createScreenView().build()
+            tracker.send(builder as! [NSObject : AnyObject])
+        }
+    }
+    
     @IBAction func onClickLoadRawData(sender: AnyObject) {
         loadRawDataButton.removeFromSuperview()
         

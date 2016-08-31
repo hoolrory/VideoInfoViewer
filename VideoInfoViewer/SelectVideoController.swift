@@ -50,6 +50,16 @@ class SelectVideoController: UICollectionViewController, UICollectionViewDelegat
         assets = assetsFetchResult.objectsAtIndexes(NSIndexSet(indexesInRange: NSMakeRange(0, assetsFetchResult.count))) as! [PHAsset]
     }
     
+    override func viewDidAppear(animated:Bool) {
+        super.viewDidAppear(animated)
+        
+        if let tracker = GAI.sharedInstance().defaultTracker {
+            tracker.set(kGAIScreenName, value: "SelectVideoController")
+            let builder: NSObject = GAIDictionaryBuilder.createScreenView().build()
+            tracker.send(builder as! [NSObject : AnyObject])
+        }
+    }
+    
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return assets.count
     }

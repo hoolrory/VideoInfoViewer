@@ -53,6 +53,16 @@ internal class AtomStructureViewController: UITableViewController {
         tableView.reloadData()
     }
     
+    override func viewDidAppear(animated:Bool) {
+        super.viewDidAppear(animated)
+        
+        if let tracker = GAI.sharedInstance().defaultTracker {
+            tracker.set(kGAIScreenName, value: "AtomStructureViewController")
+            let builder: NSObject = GAIDictionaryBuilder.createScreenView().build()
+            tracker.send(builder as! [NSObject : AnyObject])
+        }
+    }
+    
     func displayAtom( atom: Atom, depth: Int ) {
         if ( depth > 0 ) {
             // let indent = String( count: depth, repeatedValue: Character( " " ) )

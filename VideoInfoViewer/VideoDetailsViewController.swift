@@ -35,6 +35,16 @@ class VideoDetailsViewController: UIViewController {
         updateProperties()
     }
     
+    override func viewDidAppear(animated:Bool) {
+        super.viewDidAppear(animated)
+        
+        if let tracker = GAI.sharedInstance().defaultTracker {
+            tracker.set(kGAIScreenName, value: "VideoDetailsViewController")
+            let builder: NSObject = GAIDictionaryBuilder.createScreenView().build()
+            tracker.send(builder as! [NSObject : AnyObject])
+        }
+    }
+    
     func updateProperties() {
         if let tv = textView {
             if let videoURL = video?.videoURL {
