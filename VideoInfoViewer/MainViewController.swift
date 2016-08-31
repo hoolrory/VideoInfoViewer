@@ -44,23 +44,9 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UITa
         
         self.navigationItem.rightBarButtonItem = openButton
         
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        
-        let managedContext = appDelegate.managedObjectContext
-        
-        let fetchRequest = NSFetchRequest(entityName: "Video")
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "openDate", ascending: false)]
-        do {
-            let results = try managedContext.executeFetchRequest(fetchRequest)
-            let objects = results as! [NSManagedObject]
-            for object in objects {
-                videos.append(Video(fromObject: object))
-            }
-        } catch let error as NSError {
-            print("Could not fetch \(error), \(error.userInfo)")
-        }
-        
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        
+        self.loadVideos()
         
         setupAd()
     }
@@ -73,6 +59,27 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UITa
             let builder: NSObject = GAIDictionaryBuilder.createScreenView().build()
             tracker.send(builder as! [NSObject : AnyObject])
         }
+    }
+    
+    func loadVideos() {
+        videos.removeAll()
+        
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let managedContext = appDelegate.managedObjectContext
+        
+        let fetchRequest = NSFetchRequest(entityName: "Video")
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "openDate", ascending: false)]
+        do {
+            let results = try managedContext.executeFetchRequest(fetchRequest)
+            let objects = results as! [NSManagedObject]
+            for object in objects {
+                videos.append(Video(fromObject: object))
+            }
+        } catch let error {
+            print("Could not fetch \(error))")
+        }
+        
+        self.tableView.reloadData()
     }
     
     func setupAd() {
