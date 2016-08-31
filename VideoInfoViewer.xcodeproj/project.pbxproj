@@ -198,7 +198,6 @@
 				1FFC73751D42B31100757F78 /* ParserBridge.mm */,
 				1FFC73771D42B36900757F78 /* ParserBridge.h */,
 				1F3C15581D6F69E5003E8B7F /* Video.swift */,
-				1FFC736F1D42B25300757F78 /* VideoInfoViewer-Bridging-Header.h */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -255,6 +254,7 @@
 				1F9F19B21CDD18F100DE819B /* Main.storyboard */,
 				1F9F19BA1CDD18F100DE819B /* LaunchScreen.storyboard */,
 				1FC98CCD1CE5392900301B9E /* MediaUtils.swift */,
+				1FFC736F1D42B25300757F78 /* VideoInfoViewer-Bridging-Header.h */,
 				1F9F19B81CDD18F100DE819B /* Assets.xcassets */,
 				1F9F19B51CDD18F100DE819B /* VideoInfoViewer.xcdatamodeld */,
 				1F9F19BD1CDD18F100DE819B /* Info.plist */,
@@ -351,7 +351,7 @@
 				TargetAttributes = {
 					1F9F19AA1CDD18F100DE819B = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = Y7DPTH8469;
+						DevelopmentTeam = Y762L3586T;
 					};
 					1F9F19C11CDD18F100DE819B = {
 						CreatedOnToolsVersion = 7.3;
