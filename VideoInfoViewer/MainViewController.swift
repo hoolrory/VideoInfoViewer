@@ -271,7 +271,26 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UITa
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        viewVideo(self.videos[indexPath.row])
+        let video = self.videos[indexPath.row]
+        
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let managedContext = appDelegate.managedObjectContext
+        let fetchRequest = NSFetchRequest(entityName: "Video")
+        fetchRequest.predicate = NSPredicate(format: "assetId == %@", video.assetId)
+        
+        do {
+            let result = try managedContext.executeFetchRequest(fetchRequest) as! [NSManagedObject]
+            if (result.count == 1) {
+                let object = result[0]
+                object.setValue(NSDate(), forKey: "openDate")
+                try managedContext.save()
+            }
+        } catch {
+            fatalError("Failed to fetch video: \(error)")
+        }
+        
+        self.loadVideos()
+        viewVideo(video)
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }

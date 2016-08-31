@@ -10,6 +10,7 @@ import Foundation
 
 public struct Video {
     
+    var assetId: String!
     var videoURL: NSURL!
     var thumbURL: NSURL!
     var openDate: NSDate!
@@ -23,6 +24,7 @@ public struct Video {
             thumbURL = getDocumentUrl(thumbFile)
         }
         
+        assetId = object.valueForKey("assetId") as? String
         openDate = object.valueForKey("openDate") as? NSDate
         creationDate = object.valueForKey("creationDate") as? NSDate
     }
