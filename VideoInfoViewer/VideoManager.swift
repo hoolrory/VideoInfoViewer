@@ -86,14 +86,18 @@ class VideoManager {
         }
         
         let thumbnailURL = getDocumentUrl("\(videoName).png")
-        let duration = MediaUtils.getVideoDuration(videoURL)
-        let thumbTime = CMTime(seconds: duration.seconds / 2.0, preferredTimescale: duration.timescale)
         
-        MediaUtils.renderThumbnailFromVideo(videoURL, thumbnailURL: thumbnailURL, time: thumbTime)
+        let thumbSize: CGSize = CGSizeMake(CGFloat(phAsset.pixelWidth), CGFloat(phAsset.pixelHeight))
         
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let options = PHImageRequestOptions()
+        options.synchronous = true
         
-        let managedContext = appDelegate.managedObjectContext
+        let cachingImageManager = PHCachingImageManager()
+        cachingImageManager.requestImageForAsset(phAsset, targetSize: thumbSize, contentMode: PHImageContentMode.AspectFill, options: options, resultHandler: { (image: UIImage?, info :[NSObject : AnyObject]?) -> Void in
+            if let image = image {
+                UIImagePNGRepresentation(image)?.writeToURL(thumbnailURL, atomically: true)
+            }
+        })
         
         let entity =  NSEntityDescription.entityForName("Video", inManagedObjectContext:managedContext)
         
