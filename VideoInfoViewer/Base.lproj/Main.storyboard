@@ -103,10 +103,18 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8v5-ac-Ez4" userLabel="Play Button">
+                                <rect key="frame" x="259" y="46" width="82" height="48"/>
+                                <state key="normal" image="ic_play_circle_filled_white_48pt"/>
+                                <connections>
+                                    <action selector="onClickPlayButton:" destination="e2t-Sl-SrL" eventType="touchUpInside" id="FPs-3J-a2z"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="cof-ye-FSr" firstAttribute="top" secondItem="qzo-pL-ROr" secondAttribute="bottom" constant="10" id="1H4-oM-SZj"/>
+                            <constraint firstItem="8v5-ac-Ez4" firstAttribute="centerY" secondItem="qzo-pL-ROr" secondAttribute="centerY" id="4dV-n3-EbG"/>
                             <constraint firstItem="qzo-pL-ROr" firstAttribute="trailing" secondItem="7n8-Ni-Zzd" secondAttribute="trailingMargin" id="B6M-Ia-rI9"/>
                             <constraint firstItem="NCw-MQ-fLM" firstAttribute="trailing" secondItem="7n8-Ni-Zzd" secondAttribute="trailingMargin" constant="-10" id="Fkc-mK-zE3"/>
                             <constraint firstItem="qzo-pL-ROr" firstAttribute="leading" secondItem="7n8-Ni-Zzd" secondAttribute="leadingMargin" id="K33-G6-mke"/>
@@ -114,6 +122,7 @@
                             <constraint firstItem="7BT-mJ-8IT" firstAttribute="centerX" secondItem="7n8-Ni-Zzd" secondAttribute="centerX" id="NeT-bl-Ucg"/>
                             <constraint firstItem="NCw-MQ-fLM" firstAttribute="bottom" secondItem="7BT-mJ-8IT" secondAttribute="top" constant="5" id="Ugj-dr-hdA"/>
                             <constraint firstItem="NCw-MQ-fLM" firstAttribute="top" secondItem="cof-ye-FSr" secondAttribute="bottom" constant="5" id="ooa-LI-oJd"/>
+                            <constraint firstItem="8v5-ac-Ez4" firstAttribute="centerX" secondItem="qzo-pL-ROr" secondAttribute="centerX" id="qSu-4U-O5A"/>
                             <constraint firstItem="qzo-pL-ROr" firstAttribute="top" secondItem="2Mf-r5-IBb" secondAttribute="bottom" id="scT-l1-eEx"/>
                             <constraint firstItem="cof-ye-FSr" firstAttribute="leading" secondItem="7n8-Ni-Zzd" secondAttribute="leadingMargin" constant="10" id="ubd-qa-Tn3"/>
                             <constraint firstItem="7BT-mJ-8IT" firstAttribute="bottom" secondItem="bkh-wf-Mv0" secondAttribute="top" constant="-20" id="v3p-FK-Ofz"/>
@@ -121,6 +130,7 @@
                     </view>
                     <connections>
                         <outlet property="atomStructureButton" destination="7BT-mJ-8IT" id="21O-fa-qnV"/>
+                        <outlet property="playButton" destination="8v5-ac-Ez4" id="pZx-wA-zhA"/>
                         <outlet property="textView" destination="NCw-MQ-fLM" id="IaH-Zb-MYk"/>
                         <outlet property="thumbnailView" destination="qzo-pL-ROr" id="LtI-2D-nJl"/>
                     </connections>
@@ -328,5 +338,6 @@
     </scenes>
     <resources>
         <image name="empty_space" width="24" height="24"/>
+        <image name="ic_play_circle_filled_white_48pt" width="48" height="48"/>
     </resources>
 </document>

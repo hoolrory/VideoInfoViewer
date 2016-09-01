@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import AVFoundation
+import AVKit
 
 class VideoDetailsViewController: UIViewController {
 
@@ -17,6 +19,8 @@ class VideoDetailsViewController: UIViewController {
     @IBOutlet weak var textView: UITextView!
     
     @IBOutlet weak var atomStructureButton: UIButton!
+    
+    @IBOutlet weak var playButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +37,11 @@ class VideoDetailsViewController: UIViewController {
         thumbnailView?.image = UIImage(named: video!.thumbURL!.path! )
         
         updateProperties()
+        
+        let image = UIImage(named: "ic_play_circle_filled_white_48pt.png")?.imageWithRenderingMode(.AlwaysTemplate)
+        playButton.setImage(image, forState: .Normal)
+        playButton.tintColor = UIColor.whiteColor()
+        playButton.alpha = 0.8
     }
     
     override func viewDidAppear(animated:Bool) {
@@ -94,6 +103,17 @@ class VideoDetailsViewController: UIViewController {
             let atomStructureController = self.storyboard!.instantiateViewControllerWithIdentifier("atomStructure") as! AtomStructureViewController
             atomStructureController.video = video
             navController.pushViewController(atomStructureController, animated: true)
+        }
+    }
+    
+    @IBAction func onClickPlayButton(sender: UIButton) {
+        if let videoURL = video?.videoURL {
+            let player = AVPlayer(URL: videoURL)
+            let playerController = AVPlayerViewController()
+            playerController.player = player
+            self.presentViewController(playerController, animated: true) {
+                player.play()
+            }
         }
     }
 }
