@@ -129,9 +129,8 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UITa
         
         if let phAsset = selectedAsset {
             if let video = videoManager.addVideoFromAVURLAsset(avUrlAsset, phAsset:phAsset) {
-                videos.insert(video, atIndex: 0)
                 dispatch_async(dispatch_get_main_queue()) {
-                    self.tableView.reloadData()
+                    self.loadVideos()
                     self.viewVideo(video)
                 }
             }

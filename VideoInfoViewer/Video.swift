@@ -6,11 +6,12 @@
 //  Copyright © 2016 RoryHool. All rights reserved.
 //
 
+import CoreData
 import Foundation
 
 public struct Video {
     
-    var coreDataObject: NSObject!
+    var coreDataObject: NSManagedObject!
     
     var assetId: String!
     var videoURL: NSURL!
@@ -18,7 +19,7 @@ public struct Video {
     var openDate: NSDate!
     var creationDate: NSDate!
     
-    init(fromObject object: NSObject) {
+    init(fromObject object: NSManagedObject) {
         coreDataObject = object
         
         if let videoFile = object.valueForKey("videoFile") as? String {

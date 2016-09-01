@@ -70,6 +70,9 @@ class VideoManager {
     }
     
     func addVideoFromAVURLAsset(asset: AVURLAsset, phAsset: PHAsset) -> Video? {
+        
+        guard let managedContext = managedContext else { return nil }
+        
         let filemgr = NSFileManager.defaultManager()
         let lastPathComponent = asset.URL.lastPathComponent
         let videoName = lastPathComponent != nil ? lastPathComponent! :"video_\(NSDate().timeIntervalSince1970).MOV"
@@ -112,6 +115,8 @@ class VideoManager {
         do {
             try managedContext.save()
             
+            removeOldVideos()
+            
             return Video(fromObject: object)
         } catch let error  {
             print("Could not save \(error))")
@@ -119,6 +124,27 @@ class VideoManager {
 
         
         return nil
+    }
+    
+    func removeOldVideos() {
+        let videos = getVideos()
+        if videos.count > 5 {
+            let videosToDelete = videos[5..<videos.count ]
+            for video in videosToDelete {
+                managedContext?.deleteObject(video.coreDataObject)
+            }
+            do {
+                try managedContext?.save()
+                
+                let filemgr = NSFileManager.defaultManager()
+                for video in videosToDelete {
+                    try filemgr.removeItemAtURL(video.videoURL)
+                    try filemgr.removeItemAtURL(video.thumbURL)
+                }
+            } catch let error  {
+                print("Could not save \(error))")
+            }
+        }
     }
     
     func getDocumentUrl(pathComponent : String) -> NSURL {
