@@ -14,6 +14,7 @@
 		1F1234BA1D75B43500286170 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F1234B91D75B43500286170 /* libz.tbd */; };
 		1F1234BC1D75B63900286170 /* googleAnalytics.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1F1234BB1D75B63900286170 /* googleAnalytics.txt */; };
 		1F3C15591D6F69E5003E8B7F /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3C15581D6F69E5003E8B7F /* Video.swift */; };
+		1F5A24141D77700800FD5EE3 /* VideoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5A24131D77700800FD5EE3 /* VideoManager.swift */; };
 		1F65164B1D478EB8000851B2 /* AtomStructureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F65164A1D478EB8000851B2 /* AtomStructureViewController.swift */; };
 		1F6E3C4A1D4527890008CDD5 /* libMP4Parse.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F6E3C471D4523210008CDD5 /* libMP4Parse.a */; };
 		1F806BFA1D6CA29F002A1F88 /* SelectAlbumController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F806BF91D6CA29F002A1F88 /* SelectAlbumController.swift */; };
@@ -83,6 +84,7 @@
 		1F1234B91D75B43500286170 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		1F1234BB1D75B63900286170 /* googleAnalytics.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = googleAnalytics.txt; sourceTree = "<group>"; };
 		1F3C15581D6F69E5003E8B7F /* Video.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
+		1F5A24131D77700800FD5EE3 /* VideoManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoManager.swift; sourceTree = "<group>"; };
 		1F65164A1D478EB8000851B2 /* AtomStructureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AtomStructureViewController.swift; sourceTree = "<group>"; };
 		1F6E3C421D4523210008CDD5 /* MP4Parse.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MP4Parse.xcodeproj; path = Libraries/MP4Parse/MP4Parse.xcodeproj; sourceTree = "<group>"; };
 		1F806BF91D6CA29F002A1F88 /* SelectAlbumController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectAlbumController.swift; sourceTree = "<group>"; };
@@ -198,6 +200,7 @@
 				1FFC73751D42B31100757F78 /* ParserBridge.mm */,
 				1FFC73771D42B36900757F78 /* ParserBridge.h */,
 				1F3C15581D6F69E5003E8B7F /* Video.swift */,
+				1F5A24131D77700800FD5EE3 /* VideoManager.swift */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -436,6 +439,7 @@
 				1FC98CCE1CE5392900301B9E /* MediaUtils.swift in Sources */,
 				1FFC73761D42B31100757F78 /* ParserBridge.mm in Sources */,
 				1F9F19B11CDD18F100DE819B /* MainViewController.swift in Sources */,
+				1F5A24141D77700800FD5EE3 /* VideoManager.swift in Sources */,
 				1F806BFA1D6CA29F002A1F88 /* SelectAlbumController.swift in Sources */,
 				1F9F19B71CDD18F100DE819B /* VideoInfoViewer.xcdatamodeld in Sources */,
 				1F3C15591D6F69E5003E8B7F /* Video.swift in Sources */,

@@ -32,6 +32,8 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UITa
     
     var bannerView: GADBannerView?
     
+    let videoManager = VideoManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -62,23 +64,7 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UITa
     }
     
     func loadVideos() {
-        videos.removeAll()
-        
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        let managedContext = appDelegate.managedObjectContext
-        
-        let fetchRequest = NSFetchRequest(entityName: "Video")
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "openDate", ascending: false)]
-        do {
-            let results = try managedContext.executeFetchRequest(fetchRequest)
-            let objects = results as! [NSManagedObject]
-            for object in objects {
-                videos.append(Video(fromObject: object))
-            }
-        } catch let error {
-            print("Could not fetch \(error))")
-        }
-        
+        videos = videoManager.getVideos()
         self.tableView.reloadData()
     }
     
@@ -123,27 +109,13 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UITa
         
         if let assetId = selectedAsset?.localIdentifier {
             
-            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-            let managedContext = appDelegate.managedObjectContext
-            let fetchRequest = NSFetchRequest(entityName: "Video")
-            fetchRequest.predicate = NSPredicate(format: "assetId == %@", assetId)
-            
-            do {
-                let result = try managedContext.executeFetchRequest(fetchRequest) as! [NSManagedObject]
-                if (result.count == 1) {
-                    let object = result[0]
-                    object.setValue(NSDate(), forKey: "openDate")
-                    try managedContext.save()
-                    dispatch_async(dispatch_get_main_queue()) {
-                        self.loadVideos()
-                        let video = Video(fromObject: object)
-                        self.viewVideo(video)
-                    }
-                    return
-                }
-            } catch {
-                fatalError("Failed to fetch video: \(error)")
+            if let video = videoManager.getVideoByAssetId(assetId) {
+                videoManager.updateOpenDate(video)
+                self.loadVideos()
+                self.viewVideo(video)
+                return
             }
+
         }
         
         PHImageManager().requestAVAssetForVideo(
@@ -155,63 +127,15 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UITa
     func handleAVAssetRequestResult(avAsset: AVAsset?, audioMix: AVAudioMix?, info: [NSObject: AnyObject]?) {
         guard let avUrlAsset = avAsset as? AVURLAsset else { return }
         
-        let filemgr = NSFileManager.defaultManager()
-        let lastPathComponent = avUrlAsset.URL.lastPathComponent
-        let videoName = lastPathComponent != nil ? lastPathComponent! :"video_\(NSDate().timeIntervalSince1970).MOV"
-        
-        let videoURL = getDocumentUrl(videoName)
-        let creationDate = selectedAsset?.creationDate
-        let assetId = selectedAsset?.localIdentifier
-        
-        selectedAsset = nil
-        do {
-            try filemgr.copyItemAtURL(avUrlAsset.URL, toURL: videoURL)
-        } catch _ {
-            print("Failed to copy")
-            return
-        }
-        
-        let thumbnailURL = getDocumentUrl("\(videoName).png")
-        let duration = MediaUtils.getVideoDuration(videoURL)
-        let thumbTime = CMTime(seconds: duration.seconds / 2.0, preferredTimescale: duration.timescale)
-        
-        MediaUtils.renderThumbnailFromVideo(videoURL, thumbnailURL: thumbnailURL, time: thumbTime)
-        
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        
-        let managedContext = appDelegate.managedObjectContext
-        
-        let entity =  NSEntityDescription.entityForName("Video", inManagedObjectContext:managedContext)
-        
-        let object = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
-        
-        object.setValue(assetId, forKey: "assetId")
-        object.setValue(videoURL.lastPathComponent, forKey: "videoFile")
-        object.setValue(thumbnailURL.lastPathComponent, forKey: "thumbFile")
-        object.setValue(NSDate(), forKey: "openDate")
-        object.setValue(creationDate, forKey: "creationDate")
-        
-        do {
-            try managedContext.save()
-            let video = Video(fromObject: object)
-            videos.insert(video, atIndex: 0)
-            dispatch_async(dispatch_get_main_queue()) {
-                self.tableView.reloadData()
-                self.viewVideo(video)
+        if let phAsset = selectedAsset {
+            if let video = videoManager.addVideoFromAVURLAsset(avUrlAsset, phAsset:phAsset) {
+                videos.insert(video, atIndex: 0)
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.tableView.reloadData()
+                    self.viewVideo(video)
+                }
             }
-        } catch let error  {
-            print("Could not save \(error))")
         }
-    }
-    
-    func getDocumentUrl(pathComponent : String) -> NSURL {
-        let fileManager = NSFileManager.defaultManager()
-        let urls = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-        guard let documentDirectory: NSURL = urls.first else {
-            fatalError("documentDir Error")
-        }
-        
-        return documentDirectory.URLByAppendingPathComponent(pathComponent)
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -10,6 +10,8 @@ import Foundation
 
 public struct Video {
     
+    var coreDataObject: NSObject!
+    
     var assetId: String!
     var videoURL: NSURL!
     var thumbURL: NSURL!
@@ -17,6 +19,8 @@ public struct Video {
     var creationDate: NSDate!
     
     init(fromObject object: NSObject) {
+        coreDataObject = object
+        
         if let videoFile = object.valueForKey("videoFile") as? String {
             videoURL = getDocumentUrl(videoFile)
         }
