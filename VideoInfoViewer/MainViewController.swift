@@ -91,12 +91,55 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UITa
     
     @IBAction func clickOpen(sender: UIBarButtonItem) {
         
-        let selectAlbumController = self.storyboard!.instantiateViewControllerWithIdentifier("selectAlbum") as! SelectAlbumController
+        if checkPhotoAccess(sender) {
+            let selectAlbumController = self.storyboard!.instantiateViewControllerWithIdentifier("selectAlbum") as!     SelectAlbumController
         
-        selectAlbumController.didSelectAsset = didSelectAsset
+            selectAlbumController.didSelectAsset = didSelectAsset
         
-        if let navController = parentViewController as? UINavigationController {
-            navController.pushViewController(selectAlbumController, animated: true)
+            if let navController = parentViewController as? UINavigationController {
+                navController.pushViewController(selectAlbumController, animated: true)
+            }
+        }
+    }
+    
+    func checkPhotoAccess(sender: UIBarButtonItem) -> Bool {
+        let status = PHPhotoLibrary.authorizationStatus()
+        switch status {
+        case .Authorized:
+            print("Authorized")
+            return true
+        case .NotDetermined:
+            print("NotDetermined")
+            PHPhotoLibrary.requestAuthorization() { status in
+                switch status {
+                case .Authorized:
+                    self.clickOpen(sender)
+                    break
+                default:
+                    break
+                }
+            }
+            return false
+        case .Restricted:
+            print("Restricted")
+            return false
+        case .Denied:
+            print("Denied")
+            let alert = UIAlertController(
+                title: "Need Authorization",
+                message: "Authorize this app " +
+                "to access your Photo library?",
+                preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(
+                title: "No", style: .Cancel, handler: nil))
+            alert.addAction(UIAlertAction(
+                title: "OK", style: .Default, handler: {
+                    _ in
+                    let url = NSURL(string:UIApplicationOpenSettingsURLString)!
+                    UIApplication.sharedApplication().openURL(url)
+            }))
+            self.presentViewController(alert, animated:true, completion:nil)
+            return false
         }
     }
     
