@@ -95,7 +95,7 @@
 		1F8BF5CE1D5C1CFE002229BF /* AtomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AtomViewController.swift; sourceTree = "<group>"; };
 		1F8BF5D01D5CAB96002229BF /* AtomWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AtomWrapper.h; sourceTree = "<group>"; };
 		1F908C541D63212E00B2C552 /* AtomStructureViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AtomStructureViewCell.swift; sourceTree = "<group>"; };
-		1F9F19AB1CDD18F100DE819B /* VideoInfoViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoInfoViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F9F19AB1CDD18F100DE819B /* Video Info Viewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Video Info Viewer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F9F19AE1CDD18F100DE819B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1F9F19B01CDD18F100DE819B /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		1F9F19B31CDD18F100DE819B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -237,7 +237,7 @@
 		1F9F19AC1CDD18F100DE819B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1F9F19AB1CDD18F100DE819B /* VideoInfoViewer.app */,
+				1F9F19AB1CDD18F100DE819B /* Video Info Viewer.app */,
 				1F9F19C21CDD18F100DE819B /* VideoInfoViewerTests.xctest */,
 				1F9F19CD1CDD18F200DE819B /* VideoInfoViewerUITests.xctest */,
 			);
@@ -303,7 +303,7 @@
 			);
 			name = VideoInfoViewer;
 			productName = VideoInfoViewer;
-			productReference = 1F9F19AB1CDD18F100DE819B /* VideoInfoViewer.app */;
+			productReference = 1F9F19AB1CDD18F100DE819B /* Video Info Viewer.app */;
 			productType = "com.apple.product-type.application";
 		};
 		1F9F19C11CDD18F100DE819B /* VideoInfoViewerTests */ = {
@@ -617,7 +617,7 @@
 					"$(PROJECT_DIR)/Libraries",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.rory.hool.VideoInfoViewer;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Video Info Viewer";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "VideoInfoViewer/VideoInfoViewer-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -647,7 +647,7 @@
 					"$(PROJECT_DIR)/Libraries",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.rory.hool.VideoInfoViewer;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Video Info Viewer";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "VideoInfoViewer/VideoInfoViewer-Bridging-Header.h";
 			};
