@@ -21,6 +21,8 @@
 @implementation Atom
 
 - init {
+    self = [super init];
+    
      _children = [[NSMutableArray alloc] init];
     _hidden = false;
     _collapsed = false;
