@@ -20,7 +20,7 @@ import UIKit
 
 class MediaUtils {
     
-    static func renderThumbnailFromVideo(videoURL: NSURL, thumbnailURL: NSURL, time: CMTime) -> Bool {
+    static func renderThumbnailFromVideo(videoURL: NSURL, thumbURL: NSURL, time: CMTime) -> Bool {
         let asset = AVURLAsset(URL: videoURL, options: nil)
         let imgGenerator = AVAssetImageGenerator(asset: asset)
         let rotation = getVideoRotation(videoURL)
@@ -32,7 +32,7 @@ class MediaUtils {
                 uiImage = rotateImageByDegrees(uiImage, degrees: CGFloat(rotation))
             }
             
-            let result = UIImagePNGRepresentation(uiImage)?.writeToURL(thumbnailURL, atomically: true)
+            let result = UIImagePNGRepresentation(uiImage)?.writeToURL(thumbURL, atomically: true)
             return result != nil
         } catch _ {
             print("Failed to get thumbnail")

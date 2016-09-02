@@ -70,9 +70,6 @@ class VideoManager {
     }
     
     func addVideoFromAVURLAsset(asset: AVURLAsset, phAsset: PHAsset) -> Video? {
-        
-        guard let managedContext = managedContext else { return nil }
-        
         let filemgr = NSFileManager.defaultManager()
         let lastPathComponent = asset.URL.lastPathComponent
         let videoName = lastPathComponent != nil ? lastPathComponent! :"video_\(NSDate().timeIntervalSince1970).MOV"
@@ -88,7 +85,7 @@ class VideoManager {
             return nil
         }
         
-        let thumbnailURL = getDocumentUrl("\(videoName).png")
+        let thumbURL = getDocumentUrl("\(videoName).png")
         
         let thumbSize: CGSize = CGSizeMake(CGFloat(phAsset.pixelWidth), CGFloat(phAsset.pixelHeight))
         
@@ -98,37 +95,14 @@ class VideoManager {
         let cachingImageManager = PHCachingImageManager()
         cachingImageManager.requestImageForAsset(phAsset, targetSize: thumbSize, contentMode: PHImageContentMode.AspectFill, options: options, resultHandler: { (image: UIImage?, info :[NSObject : AnyObject]?) -> Void in
             if let image = image {
-                UIImagePNGRepresentation(image)?.writeToURL(thumbnailURL, atomically: true)
+                UIImagePNGRepresentation(image)?.writeToURL(thumbURL, atomically: true)
             }
         })
         
-        let entity =  NSEntityDescription.entityForName("Video", inManagedObjectContext:managedContext)
-        
-        let object = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
-        
-        object.setValue(assetId, forKey: "assetId")
-        object.setValue(videoURL.lastPathComponent, forKey: "videoFile")
-        object.setValue(thumbnailURL.lastPathComponent, forKey: "thumbFile")
-        object.setValue(NSDate(), forKey: "openDate")
-        object.setValue(creationDate, forKey: "creationDate")
-        
-        do {
-            try managedContext.save()
-            
-            removeOldVideos()
-            
-            return Video(fromObject: object)
-        } catch let error  {
-            print("Could not save \(error))")
-        }
-
-        
-        return nil
+        return addVideo(assetId, videoURL: videoURL, thumbURL: thumbURL, creationDate: creationDate)
     }
     
     func addVideoFromURL(url: NSURL) -> Video? {
-        guard let managedContext = managedContext else { return nil }
-        
         let filemgr = NSFileManager.defaultManager()
         let lastPathComponent = url.lastPathComponent
         let videoName = lastPathComponent != nil ? lastPathComponent! :"video_\(NSDate().timeIntervalSince1970).MOV"
@@ -144,12 +118,18 @@ class VideoManager {
             return nil
         }
         
-        let thumbnailURL = getDocumentUrl("\(videoName).png")
+        let thumbURL = getDocumentUrl("\(videoName).png")
         
         let duration = MediaUtils.getVideoDuration(videoURL)
         let thumbTime = CMTime(seconds: duration.seconds / 2.0, preferredTimescale: duration.timescale)
         
-        MediaUtils.renderThumbnailFromVideo(videoURL, thumbnailURL: thumbnailURL, time: thumbTime)
+        MediaUtils.renderThumbnailFromVideo(videoURL, thumbURL: thumbURL, time: thumbTime)
+        
+        return addVideo(assetId, videoURL: videoURL, thumbURL: thumbURL, creationDate: creationDate)
+    }
+    
+    func addVideo(assetId: String, videoURL: NSURL, thumbURL: NSURL, creationDate: NSDate?) -> Video? {
+        guard let managedContext = managedContext else { return nil }
         
         let entity =  NSEntityDescription.entityForName("Video", inManagedObjectContext:managedContext)
         
@@ -157,7 +137,7 @@ class VideoManager {
         
         object.setValue(assetId, forKey: "assetId")
         object.setValue(videoURL.lastPathComponent, forKey: "videoFile")
-        object.setValue(thumbnailURL.lastPathComponent, forKey: "thumbFile")
+        object.setValue(thumbURL.lastPathComponent, forKey: "thumbFile")
         object.setValue(NSDate(), forKey: "openDate")
         object.setValue(creationDate, forKey: "creationDate")
         
