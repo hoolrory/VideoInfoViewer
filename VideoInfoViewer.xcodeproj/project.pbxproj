@@ -616,7 +616,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Libraries",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.rory.hool.VideoInfoViewer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rory.p.hool.VideoInfoViewer;
 				PRODUCT_NAME = "Video Info Viewer";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "VideoInfoViewer/VideoInfoViewer-Bridging-Header.h";
@@ -646,7 +646,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Libraries",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.rory.hool.VideoInfoViewer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rory.p.hool.VideoInfoViewer;
 				PRODUCT_NAME = "Video Info Viewer";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "VideoInfoViewer/VideoInfoViewer-Bridging-Header.h";
