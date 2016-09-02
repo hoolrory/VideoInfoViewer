@@ -28,11 +28,14 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UITa
     @IBOutlet
     var tableView: UITableView!
     
+    var activityView: UIActivityIndicatorView?
+    
     var selectedAsset: PHAsset?
     
     var bannerView: GADBannerView?
     
     let videoManager = VideoManager()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,12 +93,17 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UITa
     }
     
     func handleURL(url: NSURL) {
-        if let video = videoManager.addVideoFromURL(url) {
+        showActivityIndicator()
+        videoManager.addVideoFromURL(url, completionHandler: { video in
             dispatch_async(dispatch_get_main_queue()) {
-                self.loadVideos()
-                self.viewVideo(video)
+                self.removeActivityIndicator()
+                if let video = video {
+                    self.loadVideos()
+                    self.viewVideo(video)
+                }
             }
-        }
+        
+        })
     }
     
     @IBAction func clickOpen(sender: UIBarButtonItem) {
@@ -115,10 +123,8 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UITa
         let status = PHPhotoLibrary.authorizationStatus()
         switch status {
         case .Authorized:
-            print("Authorized")
             return true
         case .NotDetermined:
-            print("NotDetermined")
             PHPhotoLibrary.requestAuthorization() { status in
                 switch status {
                 case .Authorized:
@@ -130,10 +136,8 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UITa
             }
             return false
         case .Restricted:
-            print("Restricted")
             return false
         case .Denied:
-            print("Denied")
             let alert = UIAlertController(
                 title: "Need Authorization",
                 message: "Authorize this app " +
@@ -153,6 +157,7 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UITa
     }
     
     func didSelectAsset(asset: PHAsset!) {
+        
         let videoRequestOptions = PHVideoRequestOptions()
         videoRequestOptions.version = .Original
         videoRequestOptions.networkAccessAllowed = true
@@ -180,12 +185,17 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UITa
         guard let avUrlAsset = avAsset as? AVURLAsset else { return }
         
         if let phAsset = selectedAsset {
-            if let video = videoManager.addVideoFromAVURLAsset(avUrlAsset, phAsset:phAsset) {
+            showActivityIndicator()
+            videoManager.addVideoFromAVURLAsset(avUrlAsset, phAsset:phAsset, completionHandler: { video in
                 dispatch_async(dispatch_get_main_queue()) {
-                    self.loadVideos()
-                    self.viewVideo(video)
+                    self.removeActivityIndicator()
+                    if let video = video {
+                        self.loadVideos()
+                        self.viewVideo(video)
+                    }
                 }
-            }
+                
+            })
         }
     }
     
@@ -276,6 +286,27 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UITa
             let videoDetailsController = self.storyboard!.instantiateViewControllerWithIdentifier("videoDetails") as! VideoDetailsViewController
             videoDetailsController.video = video
             navController.pushViewController(videoDetailsController, animated: true)
+        }
+    }
+    
+    func showActivityIndicator() {
+        dispatch_async(dispatch_get_main_queue()) {
+            self.activityView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+            self.activityView!.backgroundColor = UIColor.grayColor().colorWithAlphaComponent(0.5)
+            self.activityView!.center = self.view.center
+            self.activityView!.frame = self.view.frame
+            
+            self.view.addSubview(self.activityView!)
+            self.activityView!.startAnimating()
+        }
+    }
+    
+    func removeActivityIndicator() {
+        dispatch_async(dispatch_get_main_queue()) {
+            if let activityView = self.activityView {
+                activityView.stopAnimating()
+                activityView.removeFromSuperview()
+            }
         }
     }
 }
