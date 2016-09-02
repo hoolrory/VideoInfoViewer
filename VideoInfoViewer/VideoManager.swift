@@ -26,7 +26,7 @@ class VideoManager {
         
         let fetchRequest = NSFetchRequest(entityName: "Video")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "openDate", ascending: false)]
-            
+        
         do {
             let results = try managedContext?.executeFetchRequest(fetchRequest)
             if let objects = results as? [NSManagedObject] {
@@ -35,7 +35,7 @@ class VideoManager {
                 }
             }
         } catch _ {
-        
+            
         }
         
         return videos
@@ -61,7 +61,7 @@ class VideoManager {
     
     func updateOpenDate(video: Video) {
         video.coreDataObject.setValue(NSDate(), forKey: "openDate")
-            
+        
         do {
             try managedContext?.save()
         } catch _ {
@@ -74,67 +74,67 @@ class VideoManager {
     func addVideoFromAVURLAsset(asset: AVURLAsset, phAsset: PHAsset, completionHandler: CompletionHandler) {
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-        let filemgr = NSFileManager.defaultManager()
-        let lastPathComponent = asset.URL.lastPathComponent
-        let videoName = lastPathComponent != nil ? lastPathComponent! :"video_\(NSDate().timeIntervalSince1970).MOV"
-        
-        let videoURL = self.getDocumentUrl(videoName)
-        let creationDate = phAsset.creationDate
-        let assetId = phAsset.localIdentifier
-        
-        do {
-            try filemgr.copyItemAtURL(asset.URL, toURL: videoURL)
-        } catch _ {
-            print("Failed to copy")
-            completionHandler(result: nil)
-        }
-        
-        let thumbURL = self.getDocumentUrl("\(videoName).png")
-        
-        let thumbSize: CGSize = CGSizeMake(CGFloat(phAsset.pixelWidth), CGFloat(phAsset.pixelHeight))
-        
-        let options = PHImageRequestOptions()
-        options.synchronous = true
-        
-        let cachingImageManager = PHCachingImageManager()
-        cachingImageManager.requestImageForAsset(phAsset, targetSize: thumbSize, contentMode: PHImageContentMode.AspectFill, options: options, resultHandler: { (image: UIImage?, info :[NSObject : AnyObject]?) -> Void in
-            if let image = image {
-                UIImagePNGRepresentation(image)?.writeToURL(thumbURL, atomically: true)
+            let filemgr = NSFileManager.defaultManager()
+            let lastPathComponent = asset.URL.lastPathComponent
+            let videoName = lastPathComponent != nil ? lastPathComponent! :"video_\(NSDate().timeIntervalSince1970).MOV"
+            
+            let videoURL = self.getDocumentUrl(videoName)
+            let creationDate = phAsset.creationDate
+            let assetId = phAsset.localIdentifier
+            
+            do {
+                try filemgr.copyItemAtURL(asset.URL, toURL: videoURL)
+            } catch _ {
+                print("Failed to copy")
+                completionHandler(result: nil)
             }
-        })
-        
-        let video = self.addVideo(assetId, videoURL: videoURL, thumbURL: thumbURL, creationDate: creationDate)
-        completionHandler(result: video)
+            
+            let thumbURL = self.getDocumentUrl("\(videoName).png")
+            
+            let thumbSize: CGSize = CGSizeMake(CGFloat(phAsset.pixelWidth), CGFloat(phAsset.pixelHeight))
+            
+            let options = PHImageRequestOptions()
+            options.synchronous = true
+            
+            let cachingImageManager = PHCachingImageManager()
+            cachingImageManager.requestImageForAsset(phAsset, targetSize: thumbSize, contentMode: PHImageContentMode.AspectFill, options: options, resultHandler: { (image: UIImage?, info :[NSObject : AnyObject]?) -> Void in
+                if let image = image {
+                    UIImagePNGRepresentation(image)?.writeToURL(thumbURL, atomically: true)
+                }
+            })
+            
+            let video = self.addVideo(assetId, videoURL: videoURL, thumbURL: thumbURL, creationDate: creationDate)
+            completionHandler(result: video)
         }
     }
     
     func addVideoFromURL(url: NSURL, completionHandler: CompletionHandler) {
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-        let filemgr = NSFileManager.defaultManager()
-        let lastPathComponent = url.lastPathComponent
-        let videoName = lastPathComponent != nil ? lastPathComponent! :"video_\(NSDate().timeIntervalSince1970).MOV"
-        
-        let videoURL = self.getDocumentUrl(videoName)
-        let creationDate = NSDate()
-        let assetId = ""
-        
-        do {
-            try filemgr.copyItemAtURL(url, toURL: videoURL)
-        } catch _ {
-            print("Failed to copy")
-            completionHandler(result: nil)
-        }
-        
-        let thumbURL = self.getDocumentUrl("\(videoName).png")
-        
-        let duration = MediaUtils.getVideoDuration(videoURL)
-        let thumbTime = CMTime(seconds: duration.seconds / 2.0, preferredTimescale: duration.timescale)
-        
-        MediaUtils.renderThumbnailFromVideo(videoURL, thumbURL: thumbURL, time: thumbTime)
-        
-        let video = self.addVideo(assetId, videoURL: videoURL, thumbURL: thumbURL, creationDate: creationDate)
-        completionHandler(result: video)
+            let filemgr = NSFileManager.defaultManager()
+            let lastPathComponent = url.lastPathComponent
+            let videoName = lastPathComponent != nil ? lastPathComponent! :"video_\(NSDate().timeIntervalSince1970).MOV"
+            
+            let videoURL = self.getDocumentUrl(videoName)
+            let creationDate = NSDate()
+            let assetId = ""
+            
+            do {
+                try filemgr.copyItemAtURL(url, toURL: videoURL)
+            } catch _ {
+                print("Failed to copy")
+                completionHandler(result: nil)
+            }
+            
+            let thumbURL = self.getDocumentUrl("\(videoName).png")
+            
+            let duration = MediaUtils.getVideoDuration(videoURL)
+            let thumbTime = CMTime(seconds: duration.seconds / 2.0, preferredTimescale: duration.timescale)
+            
+            MediaUtils.renderThumbnailFromVideo(videoURL, thumbURL: thumbURL, time: thumbTime)
+            
+            let video = self.addVideo(assetId, videoURL: videoURL, thumbURL: thumbURL, creationDate: creationDate)
+            completionHandler(result: video)
         }
     }
     
