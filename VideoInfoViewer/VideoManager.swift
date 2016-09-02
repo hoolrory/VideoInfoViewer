@@ -126,6 +126,55 @@ class VideoManager {
         return nil
     }
     
+    func addVideoFromURL(url: NSURL) -> Video? {
+        guard let managedContext = managedContext else { return nil }
+        
+        let filemgr = NSFileManager.defaultManager()
+        let lastPathComponent = url.lastPathComponent
+        let videoName = lastPathComponent != nil ? lastPathComponent! :"video_\(NSDate().timeIntervalSince1970).MOV"
+        
+        let videoURL = getDocumentUrl(videoName)
+        let creationDate = NSDate()
+        let assetId = ""
+        
+        do {
+            try filemgr.copyItemAtURL(url, toURL: videoURL)
+        } catch _ {
+            print("Failed to copy")
+            return nil
+        }
+        
+        let thumbnailURL = getDocumentUrl("\(videoName).png")
+        
+        let duration = MediaUtils.getVideoDuration(videoURL)
+        let thumbTime = CMTime(seconds: duration.seconds / 2.0, preferredTimescale: duration.timescale)
+        
+        MediaUtils.renderThumbnailFromVideo(videoURL, thumbnailURL: thumbnailURL, time: thumbTime)
+        
+        let entity =  NSEntityDescription.entityForName("Video", inManagedObjectContext:managedContext)
+        
+        let object = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
+        
+        object.setValue(assetId, forKey: "assetId")
+        object.setValue(videoURL.lastPathComponent, forKey: "videoFile")
+        object.setValue(thumbnailURL.lastPathComponent, forKey: "thumbFile")
+        object.setValue(NSDate(), forKey: "openDate")
+        object.setValue(creationDate, forKey: "creationDate")
+        
+        do {
+            try managedContext.save()
+            
+            removeOldVideos()
+            
+            return Video(fromObject: object)
+        } catch let error  {
+            print("Could not save \(error))")
+        }
+        
+        
+        return nil
+    }
+    
     func removeOldVideos() {
         let videos = getVideos()
         if videos.count > 5 {

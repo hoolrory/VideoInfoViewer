@@ -89,6 +89,15 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UITa
         }
     }
     
+    func handleURL(url: NSURL) {
+        if let video = videoManager.addVideoFromURL(url) {
+            dispatch_async(dispatch_get_main_queue()) {
+                self.loadVideos()
+                self.viewVideo(video)
+            }
+        }
+    }
+    
     @IBAction func clickOpen(sender: UIBarButtonItem) {
         
         if checkPhotoAccess(sender) {

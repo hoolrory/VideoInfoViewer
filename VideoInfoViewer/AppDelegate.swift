@@ -68,6 +68,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
     }
+    
+    func application(app: UIApplication, openURL url: NSURL,
+                     options: [String : AnyObject]) -> Bool {
+        if let vc = self.window?.rootViewController as? UINavigationController {
+            vc.popToRootViewControllerAnimated(false)
+            if let main = vc.visibleViewController as? MainViewController {
+                main.handleURL(url)
+            }
+        }
+        return true
+    }
 
     // MARK: - Core Data stack
 
