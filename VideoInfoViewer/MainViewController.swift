@@ -49,6 +49,11 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UITa
         
         self.navigationItem.rightBarButtonItem = openButton
         
+        let backButton = UIBarButtonItem()
+        backButton.title = "Back"
+        
+        self.navigationItem.backBarButtonItem = backButton
+        
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
         
         self.loadVideos()

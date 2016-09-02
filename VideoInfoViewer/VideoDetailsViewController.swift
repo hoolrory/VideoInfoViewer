@@ -35,13 +35,6 @@ class VideoDetailsViewController: UIViewController {
         
         self.title = "Video Info"
         
-        let backButton = UIBarButtonItem()
-        backButton.title = "Back"
-        backButton.action = #selector(VideoDetailsViewController.clickBack(_:))
-        backButton.target = self
-        
-        self.navigationItem.leftBarButtonItem = backButton
-        
         thumbnailView?.image = UIImage(named: video!.thumbURL!.path! )
         
         updateProperties()
@@ -92,18 +85,6 @@ class VideoDetailsViewController: UIViewController {
         
         return ""
     }
-    
-    @IBAction func clickBack(sender: UIBarButtonItem) {
-        let nc = parentViewController as? UINavigationController
-        if let navController = nc {
-            navController.popViewControllerAnimated(true)
-        }
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }    
     
     @IBAction func onClickAtomStructureButton(sender: UIButton) {
         let nc = parentViewController as? UINavigationController
