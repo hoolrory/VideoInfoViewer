@@ -31,6 +31,7 @@
 		1F9F19BC1CDD18F100DE819B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F9F19BA1CDD18F100DE819B /* LaunchScreen.storyboard */; };
 		1F9F19C71CDD18F100DE819B /* VideoInfoViewerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F19C61CDD18F100DE819B /* VideoInfoViewerTests.swift */; };
 		1F9F19D21CDD18F200DE819B /* VideoInfoViewerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F19D11CDD18F200DE819B /* VideoInfoViewerUITests.swift */; };
+		1FADD1EC1D79AA3500B728A4 /* CreditsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FADD1EB1D79AA3500B728A4 /* CreditsViewController.swift */; };
 		1FC98CCE1CE5392900301B9E /* MediaUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC98CCD1CE5392900301B9E /* MediaUtils.swift */; };
 		1FFC73761D42B31100757F78 /* ParserBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1FFC73751D42B31100757F78 /* ParserBridge.mm */; };
 /* End PBXBuildFile section */
@@ -109,6 +110,7 @@
 		1F9F19CD1CDD18F200DE819B /* VideoInfoViewerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VideoInfoViewerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F9F19D11CDD18F200DE819B /* VideoInfoViewerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoInfoViewerUITests.swift; sourceTree = "<group>"; };
 		1F9F19D31CDD18F200DE819B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1FADD1EB1D79AA3500B728A4 /* CreditsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditsViewController.swift; sourceTree = "<group>"; };
 		1FC98CCD1CE5392900301B9E /* MediaUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaUtils.swift; sourceTree = "<group>"; };
 		1FFC736F1D42B25300757F78 /* VideoInfoViewer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VideoInfoViewer-Bridging-Header.h"; sourceTree = "<group>"; };
 		1FFC73751D42B31100757F78 /* ParserBridge.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ParserBridge.mm; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 				1F9F19AE1CDD18F100DE819B /* AppDelegate.swift */,
 				1F9F19B01CDD18F100DE819B /* MainViewController.swift */,
 				1F81F5811CE16FE100544F85 /* VideoDetailsViewController.swift */,
+				1FADD1EB1D79AA3500B728A4 /* CreditsViewController.swift */,
 				1F9F19B21CDD18F100DE819B /* Main.storyboard */,
 				1F9F19BA1CDD18F100DE819B /* LaunchScreen.storyboard */,
 				1FC98CCD1CE5392900301B9E /* MediaUtils.swift */,
@@ -440,6 +443,7 @@
 				1FFC73761D42B31100757F78 /* ParserBridge.mm in Sources */,
 				1F9F19B11CDD18F100DE819B /* MainViewController.swift in Sources */,
 				1F5A24141D77700800FD5EE3 /* VideoManager.swift in Sources */,
+				1FADD1EC1D79AA3500B728A4 /* CreditsViewController.swift in Sources */,
 				1F806BFA1D6CA29F002A1F88 /* SelectAlbumController.swift in Sources */,
 				1F9F19B71CDD18F100DE819B /* VideoInfoViewer.xcdatamodeld in Sources */,
 				1F3C15591D6F69E5003E8B7F /* Video.swift in Sources */,

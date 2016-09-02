@@ -49,6 +49,13 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UITa
         
         self.navigationItem.rightBarButtonItem = openButton
         
+        let creditsButton = UIBarButtonItem()
+        creditsButton.title = "Credits"
+        creditsButton.action = #selector(MainViewController.clickCredits(_:))
+        creditsButton.target = self
+        
+        self.navigationItem.leftBarButtonItem = creditsButton
+        
         let backButton = UIBarButtonItem()
         backButton.title = "Back"
         
@@ -121,6 +128,14 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UITa
             if let navController = parentViewController as? UINavigationController {
                 navController.pushViewController(selectAlbumController, animated: true)
             }
+        }
+    }
+    
+    @IBAction func clickCredits(sender: UIBarButtonItem) {
+        let creditsController = self.storyboard!.instantiateViewControllerWithIdentifier("credits") as!     CreditsViewController
+        
+        if let navController = parentViewController as? UINavigationController {
+            navController.pushViewController(creditsController, animated: true)
         }
     }
     

@@ -9,7 +9,7 @@
         <!--Main View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="BYZ-38-t0r" userLabel="Main View Controller" customClass="MainViewController" customModule="VideoInfoViewer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="BYZ-38-t0r" userLabel="Main View Controller" customClass="MainViewController" customModule="Video_Info_Viewer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -65,7 +65,7 @@
         <!--Video Details View Controller-->
         <scene sceneID="LSN-AW-4VY">
             <objects>
-                <viewController storyboardIdentifier="videoDetails" id="e2t-Sl-SrL" customClass="VideoDetailsViewController" customModule="VideoInfoViewer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="videoDetails" id="e2t-Sl-SrL" customClass="VideoDetailsViewController" customModule="Video_Info_Viewer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="2Mf-r5-IBb"/>
                         <viewControllerLayoutGuide type="bottom" id="bkh-wf-Mv0"/>
@@ -103,8 +103,8 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8v5-ac-Ez4" userLabel="Play Button">
-                                <rect key="frame" x="259" y="46" width="82" height="48"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8v5-ac-Ez4" userLabel="Play Button">
+                                <rect key="frame" x="276" y="46" width="48" height="48"/>
                                 <state key="normal" image="ic_play_circle_filled_white_48pt"/>
                                 <connections>
                                     <action selector="onClickPlayButton:" destination="e2t-Sl-SrL" eventType="touchUpInside" id="FPs-3J-a2z"/>
@@ -142,7 +142,7 @@
         <!--Atom Structure View Controller-->
         <scene sceneID="2OW-Rw-dfG">
             <objects>
-                <tableViewController storyboardIdentifier="atomStructure" id="N75-Ot-nJP" customClass="AtomStructureViewController" customModule="VideoInfoViewer" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="atomStructure" id="N75-Ot-nJP" customClass="AtomStructureViewController" customModule="Video_Info_Viewer" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Bed-w8-dQz">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -151,7 +151,7 @@
                         <color key="sectionIndexBackgroundColor" red="0.7843137255" green="0.78039215689999997" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="sectionIndexTrackingBackgroundColor" red="0.7843137255" green="0.78039215689999997" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="atomCell" id="00D-uv-Rcr" customClass="AtomStructureViewCell" customModule="VideoInfoViewer" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="atomCell" id="00D-uv-Rcr" customClass="AtomStructureViewCell" customModule="Video_Info_Viewer" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" tableViewCell="00D-uv-Rcr" id="Ey4-Nd-cmQ">
@@ -217,7 +217,7 @@
         <!--Atom View Controller-->
         <scene sceneID="WNf-wp-fkg">
             <objects>
-                <viewController storyboardIdentifier="atom" id="6i2-t0-IC1" customClass="AtomViewController" customModule="VideoInfoViewer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="atom" id="6i2-t0-IC1" customClass="AtomViewController" customModule="Video_Info_Viewer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="d6B-nA-Esl"/>
                         <viewControllerLayoutGuide type="bottom" id="xVY-RN-yP4"/>
@@ -276,7 +276,7 @@
         <!--Select Album Controller-->
         <scene sceneID="FbK-oN-5AL">
             <objects>
-                <tableViewController storyboardIdentifier="selectAlbum" id="3v9-GB-Kkq" customClass="SelectAlbumController" customModule="VideoInfoViewer" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="selectAlbum" id="3v9-GB-Kkq" customClass="SelectAlbumController" customModule="Video_Info_Viewer" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="UW6-D7-SjH">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -304,7 +304,7 @@
         <!--Select Video Controller-->
         <scene sceneID="dIr-PM-ovr">
             <objects>
-                <collectionViewController storyboardIdentifier="selectVideo" id="Eui-WF-FrU" customClass="SelectVideoController" customModule="VideoInfoViewer" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="selectVideo" id="Eui-WF-FrU" customClass="SelectVideoController" customModule="Video_Info_Viewer" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="jPU-KZ-Wwi">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -334,6 +334,40 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i0S-UL-HcQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1488" y="1308"/>
+        </scene>
+        <!--Credits View Controller-->
+        <scene sceneID="0ke-6t-46t">
+            <objects>
+                <viewController storyboardIdentifier="credits" id="qlB-Gx-i0e" customClass="CreditsViewController" customModule="Video_Info_Viewer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jOA-Xw-o4K"/>
+                        <viewControllerLayoutGuide type="bottom" id="Mhz-qG-jYT"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="TKq-SO-kDV">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Some Credits" translatesAutoresizingMaskIntoConstraints="NO" id="Qlp-Dl-0fg">
+                                <rect key="frame" x="30" y="30" width="540" height="560"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Qlp-Dl-0fg" firstAttribute="top" secondItem="jOA-Xw-o4K" secondAttribute="bottom" constant="10" id="9Hf-dJ-8Fs"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Qlp-Dl-0fg" secondAttribute="trailing" constant="10" id="iro-qG-gz3"/>
+                            <constraint firstItem="Mhz-qG-jYT" firstAttribute="top" secondItem="Qlp-Dl-0fg" secondAttribute="bottom" constant="10" id="sMO-f5-HuG"/>
+                            <constraint firstItem="Qlp-Dl-0fg" firstAttribute="leading" secondItem="TKq-SO-kDV" secondAttribute="leadingMargin" constant="10" id="uo3-hs-R2U"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="textView" destination="Qlp-Dl-0fg" id="YUQ-0k-Skh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9xQ-P2-gbo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
         </scene>
     </scenes>
     <resources>
