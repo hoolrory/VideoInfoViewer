@@ -133,7 +133,10 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UITa
             PHPhotoLibrary.requestAuthorization() { status in
                 switch status {
                 case .Authorized:
-                    self.clickOpen(sender)
+                    
+                    dispatch_async(dispatch_get_main_queue()) {
+                        self.clickOpen(sender)
+                    }
                     break
                 default:
                     break
