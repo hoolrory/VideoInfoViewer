@@ -29,6 +29,10 @@ struct ParserWrapper {
 
 @implementation ParserBridge
 
+- (void)dealloc {
+    delete _parserWrapper.parser;
+}
+
 - (Atom*) parseFile: (NSString*) filePath
 {
     const char *cFilePath=[filePath UTF8String];
