@@ -108,6 +108,12 @@ class VideoManager {
             cachingImageManager.requestImageForAsset(phAsset, targetSize: thumbSize, contentMode: PHImageContentMode.AspectFill, options: options, resultHandler: { (image: UIImage?, info :[NSObject : AnyObject]?) -> Void in
                 if let image = image {
                     UIImagePNGRepresentation(image)?.writeToURL(thumbURL, atomically: true)
+                } else {
+                    let duration = MediaUtils.getVideoDuration(videoURL)
+                    let thumbTime = CMTime(seconds: duration.seconds / 2.0, preferredTimescale: duration.timescale)
+                    
+                    MediaUtils.renderThumbnailFromVideo(videoURL, thumbURL: thumbURL, time: thumbTime)
+                    
                 }
             })
             
