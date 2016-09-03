@@ -235,9 +235,15 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UITa
             cell.textLabel?.text = videoURL.lastPathComponent
         }
         
+        cell.imageView?.image = nil
+        
         if let thumbURL = video.thumbURL {
             let imageSize = Double(cell.contentView.frame.height)
-            cell.imageView?.image = cropToBounds(UIImage(named: thumbURL.path!)!, width:imageSize, height:imageSize )
+            if let path = thumbURL.path {
+                if let image = UIImage(named: path) {
+                    cell.imageView?.image = cropToBounds(image, width:imageSize, height:imageSize )
+                }
+            }
         }
         
         return cell
