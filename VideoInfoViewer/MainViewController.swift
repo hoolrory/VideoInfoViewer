@@ -197,7 +197,7 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UITa
             }
 
         }
-        
+        showActivityIndicator()
         PHImageManager().requestAVAssetForVideo(
             asset, options:
             videoRequestOptions,
@@ -205,10 +205,13 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UITa
     }
     
     func handleAVAssetRequestResult(avAsset: AVAsset?, audioMix: AVAudioMix?, info: [NSObject: AnyObject]?) {
-        guard let avUrlAsset = avAsset as? AVURLAsset else { return }
+        guard let avUrlAsset = avAsset as? AVURLAsset else
+        {
+            removeActivityIndicator()
+            return
+        }
         
         if let phAsset = selectedAsset {
-            showActivityIndicator()
             videoManager.addVideoFromAVURLAsset(avUrlAsset, phAsset:phAsset, completionHandler: { video in
                 dispatch_async(dispatch_get_main_queue()) {
                     self.removeActivityIndicator()
@@ -219,6 +222,8 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UITa
                 }
                 
             })
+        } else {
+            removeActivityIndicator()
         }
     }
     
