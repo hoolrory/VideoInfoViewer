@@ -185,8 +185,17 @@ class VideoManager {
                 
                 let filemgr = NSFileManager.defaultManager()
                 for video in videosToDelete {
-                    try filemgr.removeItemAtURL(video.videoURL)
-                    try filemgr.removeItemAtURL(video.thumbURL)
+                    
+                    if let videoPath = video.videoURL.path {
+                        if filemgr.fileExistsAtPath(videoPath) {
+                            try filemgr.removeItemAtURL(video.videoURL)
+                        }
+                    }
+                    if let thumbPath = video.thumbURL.path {
+                        if filemgr.fileExistsAtPath(thumbPath) {
+                            try filemgr.removeItemAtURL(video.thumbURL)
+                        }
+                    }
                 }
             } catch let error  {
                 print("Could not save \(error))")
