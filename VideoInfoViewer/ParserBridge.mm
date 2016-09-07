@@ -52,8 +52,8 @@ struct ParserWrapper {
     Atom* atom = [[Atom alloc] init];
     atom.atomWrapper = atomWrapper;
     atom.depth = depth;
-    MP4::ContainerAtom *containerAtom = dynamic_cast<MP4::ContainerAtom*>( atomWrapper.atom );
-    if( containerAtom ) {
+    
+    if( MP4::ContainerAtom *containerAtom = dynamic_cast<MP4::ContainerAtom*>( atomWrapper.atom ) ) {
         std::vector<MP4::Atom*> children = containerAtom->getChildren();
         for(std::vector<MP4::Atom*>::iterator it = children.begin(); it != children.end(); ++it) {
             AtomWrapper childWrapper;
@@ -61,9 +61,7 @@ struct ParserWrapper {
             Atom* child = [self transformAtom:childWrapper:depth+1];
             [atom.children addObject:child];
             
-            
-            MP4::UnknownAtom *unknownAtom = dynamic_cast<MP4::UnknownAtom*>( childWrapper.atom );
-            if( unknownAtom ) {
+            if( MP4::UnknownAtom *unknownAtom = dynamic_cast<MP4::UnknownAtom*>( childWrapper.atom ) ) {
                 id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
                 
                 NSString *type = [NSString stringWithCString:unknownAtom->getType().c_str()
