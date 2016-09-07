@@ -25,7 +25,6 @@ internal class AtomStructureViewController: UITableViewController {
     var video: Video?
     
     var rootAtom: Atom?
-    var count: Int = 0
     var atoms = [Atom]()
     var parserBridge: ParserBridge?
     
@@ -66,7 +65,6 @@ internal class AtomStructureViewController: UITableViewController {
     func displayAtom( atom: Atom, depth: Int ) {
         if ( depth > 0 ) {
             atoms.append( atom )
-            count += 1
         }
         for child in atom.children {
             if let child = child as? Atom {
@@ -80,7 +78,7 @@ internal class AtomStructureViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return count;
+        return atoms.count;
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
