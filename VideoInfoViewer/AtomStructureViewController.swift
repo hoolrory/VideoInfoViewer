@@ -22,6 +22,8 @@ internal class AtomStructureViewController: UITableViewController {
     
     let atomCellIdentifier = "atomCell";
     
+    var activityView: UIActivityIndicatorView?
+    
     var video: Video?
     
     var rootAtom: Atom?
@@ -33,10 +35,19 @@ internal class AtomStructureViewController: UITableViewController {
         
         self.title = "Atoms"
         
-        parserBridge = ParserBridge()
-        if let videoURL = video?.videoURL {
-            rootAtom = parserBridge!.parseFile(videoURL.path)
-            displayAtom( rootAtom!, depth: 0 );
+        showActivityIndicator();
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+            self.parserBridge = ParserBridge()
+            if let videoURL = self.video?.videoURL {
+                self.rootAtom = self.parserBridge!.parseFile(videoURL.path)
+                self.displayAtom( self.rootAtom!, depth: 0 )
+            }
+            
+            dispatch_async(dispatch_get_main_queue()) {
+                self.removeActivityIndicator()
+                self.tableView.reloadData()
+            }
         }
         
         tableView.layoutMargins = UIEdgeInsetsZero
@@ -48,8 +59,6 @@ internal class AtomStructureViewController: UITableViewController {
         
         self.view.backgroundColor = UIColor(red: 200/255, green: 199/255, blue: 204/255, alpha: 1)
         self.navigationController?.navigationBar.translucent = false
-        
-        tableView.reloadData()
     }
     
     override func viewDidAppear(animated:Bool) {
@@ -193,6 +202,27 @@ internal class AtomStructureViewController: UITableViewController {
             atomController.atom = atoms[indexPath.item]
             atomController.parserBridge = parserBridge
             navController.pushViewController(atomController, animated: true)
+        }
+    }
+    
+    func showActivityIndicator() {
+        dispatch_async(dispatch_get_main_queue()) {
+            self.activityView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+            self.activityView!.backgroundColor = UIColor.grayColor().colorWithAlphaComponent(0.5)
+            self.activityView!.center = self.view.center
+            self.activityView!.frame = self.view.frame
+            
+            self.view.addSubview(self.activityView!)
+            self.activityView!.startAnimating()
+        }
+    }
+    
+    func removeActivityIndicator() {
+        dispatch_async(dispatch_get_main_queue()) {
+            if let activityView = self.activityView {
+                activityView.stopAnimating()
+                activityView.removeFromSuperview()
+            }
         }
     }
 }
