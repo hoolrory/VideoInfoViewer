@@ -65,8 +65,6 @@ internal class AtomStructureViewController: UITableViewController {
     
     func displayAtom( atom: Atom, depth: Int ) {
         if ( depth > 0 ) {
-            // let indent = String( count: depth, repeatedValue: Character( " " ) )
-            // print( indent + atom.getType() + " - " + atom.getName() )
             atoms.append( atom )
             count += 1
         }
