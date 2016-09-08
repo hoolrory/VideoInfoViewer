@@ -260,8 +260,8 @@
                             <constraint firstItem="z9e-FS-SZB" firstAttribute="trailing" secondItem="NBN-45-ZhB" secondAttribute="trailingMargin" constant="-20" id="Zrf-x1-gM2"/>
                             <constraint firstItem="z9e-FS-SZB" firstAttribute="leading" secondItem="NBN-45-ZhB" secondAttribute="leadingMargin" constant="20" id="cWu-GX-w7B"/>
                             <constraint firstItem="J6P-nc-bYQ" firstAttribute="centerX" secondItem="NBN-45-ZhB" secondAttribute="centerX" id="iTC-aw-voV"/>
+                            <constraint firstItem="1sz-U0-QMr" firstAttribute="bottom" secondItem="J6P-nc-bYQ" secondAttribute="top" constant="-20" placeholder="YES" id="mUW-0f-UTN"/>
                             <constraint firstItem="z9e-FS-SZB" firstAttribute="top" secondItem="d6B-nA-Esl" secondAttribute="bottom" constant="20" id="mmy-3s-cF7"/>
-                            <constraint firstItem="1sz-U0-QMr" firstAttribute="bottom" secondItem="xVY-RN-yP4" secondAttribute="top" constant="-90" id="yWy-rX-ca1"/>
                         </constraints>
                     </view>
                     <connections>
