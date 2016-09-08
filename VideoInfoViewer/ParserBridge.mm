@@ -51,7 +51,7 @@ struct ParserWrapper {
 {
     Atom* atom = [[Atom alloc] init];
     atom.atomWrapper = atomWrapper;
-    atom.depth = depth;
+    atom.depth = (int)depth;
     
     if( MP4::ContainerAtom *containerAtom = dynamic_cast<MP4::ContainerAtom*>( atomWrapper.atom ) ) {
         std::vector<MP4::Atom*> children = containerAtom->getChildren();
