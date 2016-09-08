@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1F0E8BE51D81F816006AB825 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0E8BE41D81F816006AB825 /* UIColor.swift */; };
+		1F0E8BEB1D81FB83006AB825 /* RobotoMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F0E8BEA1D81FB83006AB825 /* RobotoMono-Regular.ttf */; };
 		1F0E8BED1D820230006AB825 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0E8BEC1D820230006AB825 /* UIImage.swift */; };
 		1F1234A01D74FDE300286170 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F12349F1D74FDE300286170 /* GoogleMobileAds.framework */; };
 		1F1234A51D75171100286170 /* admob.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1F1234A41D75171100286170 /* admob.txt */; };
@@ -71,6 +72,7 @@
 
 /* Begin PBXFileReference section */
 		1F0E8BE41D81F816006AB825 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIColor.swift; path = Extensions/UIColor.swift; sourceTree = "<group>"; };
+		1F0E8BEA1D81FB83006AB825 /* RobotoMono-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "RobotoMono-Regular.ttf"; path = "Resources/RobotoMono-Regular.ttf"; sourceTree = "<group>"; };
 		1F0E8BEC1D820230006AB825 /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIImage.swift; path = Extensions/UIImage.swift; sourceTree = "<group>"; };
 		1F12349F1D74FDE300286170 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileAds.framework; path = Frameworks/GoogleMobileAds.framework; sourceTree = "<group>"; };
 		1F1234A41D75171100286170 /* admob.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = admob.txt; sourceTree = "<group>"; };
@@ -158,6 +160,14 @@
 				1F0E8BEC1D820230006AB825 /* UIImage.swift */,
 			);
 			name = Extensions;
+			sourceTree = "<group>";
+		};
+		1F0E8BE91D81FB6C006AB825 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				1F0E8BEA1D81FB83006AB825 /* RobotoMono-Regular.ttf */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		1F1234A11D74FDEB00286170 /* Frameworks */ = {
@@ -267,6 +277,7 @@
 				1F45A4A61D720F0000A2740A /* VideoSelection */,
 				1F45A4A51D720EE400A2740A /* AtomView */,
 				1F0E8BE31D81F7E9006AB825 /* Extensions */,
+				1F0E8BE91D81FB6C006AB825 /* Resources */,
 				1F9F19AE1CDD18F100DE819B /* AppDelegate.swift */,
 				1F9F19B01CDD18F100DE819B /* MainViewController.swift */,
 				1F81F5811CE16FE100544F85 /* VideoDetailsViewController.swift */,
@@ -429,6 +440,7 @@
 				1F1234BC1D75B63900286170 /* googleAnalytics.txt in Resources */,
 				1F1234A51D75171100286170 /* admob.txt in Resources */,
 				1F9F19B41CDD18F100DE819B /* Main.storyboard in Resources */,
+				1F0E8BEB1D81FB83006AB825 /* RobotoMono-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
