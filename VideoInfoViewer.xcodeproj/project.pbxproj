@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F0E8BE51D81F816006AB825 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0E8BE41D81F816006AB825 /* UIColor.swift */; };
 		1F0E8BED1D820230006AB825 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0E8BEC1D820230006AB825 /* UIImage.swift */; };
 		1F1234A01D74FDE300286170 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F12349F1D74FDE300286170 /* GoogleMobileAds.framework */; };
 		1F1234A51D75171100286170 /* admob.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1F1234A41D75171100286170 /* admob.txt */; };
@@ -69,6 +70,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1F0E8BE41D81F816006AB825 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIColor.swift; path = Extensions/UIColor.swift; sourceTree = "<group>"; };
 		1F0E8BEC1D820230006AB825 /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIImage.swift; path = Extensions/UIImage.swift; sourceTree = "<group>"; };
 		1F12349F1D74FDE300286170 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileAds.framework; path = Frameworks/GoogleMobileAds.framework; sourceTree = "<group>"; };
 		1F1234A41D75171100286170 /* admob.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = admob.txt; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 		1F0E8BE31D81F7E9006AB825 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				1F0E8BE41D81F816006AB825 /* UIColor.swift */,
 				1F0E8BEC1D820230006AB825 /* UIImage.swift */,
 			);
 			name = Extensions;
@@ -455,6 +458,7 @@
 				1F9F19B11CDD18F100DE819B /* MainViewController.swift in Sources */,
 				1F5A24141D77700800FD5EE3 /* VideoManager.swift in Sources */,
 				1FADD1EC1D79AA3500B728A4 /* CreditsViewController.swift in Sources */,
+				1F0E8BE51D81F816006AB825 /* UIColor.swift in Sources */,
 				1F0E8BED1D820230006AB825 /* UIImage.swift in Sources */,
 				1F806BFA1D6CA29F002A1F88 /* SelectAlbumController.swift in Sources */,
 				1F9F19B71CDD18F100DE819B /* VideoInfoViewer.xcdatamodeld in Sources */,

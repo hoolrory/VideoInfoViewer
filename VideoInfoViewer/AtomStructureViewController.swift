@@ -57,7 +57,7 @@ internal class AtomStructureViewController: UITableViewController {
         footerView.frame = CGRectMake(0, 0, tableView.frame.width, 0)
         tableView.tableFooterView = footerView
         
-        self.view.backgroundColor = UIColor(red: 200/255, green: 199/255, blue: 204/255, alpha: 1)
+        self.view.backgroundColor = UIColor(hex: 0xC8C7CC);
         self.navigationController?.navigationBar.translucent = false
     }
     
@@ -133,7 +133,7 @@ internal class AtomStructureViewController: UITableViewController {
         cell.tintColor = UIColor.blackColor()
         
         let bgColorView = UIView()
-        bgColorView.backgroundColor =  UIColor(red: 66/255, green: 163/255, blue: 225/255, alpha: 1)
+        bgColorView.backgroundColor = UIColor(hex: 0x41A3E1)
         cell.selectedBackgroundView = bgColorView
 
         return cell;
@@ -184,7 +184,7 @@ internal class AtomStructureViewController: UITableViewController {
         UIGraphicsBeginImageContextWithOptions(CGSizeMake( offset, totalHeight!), false, 0.0)
         let context: CGContextRef = UIGraphicsGetCurrentContext()!
         UIGraphicsPushContext(context)
-        CGContextSetFillColorWithColor(context, UIColor(red: 200/255, green:199/255, blue:204/255, alpha:1).CGColor)
+        CGContextSetFillColorWithColor(context, UIColor(hex: 0xC8C7CC).CGColor)
         CGContextFillRect(context, CGRectMake(0, 0, offset, totalHeight!))
         UIGraphicsPopContext()
         
