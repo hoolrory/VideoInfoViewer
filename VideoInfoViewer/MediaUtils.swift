@@ -29,7 +29,7 @@ class MediaUtils {
             var uiImage = UIImage(CGImage: cgImage)
             
             if rotation != 0 {
-                uiImage = rotateImageByDegrees(uiImage, degrees: CGFloat(rotation))
+                uiImage = uiImage.rotate(CGFloat(rotation))
             }
             
             let result = UIImagePNGRepresentation(uiImage)?.writeToURL(thumbURL, atomically: true)
@@ -133,21 +133,5 @@ class MediaUtils {
         let videoAngleInDegrees = (radians * 180.0) / Float(M_PI)
         
         return videoAngleInDegrees
-    }
-    
-    static func rotateImageByDegrees(oldImage: UIImage, degrees: CGFloat) -> UIImage {
-        let rotatedViewBox = UIView(frame: CGRectMake(0, 0, oldImage.size.width, oldImage.size.height))
-        let transform = CGAffineTransformMakeRotation(degrees * CGFloat(M_PI / 180))
-        rotatedViewBox.transform = transform
-        let rotatedSize: CGSize = rotatedViewBox.frame.size
-        UIGraphicsBeginImageContext(rotatedSize)
-        let context = UIGraphicsGetCurrentContext()!
-        CGContextTranslateCTM(context, rotatedSize.width / 2, rotatedSize.height / 2)
-        CGContextRotateCTM(context, (degrees * CGFloat(M_PI / 180)))
-        CGContextScaleCTM(context, 1.0, -1.0)
-        CGContextDrawImage(context, CGRectMake(-oldImage.size.width / 2, -oldImage.size.height / 2, oldImage.size.width, oldImage.size.height), oldImage.CGImage)
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return newImage
     }
 }
