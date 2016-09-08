@@ -32,6 +32,7 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UITa
     
     var selectedAsset: PHAsset?
     
+    let showAds = false
     var bannerView: GADBannerView?
     
     let videoManager = VideoManager()
@@ -65,7 +66,9 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UITa
         
         self.loadVideos()
         
-        setupAd()
+        if showAds {
+            setupAd()
+        }
     }
     
     override func viewDidAppear(animated:Bool) {
