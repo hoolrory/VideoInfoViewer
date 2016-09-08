@@ -85,7 +85,6 @@ class SelectVideoController: UICollectionViewController, UICollectionViewDelegat
         if cell.contentView.subviews.count == 0 {
             thumbnail = UIImageView(frame: cell.contentView.frame)
             thumbnail.contentMode = .ScaleAspectFill
-            thumbnail.backgroundColor = UIColor.redColor()
             thumbnail.frame = cell.contentView.frame
             cell.contentView.addSubview(thumbnail)
         }
