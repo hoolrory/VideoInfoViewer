@@ -25,6 +25,8 @@ internal class AtomViewController: UIViewController {
 
     @IBOutlet weak var atomName: UILabel!
     @IBOutlet weak var atomContent: UITextView!
+    @IBOutlet weak var rawDataLabel: UILabel!
+    @IBOutlet weak var rawData: UITextView!
     @IBOutlet weak var loadRawDataButton: UIButton!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var stackView: UIStackView!
@@ -39,6 +41,9 @@ internal class AtomViewController: UIViewController {
         atomName.text = atom?.getName()
         atomContent.text = atom?.getDescription()
         
+        atomContent.textContainerInset = UIEdgeInsetsMake(0, 10, 0, 10)
+        rawData.textContainerInset = UIEdgeInsetsMake(0, 10, 0, 10)
+        loadRawDataButton.contentEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 20)
         //let offset = CGFloat(-20)
         
         //originalConstraint = atomContent?.bottomAnchor.constraintEqualToAnchor(loadRawDataButton?.topAnchor, constant: offset)
@@ -73,10 +78,10 @@ internal class AtomViewController: UIViewController {
         
         if let parserBridge = parserBridge {
             
-            atomContent.text.appendContentsOf("\n")
+            rawDataLabel.text = "Raw Data"
             let atomBytes = parserBridge.getAtomBytes(atom!)
             if atomBytes != nil {
-                atomContent.text.appendContentsOf(atomBytes)
+                rawData.text = atomBytes
             }
         }
         
