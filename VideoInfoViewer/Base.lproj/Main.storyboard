@@ -276,7 +276,7 @@
                                     <constraint firstItem="Fzc-Fm-W18" firstAttribute="width" secondItem="D1E-JL-7oA" secondAttribute="width" id="BfV-yP-qG2"/>
                                 </constraints>
                             </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J6P-nc-bYQ">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J6P-nc-bYQ">
                                 <rect key="frame" x="0.0" y="560" width="600" height="40"/>
                                 <color key="backgroundColor" red="0.78431372549019607" green="0.78431372549019607" blue="0.78431372549019607" alpha="0.75013221153846132" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -292,6 +292,7 @@
                         <constraints>
                             <constraint firstItem="D1E-JL-7oA" firstAttribute="leading" secondItem="NBN-45-ZhB" secondAttribute="leading" id="D60-Nl-dxO"/>
                             <constraint firstItem="J6P-nc-bYQ" firstAttribute="bottom" secondItem="xVY-RN-yP4" secondAttribute="top" id="EUX-iv-aNP"/>
+                            <constraint firstItem="J6P-nc-bYQ" firstAttribute="width" secondItem="NBN-45-ZhB" secondAttribute="width" id="FaB-iy-SOX"/>
                             <constraint firstItem="D1E-JL-7oA" firstAttribute="top" secondItem="NBN-45-ZhB" secondAttribute="top" id="G2h-3d-Pjk"/>
                             <constraint firstItem="xVY-RN-yP4" firstAttribute="top" secondItem="D1E-JL-7oA" secondAttribute="bottom" id="L78-0Q-TjY"/>
                             <constraint firstItem="J6P-nc-bYQ" firstAttribute="centerX" secondItem="NBN-45-ZhB" secondAttribute="centerX" id="iTC-aw-voV"/>
