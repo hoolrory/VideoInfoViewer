@@ -17,7 +17,7 @@
 import UIKit
 import Photos
 
-class SelectVideoController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class SelectVideoController: UICollectionViewController {
     
     private var assetGridThumbnailSize: CGSize = CGSizeMake(0, 0)
     
@@ -122,6 +122,10 @@ class SelectVideoController: UICollectionViewController, UICollectionViewDelegat
         let cell = collectionView.cellForItemAtIndexPath(indexPath)
         cell?.contentView.alpha = 1.0
     }
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout
+extension SelectVideoController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         
