@@ -233,19 +233,37 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z9e-FS-SZB">
-                                <rect key="frame" x="40" y="40" width="520" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="1sz-U0-QMr" userLabel="Atom Content">
-                                <rect key="frame" x="20" y="70.5" width="560" height="449.5"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <fontDescription key="fontDescription" name="RobotoMono-Regular" family="Roboto Mono" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D1E-JL-7oA">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <subviews>
+                                    <stackView contentMode="scaleToFill" ambiguous="YES" misplaced="YES" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Fzc-Fm-W18">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="226"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Labelddd" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R2b-uP-bSF">
+                                                <rect key="frame" x="0.0" y="0.0" width="600" height="2"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="1"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Name" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z9e-FS-SZB">
+                                                <rect key="frame" x="0.0" y="22" width="600" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="1sz-U0-QMr" userLabel="Atom Content">
+                                                <rect key="frame" x="0.0" y="62" width="600" height="164"/>
+                                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                                <fontDescription key="fontDescription" name="RobotoMono-Regular" family="Roboto Mono" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="Fzc-Fm-W18" firstAttribute="width" secondItem="D1E-JL-7oA" secondAttribute="width" id="BfV-yP-qG2"/>
+                                </constraints>
+                            </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J6P-nc-bYQ">
                                 <rect key="frame" x="249" y="540" width="103" height="30"/>
                                 <constraints>
@@ -259,21 +277,21 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="1sz-U0-QMr" firstAttribute="trailing" secondItem="NBN-45-ZhB" secondAttribute="trailingMargin" id="6hd-Xm-mhe"/>
+                            <constraint firstItem="D1E-JL-7oA" firstAttribute="leading" secondItem="NBN-45-ZhB" secondAttribute="leading" id="D60-Nl-dxO"/>
                             <constraint firstItem="J6P-nc-bYQ" firstAttribute="bottom" secondItem="xVY-RN-yP4" secondAttribute="top" constant="-30" id="EUX-iv-aNP"/>
-                            <constraint firstItem="1sz-U0-QMr" firstAttribute="top" secondItem="z9e-FS-SZB" secondAttribute="bottom" constant="10" id="Pcg-37-sPv"/>
-                            <constraint firstItem="1sz-U0-QMr" firstAttribute="leading" secondItem="NBN-45-ZhB" secondAttribute="leadingMargin" id="VkY-wO-TPN"/>
-                            <constraint firstItem="z9e-FS-SZB" firstAttribute="trailing" secondItem="NBN-45-ZhB" secondAttribute="trailingMargin" constant="-20" id="Zrf-x1-gM2"/>
-                            <constraint firstItem="z9e-FS-SZB" firstAttribute="leading" secondItem="NBN-45-ZhB" secondAttribute="leadingMargin" constant="20" id="cWu-GX-w7B"/>
+                            <constraint firstItem="D1E-JL-7oA" firstAttribute="top" secondItem="NBN-45-ZhB" secondAttribute="top" id="G2h-3d-Pjk"/>
+                            <constraint firstItem="xVY-RN-yP4" firstAttribute="top" secondItem="D1E-JL-7oA" secondAttribute="bottom" constant="90" id="L78-0Q-TjY"/>
                             <constraint firstItem="J6P-nc-bYQ" firstAttribute="centerX" secondItem="NBN-45-ZhB" secondAttribute="centerX" id="iTC-aw-voV"/>
-                            <constraint firstItem="1sz-U0-QMr" firstAttribute="bottom" secondItem="J6P-nc-bYQ" secondAttribute="top" constant="-20" placeholder="YES" id="mUW-0f-UTN"/>
-                            <constraint firstItem="z9e-FS-SZB" firstAttribute="top" secondItem="d6B-nA-Esl" secondAttribute="bottom" constant="20" id="mmy-3s-cF7"/>
+                            <constraint firstAttribute="trailing" secondItem="D1E-JL-7oA" secondAttribute="trailing" id="vyw-eG-YbG"/>
                         </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
                         <outlet property="atomContent" destination="1sz-U0-QMr" id="x80-rd-8XO"/>
                         <outlet property="atomName" destination="z9e-FS-SZB" id="3T4-ML-Vyk"/>
                         <outlet property="loadRawDataButton" destination="J6P-nc-bYQ" id="FCU-RE-6Q4"/>
+                        <outlet property="scrollView" destination="D1E-JL-7oA" id="gJH-3f-D51"/>
+                        <outlet property="stackView" destination="Fzc-Fm-W18" id="Lho-nV-un8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UgZ-zY-NO9" userLabel="First Responder" sceneMemberID="firstResponder"/>

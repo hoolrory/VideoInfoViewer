@@ -26,6 +26,8 @@ internal class AtomViewController: UIViewController {
     @IBOutlet weak var atomName: UILabel!
     @IBOutlet weak var atomContent: UITextView!
     @IBOutlet weak var loadRawDataButton: UIButton!
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var stackView: UIStackView!
     
     var originalConstraint: NSLayoutConstraint?
     
@@ -37,10 +39,10 @@ internal class AtomViewController: UIViewController {
         atomName.text = atom?.getName()
         atomContent.text = atom?.getDescription()
         
-        let offset = CGFloat(-20)
+        //let offset = CGFloat(-20)
         
-        originalConstraint = atomContent?.bottomAnchor.constraintEqualToAnchor(loadRawDataButton?.topAnchor, constant: offset)
-        originalConstraint?.active = true
+        //originalConstraint = atomContent?.bottomAnchor.constraintEqualToAnchor(loadRawDataButton?.topAnchor, constant: offset)
+        //originalConstraint?.active = true
     }
     
     override func viewDidAppear(animated:Bool) {
@@ -53,14 +55,19 @@ internal class AtomViewController: UIViewController {
         }
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        scrollView.contentSize = CGSize(width: stackView.frame.width, height: stackView.frame.height)
+    }
+    
     @IBAction func onClickLoadRawData(sender: AnyObject) {
         
-        originalConstraint?.active = false
+        //originalConstraint?.active = false
         
-        let offset = CGFloat(-20)
+        //let offset = CGFloat(-20)
         
-        let newConstraint = atomContent?.bottomAnchor.constraintEqualToAnchor(atomContent.superview?.bottomAnchor, constant: offset)
-        newConstraint?.active = true
+        //let newConstraint = atomContent?.bottomAnchor.constraintEqualToAnchor(atomContent.superview?.bottomAnchor, constant: offset)
+        //newConstraint?.active = true
         
         loadRawDataButton.removeFromSuperview()
         
@@ -73,5 +80,25 @@ internal class AtomViewController: UIViewController {
             }
         }
         
+        stackView.setNeedsUpdateConstraints()
+        stackView.updateConstraintsIfNeeded()
+        stackView.setNeedsLayout()
+        stackView.layoutIfNeeded()
+        delay(0.1) {
+            self.view.setNeedsUpdateConstraints()
+            self.view.updateConstraintsIfNeeded()
+            self.view.setNeedsLayout()
+            self.view.layoutIfNeeded()
+        }
+        
+    }
+    
+    func delay(delay:Double, closure:()->()) {
+        dispatch_after(
+            dispatch_time(
+                DISPATCH_TIME_NOW,
+                Int64(delay * Double(NSEC_PER_SEC))
+            ),
+            dispatch_get_main_queue(), closure)
     }
 }
