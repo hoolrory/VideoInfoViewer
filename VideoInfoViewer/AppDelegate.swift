@@ -21,7 +21,10 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    
+    // Used for sending Google Analytics traffic in the background.
+    var okToWait = false
+    var dispatchHandler: ((result:GAIDispatchResult) -> Void)?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
@@ -44,6 +47,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return true
     }
+    
+    func application(application: UIApplication, performFetchWithCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+        
+        self.sendHitsInBackground()
+        completionHandler(.NewData)
+    }
+    
+    func sendHitsInBackground() {
+        self.okToWait = true
+        weak var weakSelf = self
+        
+        let backgroundTaskId = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler({
+            weakSelf?.okToWait = false
+        })
+        
+        if backgroundTaskId == UIBackgroundTaskInvalid {
+            return
+        }
+        
+        self.dispatchHandler = { (result) -> Void in
+            
+            if let weakSelf = weakSelf {
+                if result == .Good && weakSelf.okToWait {
+                    GAI.sharedInstance().dispatchWithCompletionHandler(weakSelf.dispatchHandler)
+                } else {
+                    UIApplication.sharedApplication().endBackgroundTask(backgroundTaskId)
+                }
+            }
+        }
+        
+        GAI.sharedInstance().dispatchWithCompletionHandler(self.dispatchHandler)
+    
+    }
 
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -53,6 +89,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        
+        self.sendHitsInBackground()
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
