@@ -18,16 +18,16 @@ import Foundation
 
 extension UIImage {
 
-    func cropToBounds(width: Double, height: Double) -> UIImage {
+    func toSquare() -> UIImage {
         
         let contextImage: UIImage = UIImage(CGImage: self.CGImage!)
         
         let contextSize: CGSize = contextImage.size
         
-        var posX: CGFloat = 0.0
-        var posY: CGFloat = 0.0
-        var cgwidth: CGFloat = CGFloat(width)
-        var cgheight: CGFloat = CGFloat(height)
+        var posX: CGFloat
+        var posY: CGFloat
+        var cgwidth: CGFloat
+        var cgheight: CGFloat
         
         if contextSize.width > contextSize.height {
             posX = ((contextSize.width - contextSize.height) / 2)

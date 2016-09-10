@@ -259,12 +259,9 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UITa
         
         cell.imageView?.image = nil
         
-        if let thumbURL = video.thumbURL {
-            let imageSize = Double(cell.contentView.frame.height)
-            if let path = thumbURL.path {
-                if let image = UIImage(named: path) {
-                    cell.imageView?.image = image.cropToBounds(imageSize, height:imageSize )
-                }
+        if let path = video.thumbURL.path {
+            if let image = UIImage(named: path) {
+                cell.imageView?.image = image.toSquare()
             }
         }
         
