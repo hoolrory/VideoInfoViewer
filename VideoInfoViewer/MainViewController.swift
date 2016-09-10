@@ -21,7 +21,7 @@ import AVFoundation
 import Photos
 import GoogleMobileAds
 
-class MainViewController: UIViewController, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
+class MainViewController: UIViewController {
     
     var videos = [Video]()
     
@@ -244,55 +244,6 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UITa
         }
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return videos.count
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell:UITableViewCell = self.tableView.dequeueReusableCellWithIdentifier("cell")! as UITableViewCell
-        
-        let video = self.videos[indexPath.row]
-        
-        if let videoURL = video.videoURL {
-            cell.textLabel?.text = videoURL.lastPathComponent
-        }
-        
-        cell.imageView?.image = nil
-        
-        if let path = video.thumbURL.path {
-            if let image = UIImage(named: path) {
-                cell.imageView?.image = image.toSquare()
-            }
-        }
-        
-        return cell
-    }
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let video = self.videos[indexPath.row]
-        
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        let managedContext = appDelegate.managedObjectContext
-        let fetchRequest = NSFetchRequest(entityName: "Video")
-        fetchRequest.predicate = NSPredicate(format: "assetId == %@", video.assetId)
-        
-        do {
-            let result = try managedContext.executeFetchRequest(fetchRequest) as! [NSManagedObject]
-            if result.count == 1 {
-                let object = result[0]
-                object.setValue(NSDate(), forKey: "openDate")
-                try managedContext.save()
-            }
-        } catch {
-            fatalError("Failed to fetch video: \(error)")
-        }
-        
-        self.loadVideos()
-        viewVideo(video)
-        
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
-    }
-    
     func viewVideo(video:Video) {
         let nc = parentViewController as? UINavigationController
         if let navController = nc {
@@ -324,3 +275,59 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UITa
     }
 }
 
+// MARK: - UITableViewDelegate
+extension MainViewController: UITableViewDelegate {
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let video = self.videos[indexPath.row]
+        
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let managedContext = appDelegate.managedObjectContext
+        let fetchRequest = NSFetchRequest(entityName: "Video")
+        fetchRequest.predicate = NSPredicate(format: "assetId == %@", video.assetId)
+        
+        do {
+            let result = try managedContext.executeFetchRequest(fetchRequest) as! [NSManagedObject]
+            if result.count == 1 {
+                let object = result[0]
+                object.setValue(NSDate(), forKey: "openDate")
+                try managedContext.save()
+            }
+        } catch {
+            fatalError("Failed to fetch video: \(error)")
+        }
+        
+        self.loadVideos()
+        viewVideo(video)
+        
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+}
+
+// MARK: - UITableViewDataSource
+extension MainViewController: UITableViewDataSource {
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return videos.count
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell:UITableViewCell = self.tableView.dequeueReusableCellWithIdentifier("cell")! as UITableViewCell
+        
+        let video = self.videos[indexPath.row]
+        
+        if let videoURL = video.videoURL {
+            cell.textLabel?.text = videoURL.lastPathComponent
+        }
+        
+        cell.imageView?.image = nil
+        
+        if let path = video.thumbURL.path {
+            if let image = UIImage(named: path) {
+                cell.imageView?.image = image.toSquare()
+            }
+        }
+        
+        return cell
+    }
+}
