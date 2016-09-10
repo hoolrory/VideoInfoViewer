@@ -83,6 +83,21 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UITa
     func loadVideos() {
         videos = videoManager.getVideos()
         self.tableView.reloadData()
+        
+        if videos.count == 0 {
+            let emptyView = UILabel()
+            emptyView.text = "To get started, click \"Open\"\nto select a video."
+            emptyView.frame = CGRectMake(0, 0, self.tableView.bounds.width, self.tableView.bounds.height/4)
+            emptyView.numberOfLines = 0
+            emptyView.layoutMargins = UIEdgeInsetsMake(10, 10, 10, 10)
+            emptyView.backgroundColor = UIColor.whiteColor()
+            emptyView.textAlignment = .Center
+            self.tableView.tableHeaderView = emptyView
+            self.tableView.separatorStyle = .None
+        } else {
+            self.tableView.tableHeaderView = nil
+            self.tableView.separatorStyle = .SingleLine
+        }
     }
     
     func setupAd() {
