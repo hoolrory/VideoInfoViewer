@@ -238,7 +238,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
                                     <stackView contentMode="scaleToFill" ambiguous="YES" misplaced="YES" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Fzc-Fm-W18">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="360000000301"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="321"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="TopMarginView" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R2b-uP-bSF">
                                                 <rect key="frame" x="0.0" y="0.0" width="600" height="2"/>
@@ -258,14 +258,14 @@
                                                 <fontDescription key="fontDescription" name="RobotoMono-Regular" family="Roboto Mono" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="azN-PO-6Pm" userLabel="Raw Data Label">
-                                                <rect key="frame" x="0.0" y="246" width="600" height="360000000000"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" restorationIdentifier="RawDataLabel" text="    " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ANM-h4-bZA">
+                                                <rect key="frame" x="0.0" y="246" width="600" height="21"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="2xm-es-L85" userLabel="Raw Data">
-                                                <rect key="frame" x="0.0" y="360000000266" width="600" height="35"/>
+                                                <rect key="frame" x="0.0" y="287" width="600" height="35"/>
                                                 <fontDescription key="fontDescription" name="RobotoMono-Regular" family="Roboto Mono" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
@@ -276,7 +276,7 @@
                                     <constraint firstItem="Fzc-Fm-W18" firstAttribute="width" secondItem="D1E-JL-7oA" secondAttribute="width" id="BfV-yP-qG2"/>
                                 </constraints>
                             </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J6P-nc-bYQ">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J6P-nc-bYQ">
                                 <rect key="frame" x="0.0" y="560" width="600" height="40"/>
                                 <color key="backgroundColor" red="0.78431372549019607" green="0.78431372549019607" blue="0.78431372549019607" alpha="0.75013221153846132" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -295,7 +295,6 @@
                             <constraint firstItem="D1E-JL-7oA" firstAttribute="top" secondItem="NBN-45-ZhB" secondAttribute="top" id="G2h-3d-Pjk"/>
                             <constraint firstItem="xVY-RN-yP4" firstAttribute="top" secondItem="D1E-JL-7oA" secondAttribute="bottom" id="L78-0Q-TjY"/>
                             <constraint firstItem="J6P-nc-bYQ" firstAttribute="centerX" secondItem="NBN-45-ZhB" secondAttribute="centerX" id="iTC-aw-voV"/>
-                            <constraint firstItem="J6P-nc-bYQ" firstAttribute="width" secondItem="azN-PO-6Pm" secondAttribute="width" id="sQN-49-H9z"/>
                             <constraint firstAttribute="trailing" secondItem="D1E-JL-7oA" secondAttribute="trailing" id="vyw-eG-YbG"/>
                         </constraints>
                     </view>
@@ -305,7 +304,7 @@
                         <outlet property="atomName" destination="z9e-FS-SZB" id="3T4-ML-Vyk"/>
                         <outlet property="loadRawDataButton" destination="J6P-nc-bYQ" id="FCU-RE-6Q4"/>
                         <outlet property="rawData" destination="2xm-es-L85" id="Yb4-CN-dIl"/>
-                        <outlet property="rawDataLabel" destination="azN-PO-6Pm" id="pxm-tO-Rl5"/>
+                        <outlet property="rawDataLabel" destination="ANM-h4-bZA" id="aad-ke-zJw"/>
                         <outlet property="scrollView" destination="D1E-JL-7oA" id="gJH-3f-D51"/>
                         <outlet property="stackView" destination="Fzc-Fm-W18" id="Lho-nV-un8"/>
                     </connections>
