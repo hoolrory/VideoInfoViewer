@@ -37,7 +37,6 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UITa
     
     let videoManager = VideoManager()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -204,7 +203,7 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UITa
         PHImageManager().requestAVAssetForVideo(
             asset, options:
             videoRequestOptions,
-            resultHandler: handleAVAssetRequestResult )
+            resultHandler: handleAVAssetRequestResult)
     }
     
     func handleAVAssetRequestResult(avAsset: AVAsset?, audioMix: AVAudioMix?, info: [NSObject: AnyObject]?) {
@@ -267,7 +266,7 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UITa
         
         do {
             let result = try managedContext.executeFetchRequest(fetchRequest) as! [NSManagedObject]
-            if (result.count == 1) {
+            if result.count == 1 {
                 let object = result[0]
                 object.setValue(NSDate(), forKey: "openDate")
                 try managedContext.save()

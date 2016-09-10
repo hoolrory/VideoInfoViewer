@@ -37,9 +37,9 @@ internal class AtomViewController: UIViewController {
         atomName.text = atom?.getName()
         atomContent.text = atom?.getDescription()
         
-        let offset = CGFloat( -20 )
+        let offset = CGFloat(-20)
         
-        originalConstraint = atomContent?.bottomAnchor.constraintEqualToAnchor(loadRawDataButton?.topAnchor, constant: offset )
+        originalConstraint = atomContent?.bottomAnchor.constraintEqualToAnchor(loadRawDataButton?.topAnchor, constant: offset)
         originalConstraint?.active = true
     }
     
@@ -57,9 +57,9 @@ internal class AtomViewController: UIViewController {
         
         originalConstraint?.active = false
         
-        let offset = CGFloat( -20 )
+        let offset = CGFloat(-20)
         
-        let newConstraint = atomContent?.bottomAnchor.constraintEqualToAnchor(atomContent.superview?.bottomAnchor, constant: offset )
+        let newConstraint = atomContent?.bottomAnchor.constraintEqualToAnchor(atomContent.superview?.bottomAnchor, constant: offset)
         newConstraint?.active = true
         
         loadRawDataButton.removeFromSuperview()

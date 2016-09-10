@@ -94,7 +94,7 @@ class SelectVideoController: UICollectionViewController, UICollectionViewDelegat
         
         let asset = assets[indexPath.row]
         
-        cachingImageManager.requestImageForAsset(asset, targetSize: assetGridThumbnailSize, contentMode: PHImageContentMode.AspectFill, options: nil, resultHandler: { (image: UIImage?, info :[NSObject : AnyObject]?) -> Void in
+        cachingImageManager.requestImageForAsset(asset, targetSize: assetGridThumbnailSize, contentMode: PHImageContentMode.AspectFill, options: nil, resultHandler: { (image: UIImage?, info: [NSObject : AnyObject]?) -> Void in
             if cell.tag == currentTag {
                 thumbnail.image = image
             }

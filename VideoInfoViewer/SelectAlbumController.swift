@@ -168,7 +168,7 @@ public class SelectAlbumController: UITableViewController, PHPhotoLibraryChangeO
             
             let targetWidthHeight = 64 * UIScreen.mainScreen().scale
             
-            PHImageManager.defaultManager().requestImageForAsset(lastAsset, targetSize: CGSizeMake(targetWidthHeight, targetWidthHeight), contentMode: PHImageContentMode.AspectFill, options: imageRequestOptions, resultHandler: { (image: UIImage?, info :[NSObject : AnyObject]?) -> Void in
+            PHImageManager.defaultManager().requestImageForAsset(lastAsset, targetSize: CGSizeMake(targetWidthHeight, targetWidthHeight), contentMode: PHImageContentMode.AspectFill, options: imageRequestOptions, resultHandler: { (image: UIImage?, info: [NSObject : AnyObject]?) -> Void in
                 thumbnail = image
             })
         }

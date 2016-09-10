@@ -20,7 +20,7 @@ import UIKit
 
 internal class AtomStructureViewController: UITableViewController {
     
-    let atomCellIdentifier = "atomCell";
+    let atomCellIdentifier = "atomCell"
     
     var activityView: UIActivityIndicatorView?
     
@@ -35,13 +35,13 @@ internal class AtomStructureViewController: UITableViewController {
         
         self.title = "Atoms"
         
-        showActivityIndicator();
+        showActivityIndicator()
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
             self.parserBridge = ParserBridge()
             if let videoURL = self.video?.videoURL {
                 self.rootAtom = self.parserBridge!.parseFile(videoURL.path)
-                self.displayAtom( self.rootAtom!, depth: 0 )
+                self.displayAtom(self.rootAtom!, depth: 0)
             }
             
             dispatch_async(dispatch_get_main_queue()) {
@@ -57,7 +57,7 @@ internal class AtomStructureViewController: UITableViewController {
         footerView.frame = CGRectMake(0, 0, tableView.frame.width, 0)
         tableView.tableFooterView = footerView
         
-        self.view.backgroundColor = UIColor(hex: 0xC8C7CC);
+        self.view.backgroundColor = UIColor(hex: 0xC8C7CC)
         self.navigationController?.navigationBar.translucent = false
     }
     
@@ -71,23 +71,23 @@ internal class AtomStructureViewController: UITableViewController {
         }
     }
     
-    func displayAtom( atom: Atom, depth: Int ) {
-        if ( depth > 0 ) {
-            atoms.append( atom )
+    func displayAtom(atom: Atom, depth: Int) {
+        if depth > 0 {
+            atoms.append(atom)
         }
         for child in atom.children {
             if let child = child as? Atom {
-                displayAtom( child, depth: depth + 1 )
+                displayAtom(child, depth: depth + 1)
             }
         }
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1;
+        return 1
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return atoms.count;
+        return atoms.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -124,7 +124,7 @@ internal class AtomStructureViewController: UITableViewController {
         if let oldConstraint = cell.leftConstraint {
             oldConstraint.active = false
         }
-        cell.leftConstraint = cell.collapseImageView?.leadingAnchor.constraintEqualToAnchor(cell.collapseImageView?.superview?.leadingAnchor, constant: offset )
+        cell.leftConstraint = cell.collapseImageView?.leadingAnchor.constraintEqualToAnchor(cell.collapseImageView?.superview?.leadingAnchor, constant: offset)
         cell.leftConstraint?.active = true
         
         cell.separatorInset = UIEdgeInsetsZero
@@ -136,7 +136,7 @@ internal class AtomStructureViewController: UITableViewController {
         bgColorView.backgroundColor = UIColor(hex: 0x41A3E1)
         cell.selectedBackgroundView = bgColorView
 
-        return cell;
+        return cell
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -164,7 +164,6 @@ internal class AtomStructureViewController: UITableViewController {
                 let degrees = atom.collapsed ? CGFloat(-90) : CGFloat(0)
                 
                 UIView.animateWithDuration(0.5) { () -> Void in
-                    
                     cell.collapseImageView?.transform = CGAffineTransformMakeRotation(degrees * CGFloat(M_PI/180))
                 }
             }
@@ -175,13 +174,13 @@ internal class AtomStructureViewController: UITableViewController {
     }
     
     func createImage(depth: Int32, totalHeight: CGFloat?) -> UIImage? {
-        
-        if ( depth == 1 ) {
+        if depth == 1 {
             return nil
         }
+        
         let offset = CGFloat((depth-1) * 10)
         
-        UIGraphicsBeginImageContextWithOptions(CGSizeMake( offset, totalHeight!), false, 0.0)
+        UIGraphicsBeginImageContextWithOptions(CGSizeMake(offset, totalHeight!), false, 0.0)
         let context: CGContextRef = UIGraphicsGetCurrentContext()!
         UIGraphicsPushContext(context)
         CGContextSetFillColorWithColor(context, UIColor(hex: 0xC8C7CC).CGColor)

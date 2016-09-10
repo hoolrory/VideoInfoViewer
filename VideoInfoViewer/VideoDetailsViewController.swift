@@ -35,7 +35,7 @@ class VideoDetailsViewController: UIViewController {
         
         self.title = "Video Info"
         
-        thumbnailView?.image = UIImage(named: video!.thumbURL!.path! )
+        thumbnailView?.image = UIImage(named: video!.thumbURL!.path!)
         
         updateProperties()
         

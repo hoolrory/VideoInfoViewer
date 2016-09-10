@@ -84,7 +84,7 @@ class VideoManager {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
             let filemgr = NSFileManager.defaultManager()
             let lastPathComponent = asset.URL.lastPathComponent
-            let videoName = lastPathComponent != nil ? lastPathComponent! :"video_\(NSDate().timeIntervalSince1970).MOV"
+            let videoName = lastPathComponent != nil ? lastPathComponent! : "video_\(NSDate().timeIntervalSince1970).MOV"
             
             let videoURL = self.getDocumentUrl(videoName)
             let creationDate = phAsset.creationDate
@@ -105,7 +105,7 @@ class VideoManager {
             options.synchronous = true
             
             let cachingImageManager = PHCachingImageManager()
-            cachingImageManager.requestImageForAsset(phAsset, targetSize: thumbSize, contentMode: PHImageContentMode.AspectFill, options: options, resultHandler: { (image: UIImage?, info :[NSObject : AnyObject]?) -> Void in
+            cachingImageManager.requestImageForAsset(phAsset, targetSize: thumbSize, contentMode: PHImageContentMode.AspectFill, options: options, resultHandler: { (image: UIImage?, info: [NSObject : AnyObject]?) -> Void in
                 if let image = image {
                     UIImagePNGRepresentation(image)?.writeToURL(thumbURL, atomically: true)
                 } else {
@@ -127,7 +127,7 @@ class VideoManager {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
             let filemgr = NSFileManager.defaultManager()
             let lastPathComponent = url.lastPathComponent
-            let videoName = lastPathComponent != nil ? lastPathComponent! :"video_\(NSDate().timeIntervalSince1970).MOV"
+            let videoName = lastPathComponent != nil ? lastPathComponent! : "video_\(NSDate().timeIntervalSince1970).MOV"
             
             let videoURL = self.getDocumentUrl(videoName)
             let creationDate = NSDate()
@@ -182,7 +182,7 @@ class VideoManager {
     func removeOldVideos() {
         let videos = getVideos()
         if videos.count > 5 {
-            let videosToDelete = videos[5..<videos.count ]
+            let videosToDelete = videos[5 ..< videos.count ]
             for video in videosToDelete {
                 managedContext?.deleteObject(video.coreDataObject)
             }
@@ -209,7 +209,7 @@ class VideoManager {
         }
     }
     
-    func getDocumentUrl(pathComponent : String) -> NSURL {
+    func getDocumentUrl(pathComponent: String) -> NSURL {
         let fileManager = NSFileManager.defaultManager()
         let urls = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
         guard let documentDirectory: NSURL = urls.first else {

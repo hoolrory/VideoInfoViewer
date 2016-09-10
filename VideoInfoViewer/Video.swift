@@ -42,7 +42,7 @@ public struct Video {
         creationDate = object.valueForKey("creationDate") as? NSDate
     }
     
-    func getDocumentUrl(pathComponent : String) -> NSURL {
+    func getDocumentUrl(pathComponent: String) -> NSURL {
         let fileManager = NSFileManager.defaultManager()
         let urls = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
         guard let documentDirectory: NSURL = urls.first else {
