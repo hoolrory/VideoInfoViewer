@@ -19,7 +19,7 @@ import Foundation
 import UIKit
 import Photos
 
-public class SelectAlbumController: UITableViewController, PHPhotoLibraryChangeObserver {
+public class SelectAlbumController: UITableViewController {
     
     struct AlbumItem {
         var title: String!
@@ -113,10 +113,6 @@ public class SelectAlbumController: UITableViewController, PHPhotoLibraryChangeO
         navigationController?.pushViewController(selectVideoController, animated: true)
     }
     
-    public func photoLibraryDidChange(changeInstance: PHChange) {
-        loadData()
-    }
-    
     func processCollectionList(collections:PHFetchResult) {
         for i: Int in 0 ..< collections.count {
             if let collection = collections[i] as? PHAssetCollection {
@@ -182,5 +178,13 @@ public class SelectAlbumController: UITableViewController, PHPhotoLibraryChangeO
         fetchOptions.predicate = NSPredicate(format: "mediaType = %i", PHAssetMediaType.Video.rawValue)
         
         return PHAsset.fetchAssetsInAssetCollection(collection, options: fetchOptions)
+    }
+}
+
+// MARK: - PHPhotoLibraryChangeObserver
+extension SelectAlbumController: PHPhotoLibraryChangeObserver {
+    
+    public func photoLibraryDidChange(changeInstance: PHChange) {
+        loadData()
     }
 }
