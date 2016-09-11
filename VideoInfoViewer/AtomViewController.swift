@@ -31,6 +31,8 @@ internal class AtomViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var stackView: UIStackView!
     
+    var activityView: UIActivityIndicatorView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -63,10 +65,18 @@ internal class AtomViewController: UIViewController {
         
         if let parserBridge = parserBridge {
             
-            rawDataLabel.text = "Raw Data"
-            let atomBytes = parserBridge.getAtomBytes(atom!)
-            if atomBytes != nil {
-                rawData.text = atomBytes
+            showActivityIndicator()
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+                let atomBytes = parserBridge.getAtomBytes(self.atom!)
+            
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.removeActivityIndicator()
+                    if atomBytes != nil {
+                        self.rawDataLabel.text = "Raw Data"
+                        self.rawData.text = atomBytes
+                    }
+                }
             }
         }
         
@@ -90,5 +100,26 @@ internal class AtomViewController: UIViewController {
                 Int64(delay * Double(NSEC_PER_SEC))
             ),
             dispatch_get_main_queue(), closure)
+    }
+    
+    func showActivityIndicator() {
+        dispatch_async(dispatch_get_main_queue()) {
+            self.activityView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+            self.activityView!.backgroundColor = UIColor.grayColor().colorWithAlphaComponent(0.5)
+            self.activityView!.center = self.view.center
+            self.activityView!.frame = self.view.frame
+            
+            self.view.addSubview(self.activityView!)
+            self.activityView!.startAnimating()
+        }
+    }
+    
+    func removeActivityIndicator() {
+        dispatch_async(dispatch_get_main_queue()) {
+            if let activityView = self.activityView {
+                activityView.stopAnimating()
+                activityView.removeFromSuperview()
+            }
+        }
     }
 }
