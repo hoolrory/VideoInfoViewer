@@ -113,7 +113,7 @@ class MainViewController: UIViewController {
                     bannerView?.rootViewController = self
                     self.navigationController?.toolbar.addSubview(bannerView!)
                     let request = GADRequest()
-                    request.testDevices = [kGADSimulatorID, "23797593a5ec6ac21a727ffb8abfd51c"]
+                    request.testDevices = [kGADSimulatorID]
                     bannerView?.loadRequest(request)
                 }
             } catch _ {
