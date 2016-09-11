@@ -55,6 +55,11 @@ class VideoDetailsViewController: UIViewController {
         }
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        textView.setContentOffset(CGPointZero, animated: false)
+    }
+    
     func updateProperties() {
         if let tv = textView {
             if let videoURL = video?.videoURL {
