@@ -106,6 +106,9 @@ class SelectVideoController: UICollectionViewController {
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
         navigationController?.popToRootViewControllerAnimated(true)
+        if let tracker = GAI.sharedInstance().defaultTracker {
+            tracker.send(GAIDictionaryBuilder.createEventWithCategory("Video Info", action: "Selected video from album", label: "", value: 0).build() as [NSObject : AnyObject])
+        }
         if didSelectAsset != nil {
             didSelectAsset!(assets[indexPath.row])
         }

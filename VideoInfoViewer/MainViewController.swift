@@ -123,6 +123,9 @@ class MainViewController: UIViewController {
     }
     
     func handleURL(url: NSURL) {
+        if let tracker = GAI.sharedInstance().defaultTracker {
+            tracker.send(GAIDictionaryBuilder.createEventWithCategory("Video Info", action: "Video shared to app", label: "", value: 0).build() as [NSObject : AnyObject])
+        }
         showActivityIndicator()
         videoManager.addVideoFromURL(url, completionHandler: { video in
             dispatch_async(dispatch_get_main_queue()) {
