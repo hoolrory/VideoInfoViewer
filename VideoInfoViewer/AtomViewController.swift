@@ -63,6 +63,10 @@ internal class AtomViewController: UIViewController {
     @IBAction func onClickLoadRawData(sender: AnyObject) {
         loadRawDataButton.removeFromSuperview()
         
+        if let tracker = GAI.sharedInstance().defaultTracker {
+            tracker.send(GAIDictionaryBuilder.createEventWithCategory("Video Info", action: "Click load raw data", label: "", value: 0).build() as [NSObject : AnyObject])
+        }
+        
         if let parserBridge = parserBridge {
             
             showActivityIndicator()
