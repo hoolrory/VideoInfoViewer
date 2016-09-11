@@ -31,11 +31,8 @@ internal class AtomViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var stackView: UIStackView!
     
-    var originalConstraint: NSLayoutConstraint?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         self.title = atom?.getType()
         atomName.text = atom?.getName()
@@ -44,10 +41,6 @@ internal class AtomViewController: UIViewController {
         atomContent.textContainerInset = UIEdgeInsetsMake(0, 10, 0, 10)
         rawData.textContainerInset = UIEdgeInsetsMake(0, 10, 0, 10)
         loadRawDataButton.contentEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 20)
-        //let offset = CGFloat(-20)
-        
-        //originalConstraint = atomContent?.bottomAnchor.constraintEqualToAnchor(loadRawDataButton?.topAnchor, constant: offset)
-        //originalConstraint?.active = true
     }
     
     override func viewDidAppear(animated:Bool) {
@@ -66,14 +59,6 @@ internal class AtomViewController: UIViewController {
     }
     
     @IBAction func onClickLoadRawData(sender: AnyObject) {
-        
-        //originalConstraint?.active = false
-        
-        //let offset = CGFloat(-20)
-        
-        //let newConstraint = atomContent?.bottomAnchor.constraintEqualToAnchor(atomContent.superview?.bottomAnchor, constant: offset)
-        //newConstraint?.active = true
-        
         loadRawDataButton.removeFromSuperview()
         
         if let parserBridge = parserBridge {
