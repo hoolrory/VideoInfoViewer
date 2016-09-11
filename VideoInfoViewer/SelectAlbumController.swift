@@ -113,6 +113,10 @@ public class SelectAlbumController: UITableViewController {
         navigationController?.pushViewController(selectVideoController, animated: true)
     }
     
+    override public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return UIDevice.currentDevice().userInterfaceIdiom == .Phone ? 50 : 100
+    }
+    
     func processCollectionList(collections:PHFetchResult) {
         for i: Int in 0 ..< collections.count {
             if let collection = collections[i] as? PHAssetCollection {

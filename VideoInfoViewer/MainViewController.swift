@@ -62,6 +62,7 @@ class MainViewController: UIViewController {
         self.navigationItem.backBarButtonItem = backButton
         
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        self.tableView.delegate = self
         
         self.loadVideos()
         
@@ -301,6 +302,10 @@ extension MainViewController: UITableViewDelegate {
         viewVideo(video)
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return UIDevice.currentDevice().userInterfaceIdiom == .Phone ? 50 : 100
     }
 }
 
