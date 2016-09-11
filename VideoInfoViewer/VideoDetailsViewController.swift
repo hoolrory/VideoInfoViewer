@@ -101,6 +101,9 @@ class VideoDetailsViewController: UIViewController {
     }
     
     @IBAction func onClickPlayButton(sender: UIButton) {
+        if let tracker = GAI.sharedInstance().defaultTracker {
+            tracker.send(GAIDictionaryBuilder.createEventWithCategory("Video Info", action: "Clicked play button", label: "", value: 0).build() as [NSObject : AnyObject])
+        }
         if let videoURL = video?.videoURL {
             let player = AVPlayer(URL: videoURL)
             let playerController = AVPlayerViewController()
