@@ -99,7 +99,7 @@ internal class AtomStructureViewController: UITableViewController {
         cell.typeLabel?.text = atom.getType()
         cell.nameLabel?.text = atom.getName()
         
-        let image = createImage(atom.getDepth(), totalHeight: 50)
+        let image = createImage(atom.getDepth(), totalHeight: 70)
         if let image = image {
             cell.paddingView?.image = image
             cell.paddingView?.frame = CGRectMake(0, 0, image.size.width, image.size.height)
