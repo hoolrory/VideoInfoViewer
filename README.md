@@ -1,6 +1,6 @@
 # Video Info Viewer
 
-Video Info Viewer is an open source app that allows you to view metadata about videos on your iOS devices. You can view the atom structure of the mp4 file format, and inspect resolution, frame rate, and more.
+Video Info Viewer is an open source app that allows you to view metadata about videos on your iOS devices. You can view the atom structure of the MPEG-4 file format, and inspect resolution, frame rate, and more.
 
 ## License
 
