@@ -105,7 +105,7 @@ class SelectVideoController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        navigationController?.popToRootViewController(animated: true)
+        _ = navigationController?.popToRootViewController(animated: true)
         if let tracker = GAI.sharedInstance().defaultTracker {
             let dictionary = GAIDictionaryBuilder.createEvent(withCategory: "Video Info", action: "Selected video from album", label: "", value: 0).build() as NSDictionary
             let event = dictionary as? [AnyHashable: Any] ?? [:]

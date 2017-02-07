@@ -33,6 +33,8 @@ internal class AtomViewController: UIViewController {
     
     var activityView: UIActivityIndicatorView?
     
+    let loadRawDataQueue = DispatchQueue(label: "loadRawDataQueue")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -73,7 +75,7 @@ internal class AtomViewController: UIViewController {
             
             showActivityIndicator()
             
-            DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async {
+            loadRawDataQueue.async {
                 let atomBytes = parserBridge.getAtomBytes(self.atom!)
             
                 DispatchQueue.main.async {

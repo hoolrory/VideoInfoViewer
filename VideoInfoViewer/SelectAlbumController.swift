@@ -33,6 +33,8 @@ open class SelectAlbumController: UITableViewController {
     
     let activityIndicatorTag = 100
     
+    let loadDataQueue = DispatchQueue(label: "loadDataQueue")
+    
     override open func viewDidLoad() {
         super.viewDidLoad()
         
@@ -71,7 +73,7 @@ open class SelectAlbumController: UITableViewController {
             activityIndicator.startAnimating()
         }
         
-        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async {
+        loadDataQueue.async {
             
             self.albums.removeAll(keepingCapacity: false)
             
@@ -153,7 +155,7 @@ open class SelectAlbumController: UITableViewController {
     }
     
     func cancelAction() {
-        navigationController?.popViewController(animated: true)
+        _ = navigationController?.popViewController(animated: true)
     }
     
     func getLastThumbnail(_ collection: PHAssetCollection?) -> UIImage? {

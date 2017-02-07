@@ -32,7 +32,7 @@ class MediaUtils {
                 uiImage = uiImage.rotate(CGFloat(rotation))
             }
             
-            let result = (try? UIImagePNGRepresentation(uiImage)?.write(to: thumbURL, options: [.atomic])) != nil
+            let result = try? UIImagePNGRepresentation(uiImage)?.write(to: thumbURL, options: [.atomic])
             return result != nil
         } catch _ {
             print("Failed to get thumbnail")

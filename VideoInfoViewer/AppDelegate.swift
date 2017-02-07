@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     let gai = GAI.sharedInstance()
                     gai?.trackUncaughtExceptions = true
                     gai?.logger.logLevel = GAILogLevel.none
-                    gai?.tracker(withTrackingId: trackingId as String)
+                    _ = gai?.tracker(withTrackingId: trackingId as String)
                 }
             } catch _ {
                 print("Failed to setup Google Analytics")
