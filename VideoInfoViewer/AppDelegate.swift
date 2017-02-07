@@ -23,20 +23,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     var okToWait = false
-    var dispatchHandler: ((result:GAIDispatchResult) -> Void)?
+    var dispatchHandler: ((_ result:GAIDispatchResult) -> Void)?
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        if let gaFile = NSBundle.mainBundle().URLForResource("googleAnalytics", withExtension: "txt") {
+        if let gaFile = Bundle.main.url(forResource: "googleAnalytics", withExtension: "txt") {
             do {
-                let trackingId = try NSString(contentsOfURL: gaFile, encoding: NSUTF8StringEncoding)
+                let trackingId = try NSString(contentsOf: gaFile, encoding: String.Encoding.utf8.rawValue)
                     
                 if trackingId.length > 0 {
                     
                     let gai = GAI.sharedInstance()
-                    gai.trackUncaughtExceptions = true
-                    gai.logger.logLevel = GAILogLevel.None
-                    gai.trackerWithTrackingId(trackingId as String)
+                    gai?.trackUncaughtExceptions = true
+                    gai?.logger.logLevel = GAILogLevel.none
+                    gai?.tracker(withTrackingId: trackingId as String)
                 }
             } catch _ {
                 print("Failed to setup Google Analytics")
@@ -46,17 +46,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    func application(application: UIApplication, performFetchWithCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+    func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         
         self.sendHitsInBackground()
-        completionHandler(.NewData)
+        completionHandler(.newData)
     }
     
     func sendHitsInBackground() {
         self.okToWait = true
         weak var weakSelf = self
         
-        let backgroundTaskId = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler({
+        let backgroundTaskId = UIApplication.shared.beginBackgroundTask(expirationHandler: {
             weakSelf?.okToWait = false
         })
         
@@ -67,30 +67,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.dispatchHandler = { (result) -> Void in
             
             if let weakSelf = weakSelf {
-                if result == .Good && weakSelf.okToWait {
-                    GAI.sharedInstance().dispatchWithCompletionHandler(weakSelf.dispatchHandler)
+                if result == .good && weakSelf.okToWait {
+                    GAI.sharedInstance().dispatch(completionHandler: weakSelf.dispatchHandler)
                 } else {
-                    UIApplication.sharedApplication().endBackgroundTask(backgroundTaskId)
+                    UIApplication.shared.endBackgroundTask(backgroundTaskId)
                 }
             }
         }
         
-        GAI.sharedInstance().dispatchWithCompletionHandler(self.dispatchHandler)
+        GAI.sharedInstance().dispatch(completionHandler: self.dispatchHandler)
     
     }
 
-    func applicationDidEnterBackground(application: UIApplication) {
+    func applicationDidEnterBackground(_ application: UIApplication) {
         self.sendHitsInBackground()
     }
 
-    func applicationWillTerminate(application: UIApplication) {
+    func applicationWillTerminate(_ application: UIApplication) {
         self.saveContext()
     }
     
-    func application(app: UIApplication, openURL url: NSURL,
-                     options: [String : AnyObject]) -> Bool {
+    func application(_ app: UIApplication, open url: URL,
+                     options: [UIApplicationOpenURLOptionsKey : Any]) -> Bool {
         if let vc = self.window?.rootViewController as? UINavigationController {
-            vc.popToRootViewControllerAnimated(false)
+            vc.popToRootViewController(animated: false)
             if let main = vc.visibleViewController as? MainViewController {
                 main.handleURL(url)
             }
@@ -100,27 +100,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: - Core Data stack
     
-    lazy var applicationDocumentsDirectory: NSURL = {
-        let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
+    lazy var applicationDocumentsDirectory: URL = {
+        let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return urls[urls.count-1]
     }()
 
     lazy var managedObjectModel: NSManagedObjectModel = {
-        let modelURL = NSBundle.mainBundle().URLForResource("VideoInfoViewer", withExtension: "momd")!
-        return NSManagedObjectModel(contentsOfURL: modelURL)!
+        let modelURL = Bundle.main.url(forResource: "VideoInfoViewer", withExtension: "momd")!
+        return NSManagedObjectModel(contentsOf: modelURL)!
     }()
 
     lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
         
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
-        let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("SingleViewCoreData.sqlite")
+        let url = self.applicationDocumentsDirectory.appendingPathComponent("SingleViewCoreData.sqlite")
         var failureReason = "There was an error creating or loading the application's saved data."
         do {
-            try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
+            try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: nil)
         } catch let error as NSError {
             var dict = [String: AnyObject]()
-            dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
-            dict[NSLocalizedFailureReasonErrorKey] = failureReason
+            dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data" as AnyObject?
+            dict[NSLocalizedFailureReasonErrorKey] = failureReason as AnyObject?
 
             dict[NSUnderlyingErrorKey] = error
             let wrappedError = NSError(domain: "com.rory.p.hool.VideoInfoViewer", code: 9999, userInfo: dict)
@@ -135,7 +135,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     lazy var managedObjectContext: NSManagedObjectContext = {
         let coordinator = self.persistentStoreCoordinator
-        var managedObjectContext = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
+        var managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
         managedObjectContext.persistentStoreCoordinator = coordinator
         return managedObjectContext
     }()

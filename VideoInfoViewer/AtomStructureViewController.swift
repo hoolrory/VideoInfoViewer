@@ -37,41 +37,41 @@ internal class AtomStructureViewController: UITableViewController {
         
         showActivityIndicator()
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async {
             self.parserBridge = ParserBridge()
             if let videoURL = self.video?.videoURL {
                 self.rootAtom = self.parserBridge!.parseFile(videoURL.path)
                 self.displayAtom(self.rootAtom!, depth: 0)
             }
             
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 self.removeActivityIndicator()
                 self.tableView.reloadData()
             }
         }
         
-        tableView.layoutMargins = UIEdgeInsetsZero
-        tableView.separatorInset = UIEdgeInsetsZero
+        tableView.layoutMargins = UIEdgeInsets.zero
+        tableView.separatorInset = UIEdgeInsets.zero
         
         let footerView = UIView()
-        footerView.frame = CGRectMake(0, 0, tableView.frame.width, 0)
+        footerView.frame = CGRect(x: 0, y: 0, width: tableView.frame.width, height: 0)
         tableView.tableFooterView = footerView
         
         self.view.backgroundColor = UIColor(hex: 0xC8C7CC)
-        self.navigationController?.navigationBar.translucent = false
+        self.navigationController?.navigationBar.isTranslucent = false
     }
     
-    override func viewDidAppear(animated:Bool) {
+    override func viewDidAppear(_ animated:Bool) {
         super.viewDidAppear(animated)
         
         if let tracker = GAI.sharedInstance().defaultTracker {
             tracker.set(kGAIScreenName, value: "AtomStructureViewController")
             let builder: NSObject = GAIDictionaryBuilder.createScreenView().build()
-            tracker.send(builder as! [NSObject : AnyObject])
+            tracker.send(builder as! [AnyHashable: Any])
         }
     }
     
-    func displayAtom(atom: Atom, depth: Int) {
+    func displayAtom(_ atom: Atom, depth: Int) {
         if depth > 0 {
             atoms.append(atom)
         }
@@ -82,17 +82,17 @@ internal class AtomStructureViewController: UITableViewController {
         }
     }
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return atoms.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(atomCellIdentifier) as? AtomStructureViewCell ?? AtomStructureViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: atomCellIdentifier)
-        cell.accessoryType = .DetailButton
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: atomCellIdentifier) as? AtomStructureViewCell ?? AtomStructureViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: atomCellIdentifier)
+        cell.accessoryType = .detailButton
         
         let atom = atoms[indexPath.item]
         
@@ -102,7 +102,7 @@ internal class AtomStructureViewController: UITableViewController {
         let image = createImage(atom.getDepth(), totalHeight: 70)
         if let image = image {
             cell.paddingView?.image = image
-            cell.paddingView?.frame = CGRectMake(0, 0, image.size.width, image.size.height)
+            cell.paddingView?.frame = CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height)
             
         } else {
             cell.paddingView?.image = nil
@@ -115,22 +115,22 @@ internal class AtomStructureViewController: UITableViewController {
         }
         
         if atom.collapsed {
-            cell.collapseImageView?.transform = CGAffineTransformMakeRotation(-90*CGFloat(M_PI/180))
+            cell.collapseImageView?.transform = CGAffineTransform(rotationAngle: -90*CGFloat(M_PI/180))
         } else {
-            cell.collapseImageView?.transform = CGAffineTransformMakeRotation(0)
+            cell.collapseImageView?.transform = CGAffineTransform(rotationAngle: 0)
         }
         
         let offset = CGFloat((atom.getDepth()-1) * 10)
         if let oldConstraint = cell.leftConstraint {
-            oldConstraint.active = false
+            oldConstraint.isActive = false
         }
-        cell.leftConstraint = cell.collapseImageView?.leadingAnchor.constraintEqualToAnchor(cell.collapseImageView?.superview?.leadingAnchor, constant: offset)
-        cell.leftConstraint?.active = true
+        cell.leftConstraint = cell.collapseImageView?.leadingAnchor.constraint(equalTo: (cell.collapseImageView?.superview?.leadingAnchor)!, constant: offset)
+        cell.leftConstraint?.isActive = true
         
-        cell.separatorInset = UIEdgeInsetsZero
-        cell.layoutMargins = UIEdgeInsetsZero
-        cell.contentView.layoutMargins = UIEdgeInsetsZero
-        cell.tintColor = UIColor.blackColor()
+        cell.separatorInset = UIEdgeInsets.zero
+        cell.layoutMargins = UIEdgeInsets.zero
+        cell.contentView.layoutMargins = UIEdgeInsets.zero
+        cell.tintColor = UIColor.black
         
         let bgColorView = UIView()
         bgColorView.backgroundColor = UIColor(hex: 0x41A3E1)
@@ -139,7 +139,7 @@ internal class AtomStructureViewController: UITableViewController {
         return cell
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         let atom = atoms[indexPath.item]
         if atom.hidden {
@@ -149,55 +149,55 @@ internal class AtomStructureViewController: UITableViewController {
         }
     }
     
-    override func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         
         let atom = atoms[indexPath.item]
         return atom.children.count > 0
     }
     
-    override func tableView(tableView: UITableView,
-                            didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView,
+                            didSelectRowAt indexPath: IndexPath) {
         let atom = atoms[indexPath.item]
         atom.setIsCollapsed(!atom.collapsed)
-            if let cell = tableView.cellForRowAtIndexPath(indexPath) as? AtomStructureViewCell {
+            if let cell = tableView.cellForRow(at: indexPath) as? AtomStructureViewCell {
                 
                 let degrees = atom.collapsed ? CGFloat(-90) : CGFloat(0)
                 
-                UIView.animateWithDuration(0.5) { () -> Void in
-                    cell.collapseImageView?.transform = CGAffineTransformMakeRotation(degrees * CGFloat(M_PI/180))
-                }
+                UIView.animate(withDuration: 0.5, animations: { () -> Void in
+                    cell.collapseImageView?.transform = CGAffineTransform(rotationAngle: degrees * CGFloat(M_PI/180))
+                }) 
             }
     
         tableView.beginUpdates()
         tableView.endUpdates()
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    func createImage(depth: Int32, totalHeight: CGFloat?) -> UIImage? {
+    func createImage(_ depth: Int32, totalHeight: CGFloat?) -> UIImage? {
         if depth == 1 {
             return nil
         }
         
         let offset = CGFloat((depth-1) * 10)
         
-        UIGraphicsBeginImageContextWithOptions(CGSizeMake(offset, totalHeight!), false, 0.0)
-        let context: CGContextRef = UIGraphicsGetCurrentContext()!
+        UIGraphicsBeginImageContextWithOptions(CGSize(width: offset, height: totalHeight!), false, 0.0)
+        let context: CGContext = UIGraphicsGetCurrentContext()!
         UIGraphicsPushContext(context)
-        CGContextSetFillColorWithColor(context, UIColor(hex: 0xC8C7CC).CGColor)
-        CGContextFillRect(context, CGRectMake(0, 0, offset, totalHeight!))
+        context.setFillColor(UIColor(hex: 0xC8C7CC).cgColor)
+        context.fill(CGRect(x: 0, y: 0, width: offset, height: totalHeight!))
         UIGraphicsPopContext()
         
-        let outputImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()
+        let outputImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         
         UIGraphicsEndImageContext()
         
         return outputImage
     }
     
-    override func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
-        let nc = parentViewController as? UINavigationController
+    override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+        let nc = parent as? UINavigationController
         if let navController = nc {
-            let atomController = self.storyboard!.instantiateViewControllerWithIdentifier("atom") as! AtomViewController
+            let atomController = self.storyboard!.instantiateViewController(withIdentifier: "atom") as! AtomViewController
             atomController.atom = atoms[indexPath.item]
             atomController.parserBridge = parserBridge
             navController.pushViewController(atomController, animated: true)
@@ -205,9 +205,9 @@ internal class AtomStructureViewController: UITableViewController {
     }
     
     func showActivityIndicator() {
-        dispatch_async(dispatch_get_main_queue()) {
-            self.activityView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
-            self.activityView!.backgroundColor = UIColor.grayColor().colorWithAlphaComponent(0.5)
+        DispatchQueue.main.async {
+            self.activityView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+            self.activityView!.backgroundColor = UIColor.gray.withAlphaComponent(0.5)
             self.activityView!.center = self.view.center
             self.activityView!.frame = self.view.frame
             
@@ -217,7 +217,7 @@ internal class AtomStructureViewController: UITableViewController {
     }
     
     func removeActivityIndicator() {
-        dispatch_async(dispatch_get_main_queue()) {
+        DispatchQueue.main.async {
             if let activityView = self.activityView {
                 activityView.stopAnimating()
                 activityView.removeFromSuperview()

@@ -20,19 +20,19 @@ import UIKit
 
 class MediaUtils {
     
-    static func renderThumbnailFromVideo(videoURL: NSURL, thumbURL: NSURL, time: CMTime) -> Bool {
-        let asset = AVURLAsset(URL: videoURL, options: nil)
+    static func renderThumbnailFromVideo(_ videoURL: URL, thumbURL: URL, time: CMTime) -> Bool {
+        let asset = AVURLAsset(url: videoURL, options: nil)
         let imgGenerator = AVAssetImageGenerator(asset: asset)
         let rotation = getVideoRotation(videoURL)
         do {
-            let cgImage = try imgGenerator.copyCGImageAtTime(time, actualTime: nil)
-            var uiImage = UIImage(CGImage: cgImage)
+            let cgImage = try imgGenerator.copyCGImage(at: time, actualTime: nil)
+            var uiImage = UIImage(cgImage: cgImage)
             
             if rotation != 0 {
                 uiImage = uiImage.rotate(CGFloat(rotation))
             }
             
-            let result = UIImagePNGRepresentation(uiImage)?.writeToURL(thumbURL, atomically: true)
+            let result = (try? UIImagePNGRepresentation(uiImage)?.write(to: thumbURL, options: [.atomic])) != nil
             return result != nil
         } catch _ {
             print("Failed to get thumbnail")
@@ -40,27 +40,27 @@ class MediaUtils {
         return false
     }
     
-    static func getVideoDuration(videoURL: NSURL) -> CMTime {
-        let asset = AVURLAsset(URL: videoURL, options: nil)
+    static func getVideoDuration(_ videoURL: URL) -> CMTime {
+        let asset = AVURLAsset(url: videoURL, options: nil)
         return asset.duration
     }
     
-    static func getVideoResolution(videoURL: NSURL) -> CGSize {
-        let asset = AVURLAsset(URL: videoURL, options: nil)
-        let videoTracks = asset.tracksWithMediaType(AVMediaTypeVideo)
+    static func getVideoResolution(_ videoURL: URL) -> CGSize {
+        let asset = AVURLAsset(url: videoURL, options: nil)
+        let videoTracks = asset.tracks(withMediaType: AVMediaTypeVideo)
         
         if videoTracks.count == 0 {
-            return CGSizeMake(0, 0)
+            return CGSize(width: 0, height: 0)
         }
         
         return videoTracks[0].naturalSize
 
     }
     
-    static func getVideoFrameRate(videoURL:NSURL) -> Float {
-        let asset = AVURLAsset(URL: videoURL, options: nil)
+    static func getVideoFrameRate(_ videoURL:URL) -> Float {
+        let asset = AVURLAsset(url: videoURL, options: nil)
         
-        let videoTracks = asset.tracksWithMediaType(AVMediaTypeVideo)
+        let videoTracks = asset.tracks(withMediaType: AVMediaTypeVideo)
         
         if videoTracks.count == 0 {
             return 0
@@ -69,19 +69,19 @@ class MediaUtils {
         return videoTracks[0].nominalFrameRate
     }
     
-    static func getVideoMimeType(videoURL:NSURL) -> String {
-        if videoURL.lastPathComponent!.containsString(".mov"){
+    static func getVideoMimeType(_ videoURL:URL) -> String {
+        if videoURL.lastPathComponent.contains(".mov"){
             return "video/quicktime"
         } else {
             return "video/mp4"
         }
     }
     
-    static func getVideoFileSize(videoURL: NSURL) -> String {
+    static func getVideoFileSize(_ videoURL: URL) -> String {
         var fileSize: UInt64 = 0
         
         do {
-            let attr: NSDictionary? = try NSFileManager.defaultManager().attributesOfItemAtPath(videoURL.path!)
+            let attr: NSDictionary? = try FileManager.default.attributesOfItem(atPath: videoURL.path) as NSDictionary?
             
             if let _attr = attr {
                 fileSize = _attr.fileSize()
@@ -90,15 +90,15 @@ class MediaUtils {
             print("Error: \(error)")
         }
         
-        let formatter = NSByteCountFormatter()
-        return formatter.stringFromByteCount(Int64(fileSize))
+        let formatter = ByteCountFormatter()
+        return formatter.string(fromByteCount: Int64(fileSize))
     }
     
-    static func getVideoDurationFormatted(videoURL:NSURL) -> String {
+    static func getVideoDurationFormatted(_ videoURL:URL) -> String {
         let totalSeconds = CMTimeGetSeconds(getVideoDuration(videoURL))
         let hours = floor(totalSeconds / 3600)
-        let minutes = floor(totalSeconds % 3600 / 60)
-        let seconds = floor(totalSeconds % 3600 % 60)
+        let minutes = floor(totalSeconds.truncatingRemainder(dividingBy: 3600) / 60)
+        let seconds = totalSeconds.truncatingRemainder(dividingBy: 60)
         
         if hours == 0 {
             return NSString(format:"%02.0f:%02.0f", minutes, seconds) as String
@@ -107,9 +107,9 @@ class MediaUtils {
         }
     }
     
-    static func getVideoBitrate(videoURL: NSURL) -> String {
-        let asset = AVURLAsset(URL: videoURL)
-        let videoTracks = asset.tracksWithMediaType(AVMediaTypeVideo)
+    static func getVideoBitrate(_ videoURL: URL) -> String {
+        let asset = AVURLAsset(url: videoURL)
+        let videoTracks = asset.tracks(withMediaType: AVMediaTypeVideo)
         
         if videoTracks.count == 0 {
             return ""
@@ -118,10 +118,10 @@ class MediaUtils {
         return String(format:"%.0f kbps", videoTracks[0].estimatedDataRate/1024)
     }
     
-    static func getVideoRotation(videoURL: NSURL) -> Float {
-        let asset = AVURLAsset(URL: videoURL)
+    static func getVideoRotation(_ videoURL: URL) -> Float {
+        let asset = AVURLAsset(url: videoURL)
         
-        let videoTracks = asset.tracksWithMediaType(AVMediaTypeVideo)
+        let videoTracks = asset.tracks(withMediaType: AVMediaTypeVideo)
         
         if videoTracks.count == 0 {
             return 0.0

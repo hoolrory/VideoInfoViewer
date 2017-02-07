@@ -45,13 +45,13 @@ internal class AtomViewController: UIViewController {
         loadRawDataButton.contentEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 20)
     }
     
-    override func viewDidAppear(animated:Bool) {
+    override func viewDidAppear(_ animated:Bool) {
         super.viewDidAppear(animated)
         
         if let tracker = GAI.sharedInstance().defaultTracker {
             tracker.set(kGAIScreenName, value: "AtomViewController")
             let builder: NSObject = GAIDictionaryBuilder.createScreenView().build()
-            tracker.send(builder as! [NSObject : AnyObject])
+            tracker.send(builder as! [AnyHashable: Any])
         }
     }
     
@@ -60,21 +60,23 @@ internal class AtomViewController: UIViewController {
         scrollView.contentSize = CGSize(width: stackView.frame.width, height: stackView.frame.height)
     }
     
-    @IBAction func onClickLoadRawData(sender: AnyObject) {
+    @IBAction func onClickLoadRawData(_ sender: AnyObject) {
         loadRawDataButton.removeFromSuperview()
         
         if let tracker = GAI.sharedInstance().defaultTracker {
-            tracker.send(GAIDictionaryBuilder.createEventWithCategory("Video Info", action: "Click load raw data", label: "", value: 0).build() as [NSObject : AnyObject])
+            let dictionary = GAIDictionaryBuilder.createEvent(withCategory: "Video Info", action: "Click load raw data", label: "", value: 0).build() as NSDictionary
+            let event = dictionary as? [AnyHashable: Any] ?? [:]
+            tracker.send(event)
         }
         
         if let parserBridge = parserBridge {
             
             showActivityIndicator()
             
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+            DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async {
                 let atomBytes = parserBridge.getAtomBytes(self.atom!)
             
-                dispatch_async(dispatch_get_main_queue()) {
+                DispatchQueue.main.async {
                     self.removeActivityIndicator()
                     if atomBytes != nil {
                         self.rawDataLabel.text = "Raw Data"
@@ -97,19 +99,15 @@ internal class AtomViewController: UIViewController {
         
     }
     
-    func delay(delay:Double, closure:()->()) {
-        dispatch_after(
-            dispatch_time(
-                DISPATCH_TIME_NOW,
-                Int64(delay * Double(NSEC_PER_SEC))
-            ),
-            dispatch_get_main_queue(), closure)
+    func delay(_ delay:Double, closure:@escaping ()->()) {
+        DispatchQueue.main.asyncAfter(
+            deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
     }
     
     func showActivityIndicator() {
-        dispatch_async(dispatch_get_main_queue()) {
-            self.activityView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
-            self.activityView!.backgroundColor = UIColor.grayColor().colorWithAlphaComponent(0.5)
+        DispatchQueue.main.async {
+            self.activityView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+            self.activityView!.backgroundColor = UIColor.gray.withAlphaComponent(0.5)
             self.activityView!.center = self.view.center
             self.activityView!.frame = self.view.frame
             
@@ -119,7 +117,7 @@ internal class AtomViewController: UIViewController {
     }
     
     func removeActivityIndicator() {
-        dispatch_async(dispatch_get_main_queue()) {
+        DispatchQueue.main.async {
             if let activityView = self.activityView {
                 activityView.stopAnimating()
                 activityView.removeFromSuperview()

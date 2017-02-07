@@ -61,7 +61,7 @@ class MainViewController: UIViewController {
         
         self.navigationItem.backBarButtonItem = backButton
         
-        self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         self.tableView.delegate = self
         
         self.loadVideos()
@@ -71,13 +71,13 @@ class MainViewController: UIViewController {
         }
     }
     
-    override func viewDidAppear(animated:Bool) {
+    override func viewDidAppear(_ animated:Bool) {
         super.viewDidAppear(animated)
         
         if let tracker = GAI.sharedInstance().defaultTracker {
             tracker.set(kGAIScreenName, value: "MainViewController")
             let builder: NSObject = GAIDictionaryBuilder.createScreenView().build()
-            tracker.send(builder as! [NSObject : AnyObject])
+            tracker.send(builder as! [AnyHashable: Any])
         }
     }
     
@@ -88,23 +88,23 @@ class MainViewController: UIViewController {
         if videos.count == 0 {
             let emptyView = UILabel()
             emptyView.text = "To get started, click \"Open\"\nto select a video."
-            emptyView.frame = CGRectMake(0, 0, self.tableView.bounds.width, self.tableView.bounds.height/4)
+            emptyView.frame = CGRect(x: 0, y: 0, width: self.tableView.bounds.width, height: self.tableView.bounds.height/4)
             emptyView.numberOfLines = 0
             emptyView.layoutMargins = UIEdgeInsetsMake(10, 10, 10, 10)
-            emptyView.backgroundColor = UIColor.whiteColor()
-            emptyView.textAlignment = .Center
+            emptyView.backgroundColor = UIColor.white
+            emptyView.textAlignment = .center
             self.tableView.tableHeaderView = emptyView
-            self.tableView.separatorStyle = .None
+            self.tableView.separatorStyle = .none
         } else {
             self.tableView.tableHeaderView = nil
-            self.tableView.separatorStyle = .SingleLine
+            self.tableView.separatorStyle = .singleLine
         }
     }
     
     func setupAd() {
-        if let admobFile = NSBundle.mainBundle().URLForResource("admob", withExtension: "txt") {
+        if let admobFile = Bundle.main.url(forResource: "admob", withExtension: "txt") {
             do {
-                let adUnitId = try NSString(contentsOfURL: admobFile, encoding: NSUTF8StringEncoding)
+                let adUnitId = try NSString(contentsOf: admobFile, encoding: String.Encoding.utf8.rawValue)
                 
                 if adUnitId.length > 0 {
                     self.navigationController!.setToolbarHidden(false, animated: false)
@@ -114,7 +114,7 @@ class MainViewController: UIViewController {
                     self.navigationController?.toolbar.addSubview(bannerView!)
                     let request = GADRequest()
                     request.testDevices = [kGADSimulatorID]
-                    bannerView?.loadRequest(request)
+                    bannerView?.load(request)
                 }
             } catch _ {
                 print("Failed to load ad")
@@ -122,13 +122,15 @@ class MainViewController: UIViewController {
         }
     }
     
-    func handleURL(url: NSURL) {
+    func handleURL(_ url: URL) {
         if let tracker = GAI.sharedInstance().defaultTracker {
-            tracker.send(GAIDictionaryBuilder.createEventWithCategory("Video Info", action: "Video shared to app", label: "", value: 0).build() as [NSObject : AnyObject])
+            let dictionary = GAIDictionaryBuilder.createEvent(withCategory: "Video Info", action: "Video shared to app", label: "", value: 0).build() as NSDictionary
+            let event = dictionary as? [AnyHashable: Any] ?? [:]
+            tracker.send(event)
         }
         showActivityIndicator()
         videoManager.addVideoFromURL(url, completionHandler: { video in
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 self.removeActivityIndicator()
                 if let video = video {
                     self.loadVideos()
@@ -139,38 +141,38 @@ class MainViewController: UIViewController {
         })
     }
     
-    @IBAction func clickOpen(sender: UIBarButtonItem) {
+    @IBAction func clickOpen(_ sender: UIBarButtonItem) {
         
         if checkPhotoAccess(sender) {
-            let selectAlbumController = self.storyboard!.instantiateViewControllerWithIdentifier("selectAlbum") as!     SelectAlbumController
+            let selectAlbumController = self.storyboard!.instantiateViewController(withIdentifier: "selectAlbum") as!     SelectAlbumController
         
             selectAlbumController.didSelectAsset = didSelectAsset
         
-            if let navController = parentViewController as? UINavigationController {
+            if let navController = parent as? UINavigationController {
                 navController.pushViewController(selectAlbumController, animated: true)
             }
         }
     }
     
-    @IBAction func clickCredits(sender: UIBarButtonItem) {
-        let creditsController = self.storyboard!.instantiateViewControllerWithIdentifier("credits") as!     CreditsViewController
+    @IBAction func clickCredits(_ sender: UIBarButtonItem) {
+        let creditsController = self.storyboard!.instantiateViewController(withIdentifier: "credits") as!     CreditsViewController
         
-        if let navController = parentViewController as? UINavigationController {
+        if let navController = parent as? UINavigationController {
             navController.pushViewController(creditsController, animated: true)
         }
     }
     
-    func checkPhotoAccess(sender: UIBarButtonItem) -> Bool {
+    func checkPhotoAccess(_ sender: UIBarButtonItem) -> Bool {
         let status = PHPhotoLibrary.authorizationStatus()
         switch status {
-        case .Authorized:
+        case .authorized:
             return true
-        case .NotDetermined:
+        case .notDetermined:
             PHPhotoLibrary.requestAuthorization() { status in
                 switch status {
-                case .Authorized:
+                case .authorized:
                     
-                    dispatch_async(dispatch_get_main_queue()) {
+                    DispatchQueue.main.async {
                         self.clickOpen(sender)
                     }
                     break
@@ -179,32 +181,34 @@ class MainViewController: UIViewController {
                 }
             }
             return false
-        case .Restricted:
+        case .restricted:
             return false
-        case .Denied:
+        case .denied:
             let alert = UIAlertController(
                 title: "Need Authorization",
                 message: "Authorize this app " +
                 "to access your Photo library?",
-                preferredStyle: .Alert)
+                preferredStyle: .alert)
             alert.addAction(UIAlertAction(
-                title: "No", style: .Cancel, handler: nil))
+                title: "No", style: .cancel, handler: nil))
             alert.addAction(UIAlertAction(
-                title: "OK", style: .Default, handler: {
+                title: "OK", style: .default, handler: {
                     _ in
-                    let url = NSURL(string:UIApplicationOpenSettingsURLString)!
-                    UIApplication.sharedApplication().openURL(url)
+                    let url = URL(string:UIApplicationOpenSettingsURLString)!
+                    UIApplication.shared.openURL(url)
             }))
-            self.presentViewController(alert, animated:true, completion:nil)
+            self.present(alert, animated:true, completion:nil)
             return false
         }
     }
     
-    func didSelectAsset(asset: PHAsset!) {
-        
+    func didSelectAsset(_ asset: PHAsset?) {
+      
+        guard let asset = asset else { return }
+      
         let videoRequestOptions = PHVideoRequestOptions()
-        videoRequestOptions.version = .Original
-        videoRequestOptions.networkAccessAllowed = true
+        videoRequestOptions.version = .original
+        videoRequestOptions.isNetworkAccessAllowed = true
         
         selectedAsset = asset
         
@@ -219,13 +223,14 @@ class MainViewController: UIViewController {
 
         }
         showActivityIndicator()
-        PHImageManager().requestAVAssetForVideo(
-            asset, options:
+      
+        PHImageManager().requestAVAsset(
+            forVideo: asset, options:
             videoRequestOptions,
             resultHandler: handleAVAssetRequestResult)
     }
     
-    func handleAVAssetRequestResult(avAsset: AVAsset?, audioMix: AVAudioMix?, info: [NSObject: AnyObject]?) {
+    func handleAVAssetRequestResult(_ avAsset: AVAsset?, audioMix: AVAudioMix?, info: [AnyHashable: Any]?) {
         guard let avUrlAsset = avAsset as? AVURLAsset else
         {
             removeActivityIndicator()
@@ -234,7 +239,7 @@ class MainViewController: UIViewController {
         
         if let phAsset = selectedAsset {
             videoManager.addVideoFromAVURLAsset(avUrlAsset, phAsset:phAsset, completionHandler: { video in
-                dispatch_async(dispatch_get_main_queue()) {
+                DispatchQueue.main.async {
                     self.removeActivityIndicator()
                     if let video = video {
                         self.loadVideos()
@@ -248,19 +253,19 @@ class MainViewController: UIViewController {
         }
     }
     
-    func viewVideo(video:Video) {
-        let nc = parentViewController as? UINavigationController
+    func viewVideo(_ video:Video) {
+        let nc = parent as? UINavigationController
         if let navController = nc {
-            let videoDetailsController = self.storyboard!.instantiateViewControllerWithIdentifier("videoDetails") as! VideoDetailsViewController
+            let videoDetailsController = self.storyboard!.instantiateViewController(withIdentifier: "videoDetails") as! VideoDetailsViewController
             videoDetailsController.video = video
             navController.pushViewController(videoDetailsController, animated: true)
         }
     }
     
     func showActivityIndicator() {
-        dispatch_async(dispatch_get_main_queue()) {
-            self.activityView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
-            self.activityView!.backgroundColor = UIColor.grayColor().colorWithAlphaComponent(0.5)
+        DispatchQueue.main.async {
+            self.activityView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+            self.activityView!.backgroundColor = UIColor.gray.withAlphaComponent(0.5)
             self.activityView!.center = self.view.center
             self.activityView!.frame = self.view.frame
             
@@ -270,7 +275,7 @@ class MainViewController: UIViewController {
     }
     
     func removeActivityIndicator() {
-        dispatch_async(dispatch_get_main_queue()) {
+        DispatchQueue.main.async {
             if let activityView = self.activityView {
                 activityView.stopAnimating()
                 activityView.removeFromSuperview()
@@ -282,19 +287,19 @@ class MainViewController: UIViewController {
 // MARK: - UITableViewDelegate
 extension MainViewController: UITableViewDelegate {
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let video = self.videos[indexPath.row]
         
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let managedContext = appDelegate.managedObjectContext
-        let fetchRequest = NSFetchRequest(entityName: "Video")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Video")
         fetchRequest.predicate = NSPredicate(format: "assetId == %@", video.assetId)
         
         do {
-            let result = try managedContext.executeFetchRequest(fetchRequest) as! [NSManagedObject]
+            let result = try managedContext.fetch(fetchRequest) as! [NSManagedObject]
             if result.count == 1 {
                 let object = result[0]
-                object.setValue(NSDate(), forKey: "openDate")
+                object.setValue(Date(), forKey: "openDate")
                 try managedContext.save()
             }
         } catch {
@@ -304,23 +309,23 @@ extension MainViewController: UITableViewDelegate {
         self.loadVideos()
         viewVideo(video)
         
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return UIDevice.currentDevice().userInterfaceIdiom == .Phone ? 50 : 100
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UIDevice.current.userInterfaceIdiom == .phone ? 50 : 100
     }
 }
 
 // MARK: - UITableViewDataSource
 extension MainViewController: UITableViewDataSource {
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return videos.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell:UITableViewCell = self.tableView.dequeueReusableCellWithIdentifier("cell")! as UITableViewCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell:UITableViewCell = self.tableView.dequeueReusableCell(withIdentifier: "cell")! as UITableViewCell
         
         let video = self.videos[indexPath.row]
         
@@ -329,13 +334,11 @@ extension MainViewController: UITableViewDataSource {
         }
         
         cell.imageView?.image = nil
-        
-        if let path = video.thumbURL.path {
-            if let image = UIImage(named: path) {
-                cell.imageView?.image = image.toSquare()
-            }
-        }
-        
+      
+      if let image = UIImage(named: video.thumbURL.path ) {
+         cell.imageView?.image = image.toSquare()
+      }
+      
         return cell
     }
 }

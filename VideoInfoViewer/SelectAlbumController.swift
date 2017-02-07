@@ -19,7 +19,7 @@ import Foundation
 import UIKit
 import Photos
 
-public class SelectAlbumController: UITableViewController {
+open class SelectAlbumController: UITableViewController {
     
     struct AlbumItem {
         var title: String!
@@ -27,63 +27,63 @@ public class SelectAlbumController: UITableViewController {
         var collection: PHAssetCollection?
     }
     
-    public var didSelectAsset: ((PHAsset!) -> ())?
+    open var didSelectAsset: ((PHAsset?) -> ())?
     
     var albums = Array<AlbumItem>()
     
     let activityIndicatorTag = 100
     
-    override public func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
         
         navigationItem.title = NSLocalizedString("Albums", comment: "")
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Cancel", comment: ""), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(SelectAlbumController.cancelAction))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Cancel", comment: ""), style: UIBarButtonItemStyle.plain, target: self, action: #selector(SelectAlbumController.cancelAction))
         
-        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
         activityIndicator.hidesWhenStopped = true
         activityIndicator.center = self.view.center
         view.addSubview(activityIndicator)
         
-        PHPhotoLibrary.sharedPhotoLibrary().registerChangeObserver(self)
+        PHPhotoLibrary.shared().register(self)
         
         loadData()
     }
     
-    override public func viewDidAppear(animated:Bool) {
+    override open func viewDidAppear(_ animated:Bool) {
         super.viewDidAppear(animated)
         
         if let tracker = GAI.sharedInstance().defaultTracker {
             tracker.set(kGAIScreenName, value: "SelectAlbumController")
             let builder: NSObject = GAIDictionaryBuilder.createScreenView().build()
-            tracker.send(builder as! [NSObject : AnyObject])
+            tracker.send(builder as! [AnyHashable: Any])
         }
     }
     
     deinit {
-        PHPhotoLibrary.sharedPhotoLibrary().unregisterChangeObserver(self)
+        PHPhotoLibrary.shared().unregisterChangeObserver(self)
     }
     
     func loadData() {
-        tableView.userInteractionEnabled = false
+        tableView.isUserInteractionEnabled = false
         
         if let activityIndicator = self.view.viewWithTag(self.activityIndicatorTag) as? UIActivityIndicatorView {
             activityIndicator.startAnimating()
         }
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async {
             
-            self.albums.removeAll(keepCapacity: false)
+            self.albums.removeAll(keepingCapacity: false)
             
-            let smartAlbums = PHAssetCollection.fetchAssetCollectionsWithType(PHAssetCollectionType.SmartAlbum, subtype: PHAssetCollectionSubtype.AlbumRegular, options: nil)
-            self.processCollectionList(smartAlbums)
+            let smartAlbums = PHAssetCollection.fetchAssetCollections(with: PHAssetCollectionType.smartAlbum, subtype: PHAssetCollectionSubtype.albumRegular, options: nil)
+            self.processCollectionList(smartAlbums as! PHFetchResult<AnyObject>)
             
-            let userCollections = PHCollectionList.fetchTopLevelUserCollectionsWithOptions(nil)
-            self.processCollectionList(userCollections)
+            let userCollections = PHCollectionList.fetchTopLevelUserCollections(with: nil)
+            self.processCollectionList(userCollections as! PHFetchResult<AnyObject>)
             
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 self.tableView.reloadData()
-                self.tableView.userInteractionEnabled = true
+                self.tableView.isUserInteractionEnabled = true
                 
                 if let activityIndicator = self.view.viewWithTag(self.activityIndicatorTag) as? UIActivityIndicatorView {
                     activityIndicator.stopAnimating()
@@ -92,32 +92,32 @@ public class SelectAlbumController: UITableViewController {
         }
     }
     
-    override public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return albums.count
     }
     
-    override public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("albumCell", forIndexPath: indexPath)
+    override open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "albumCell", for: indexPath)
         cell.imageView?.image = albums[indexPath.row].image
         cell.textLabel?.text = NSLocalizedString(albums[indexPath.row].title, comment: "")
         
         return cell
     }
     
-    override public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let selectVideoController = self.storyboard!.instantiateViewControllerWithIdentifier("selectVideo") as! SelectVideoController
+        let selectVideoController = self.storyboard!.instantiateViewController(withIdentifier: "selectVideo") as! SelectVideoController
         selectVideoController.collection = albums[indexPath.row].collection
         selectVideoController.didSelectAsset = didSelectAsset
         selectVideoController.title = albums[indexPath.row].title
         navigationController?.pushViewController(selectVideoController, animated: true)
     }
     
-    override public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return UIDevice.currentDevice().userInterfaceIdiom == .Phone ? 50 : 100
+    override open func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UIDevice.current.userInterfaceIdiom == .phone ? 50 : 100
     }
     
-    func processCollectionList(collections:PHFetchResult) {
+    func processCollectionList(_ collections:PHFetchResult<AnyObject>) {
         for i: Int in 0 ..< collections.count {
             if let collection = collections[i] as? PHAssetCollection {
                 
@@ -128,19 +128,19 @@ public class SelectAlbumController: UITableViewController {
                 var title: String?
                 
                 switch collection.assetCollectionSubtype {
-                case .SmartAlbumFavorites:
+                case .smartAlbumFavorites:
                     title = "Favorites"
                     break
-                case .SmartAlbumPanoramas:
+                case .smartAlbumPanoramas:
                     title = "Panoramas"
                     break
-                case .SmartAlbumVideos:
+                case .smartAlbumVideos:
                     title = "Videos"
                     break
-                case .SmartAlbumTimelapses:
+                case .smartAlbumTimelapses:
                     title = "Time Lapses"
                     break
-                case .SmartAlbumUserLibrary:
+                case .smartAlbumUserLibrary:
                     continue
                 default:
                     title = collection.localizedTitle
@@ -153,22 +153,22 @@ public class SelectAlbumController: UITableViewController {
     }
     
     func cancelAction() {
-        navigationController?.popViewControllerAnimated(true)
+        navigationController?.popViewController(animated: true)
     }
     
-    func getLastThumbnail(collection: PHAssetCollection?) -> UIImage? {
+    func getLastThumbnail(_ collection: PHAssetCollection?) -> UIImage? {
         var thumbnail: UIImage? = nil
         
         if let lastAsset = fetchVideos(collection!).lastObject as? PHAsset {
             
             let imageRequestOptions = PHImageRequestOptions()
-            imageRequestOptions.deliveryMode = PHImageRequestOptionsDeliveryMode.FastFormat
-            imageRequestOptions.resizeMode = PHImageRequestOptionsResizeMode.Exact
-            imageRequestOptions.synchronous = true
+            imageRequestOptions.deliveryMode = PHImageRequestOptionsDeliveryMode.fastFormat
+            imageRequestOptions.resizeMode = PHImageRequestOptionsResizeMode.exact
+            imageRequestOptions.isSynchronous = true
             
-            let targetWidthHeight = 64 * UIScreen.mainScreen().scale
+            let targetWidthHeight = 64 * UIScreen.main.scale
             
-            PHImageManager.defaultManager().requestImageForAsset(lastAsset, targetSize: CGSizeMake(targetWidthHeight, targetWidthHeight), contentMode: PHImageContentMode.AspectFill, options: imageRequestOptions, resultHandler: { (image: UIImage?, info: [NSObject : AnyObject]?) -> Void in
+            PHImageManager.default().requestImage(for: lastAsset, targetSize: CGSize(width: targetWidthHeight, height: targetWidthHeight), contentMode: PHImageContentMode.aspectFill, options: imageRequestOptions, resultHandler: { (image: UIImage?, info: [AnyHashable: Any]?) -> Void in
                 thumbnail = image
             })
         }
@@ -176,19 +176,19 @@ public class SelectAlbumController: UITableViewController {
         return thumbnail
     }
     
-    func fetchVideos(collection: PHAssetCollection) -> PHFetchResult {
+    func fetchVideos(_ collection: PHAssetCollection) -> PHFetchResult<AnyObject> {
         let fetchOptions = PHFetchOptions()
         fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
-        fetchOptions.predicate = NSPredicate(format: "mediaType = %i", PHAssetMediaType.Video.rawValue)
+        fetchOptions.predicate = NSPredicate(format: "mediaType = %i", PHAssetMediaType.video.rawValue)
         
-        return PHAsset.fetchAssetsInAssetCollection(collection, options: fetchOptions)
+        return PHAsset.fetchAssets(in: collection, options: fetchOptions) as! PHFetchResult<AnyObject>
     }
 }
 
 // MARK: - PHPhotoLibraryChangeObserver
 extension SelectAlbumController: PHPhotoLibraryChangeObserver {
     
-    public func photoLibraryDidChange(changeInstance: PHChange) {
+    public func photoLibraryDidChange(_ changeInstance: PHChange) {
         loadData()
     }
 }

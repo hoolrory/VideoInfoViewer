@@ -19,20 +19,20 @@ import Photos
 
 class SelectVideoController: UICollectionViewController {
     
-    private var assetGridThumbnailSize: CGSize = CGSizeMake(0, 0)
+    fileprivate var assetGridThumbnailSize: CGSize = CGSize(width: 0, height: 0)
     
     let cellSpacing:CGFloat = 2
     let cachingImageManager = PHCachingImageManager()
     var collection: PHAssetCollection?
-    var didSelectAsset: ((PHAsset!) -> ())?
+    var didSelectAsset: ((PHAsset?) -> ())?
     
-    private var assets: [PHAsset]! {
+    fileprivate var assets: [PHAsset]! {
         willSet {
             cachingImageManager.stopCachingImagesForAllAssets()
         }
         
         didSet {
-            cachingImageManager.startCachingImagesForAssets(self.assets, targetSize: PHImageManagerMaximumSize, contentMode: PHImageContentMode.AspectFill, options: nil)
+            cachingImageManager.startCachingImages(for: self.assets, targetSize: PHImageManagerMaximumSize, contentMode: PHImageContentMode.aspectFill, options: nil)
         }
     }
     
@@ -40,42 +40,42 @@ class SelectVideoController: UICollectionViewController {
         super.viewDidLoad()
         
         let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.scrollDirection = UICollectionViewScrollDirection.Vertical
+        flowLayout.scrollDirection = UICollectionViewScrollDirection.vertical
         
         collectionView?.collectionViewLayout = flowLayout
-        collectionView?.backgroundColor = UIColor.whiteColor()
-        collectionView?.registerClass(UICollectionViewCell.classForCoder(), forCellWithReuseIdentifier: "VideoCell")
+        collectionView?.backgroundColor = UIColor.white
+        collectionView?.register(UICollectionViewCell.classForCoder(), forCellWithReuseIdentifier: "VideoCell")
         
-        let scale = UIScreen.mainScreen().scale
+        let scale = UIScreen.main.scale
         let cellSize = flowLayout.itemSize
-        assetGridThumbnailSize = CGSizeMake(cellSize.width * scale, cellSize.height * scale)
+        assetGridThumbnailSize = CGSize(width: cellSize.width * scale, height: cellSize.height * scale)
         
         let fetchOptions = PHFetchOptions()
         fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
-        fetchOptions.predicate = NSPredicate(format: "mediaType = %i", PHAssetMediaType.Video.rawValue)
+        fetchOptions.predicate = NSPredicate(format: "mediaType = %i", PHAssetMediaType.video.rawValue)
         
-        let assetsFetchResult = PHAsset.fetchAssetsInAssetCollection(collection!, options: fetchOptions)
-        assets = assetsFetchResult.objectsAtIndexes(NSIndexSet(indexesInRange: NSMakeRange(0, assetsFetchResult.count))) as! [PHAsset]
+        let assetsFetchResult = PHAsset.fetchAssets(in: collection!, options: fetchOptions)
+        assets = assetsFetchResult.objects(at: IndexSet(integersIn: NSMakeRange(0, assetsFetchResult.count).toRange()!)) 
     }
     
-    override func viewDidAppear(animated:Bool) {
+    override func viewDidAppear(_ animated:Bool) {
         super.viewDidAppear(animated)
         
         if let tracker = GAI.sharedInstance().defaultTracker {
             tracker.set(kGAIScreenName, value: "SelectVideoController")
             let builder: NSObject = GAIDictionaryBuilder.createScreenView().build()
-            tracker.send(builder as! [NSObject : AnyObject])
+            tracker.send(builder as! [AnyHashable: Any])
         }
     }
     
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return assets.count
     }
     
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("videoCell", forIndexPath: indexPath)
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "videoCell", for: indexPath)
         cell.contentView.frame = cell.bounds
-        cell.backgroundColor = UIColor.blackColor()
+        cell.backgroundColor = UIColor.black
         
         let currentTag = cell.tag + 1
         cell.tag = currentTag
@@ -84,7 +84,7 @@ class SelectVideoController: UICollectionViewController {
         
         if cell.contentView.subviews.count == 0 {
             thumbnail = UIImageView(frame: cell.contentView.frame)
-            thumbnail.contentMode = .ScaleAspectFill
+            thumbnail.contentMode = .scaleAspectFill
             thumbnail.frame = cell.contentView.frame
             cell.contentView.addSubview(thumbnail)
         }
@@ -94,7 +94,7 @@ class SelectVideoController: UICollectionViewController {
         
         let asset = assets[indexPath.row]
         
-        cachingImageManager.requestImageForAsset(asset, targetSize: assetGridThumbnailSize, contentMode: PHImageContentMode.AspectFill, options: nil, resultHandler: { (image: UIImage?, info: [NSObject : AnyObject]?) -> Void in
+        cachingImageManager.requestImage(for: asset, targetSize: assetGridThumbnailSize, contentMode: PHImageContentMode.aspectFill, options: nil, resultHandler: { (image: UIImage?, info: [AnyHashable: Any]?) -> Void in
             if cell.tag == currentTag {
                 thumbnail.image = image
             }
@@ -103,26 +103,28 @@ class SelectVideoController: UICollectionViewController {
         return cell
     }
     
-    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        navigationController?.popToRootViewControllerAnimated(true)
+        navigationController?.popToRootViewController(animated: true)
         if let tracker = GAI.sharedInstance().defaultTracker {
-            tracker.send(GAIDictionaryBuilder.createEventWithCategory("Video Info", action: "Selected video from album", label: "", value: 0).build() as [NSObject : AnyObject])
+            let dictionary = GAIDictionaryBuilder.createEvent(withCategory: "Video Info", action: "Selected video from album", label: "", value: 0).build() as NSDictionary
+            let event = dictionary as? [AnyHashable: Any] ?? [:]
+            tracker.send(event)
         }
         if didSelectAsset != nil {
             didSelectAsset!(assets[indexPath.row])
         }
     }
     
-    override func collectionView(collectionView: UICollectionView, didHighlightItemAtIndexPath indexPath: NSIndexPath) {
+    override func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
 
-        let cell = collectionView.cellForItemAtIndexPath(indexPath)
+        let cell = collectionView.cellForItem(at: indexPath)
         cell?.contentView.alpha = 0.5
     }
     
-    override func collectionView(collectionView: UICollectionView, didUnhighlightItemAtIndexPath indexPath: NSIndexPath) {
+    override func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
         
-        let cell = collectionView.cellForItemAtIndexPath(indexPath)
+        let cell = collectionView.cellForItem(at: indexPath)
         cell?.contentView.alpha = 1.0
     }
 }
@@ -130,22 +132,22 @@ class SelectVideoController: UICollectionViewController {
 // MARK: - UICollectionViewDelegateFlowLayout
 extension SelectVideoController: UICollectionViewDelegateFlowLayout {
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let videosPerRow: CGFloat = UIDevice.currentDevice().userInterfaceIdiom == .Phone ? 4 : 8
+        let videosPerRow: CGFloat = UIDevice.current.userInterfaceIdiom == .phone ? 4 : 8
         let size = (self.view.frame.size.width - (videosPerRow + 2) * cellSpacing) / videosPerRow
-        return CGSizeMake(size, size)
+        return CGSize(width: size, height: size)
     }
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsetsMake(cellSpacing, cellSpacing, cellSpacing, cellSpacing)
     }
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return cellSpacing
     }
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return cellSpacing
     }
 }

@@ -20,7 +20,7 @@ extension UIImage {
 
     func toSquare() -> UIImage {
         
-        let contextImage: UIImage = UIImage(CGImage: self.CGImage!)
+        let contextImage: UIImage = UIImage(cgImage: self.cgImage!)
         
         let contextSize: CGSize = contextImage.size
         
@@ -41,31 +41,31 @@ extension UIImage {
             cgheight = contextSize.width
         }
         
-        let rect: CGRect = CGRectMake(posX, posY, cgwidth, cgheight)
+        let rect: CGRect = CGRect(x: posX, y: posY, width: cgwidth, height: cgheight)
         
-        let imageRef: CGImageRef = CGImageCreateWithImageInRect(contextImage.CGImage, rect)!
+        let imageRef: CGImage = contextImage.cgImage!.cropping(to: rect)!
         
-        let image: UIImage = UIImage(CGImage: imageRef, scale: self.scale, orientation: self.imageOrientation)
+        let image: UIImage = UIImage(cgImage: imageRef, scale: self.scale, orientation: self.imageOrientation)
         
         return image
     }
     
-    func rotate(degrees: CGFloat) -> UIImage {
+    func rotate(_ degrees: CGFloat) -> UIImage {
         
-        let rotatedViewBox = UIView(frame: CGRectMake(0, 0, self.size.width, self.size.height))
-        rotatedViewBox.transform = CGAffineTransformMakeRotation(degrees * CGFloat(M_PI / 180))
+        let rotatedViewBox = UIView(frame: CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height))
+        rotatedViewBox.transform = CGAffineTransform(rotationAngle: degrees * CGFloat(M_PI / 180))
         
         let rotatedSize: CGSize = rotatedViewBox.frame.size
         UIGraphicsBeginImageContext(rotatedSize)
         
         let context = UIGraphicsGetCurrentContext()!
-        CGContextTranslateCTM(context, rotatedSize.width / 2, rotatedSize.height / 2)
-        CGContextRotateCTM(context, (degrees * CGFloat(M_PI / 180)))
-        CGContextScaleCTM(context, 1.0, -1.0)
-        CGContextDrawImage(context, CGRectMake(-self.size.width / 2, -self.size.height / 2, self.size.width, self.size.height), self.CGImage)
+        context.translateBy(x: rotatedSize.width / 2, y: rotatedSize.height / 2)
+        context.rotate(by: (degrees * CGFloat(M_PI / 180)))
+        context.scaleBy(x: 1.0, y: -1.0)
+        context.draw(self.cgImage!, in: CGRect(x: -self.size.width / 2, y: -self.size.height / 2, width: self.size.width, height: self.size.height))
         
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return newImage
+        return newImage!
     }
 }

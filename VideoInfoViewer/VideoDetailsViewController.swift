@@ -35,29 +35,29 @@ class VideoDetailsViewController: UIViewController {
         
         self.title = "Video Info"
         
-        thumbnailView?.image = UIImage(named: video!.thumbURL!.path!)
+        thumbnailView?.image = UIImage(named: video!.thumbURL!.path)
         
         updateProperties()
         
-        let image = UIImage(named: "ic_play_circle_filled_white_48pt.png")?.imageWithRenderingMode(.AlwaysTemplate)
-        playButton.setImage(image, forState: .Normal)
-        playButton.tintColor = UIColor.whiteColor()
+        let image = UIImage(named: "ic_play_circle_filled_white_48pt.png")?.withRenderingMode(.alwaysTemplate)
+        playButton.setImage(image, for: UIControlState())
+        playButton.tintColor = UIColor.white
         playButton.alpha = 0.8
     }
     
-    override func viewDidAppear(animated:Bool) {
+    override func viewDidAppear(_ animated:Bool) {
         super.viewDidAppear(animated)
         
         if let tracker = GAI.sharedInstance().defaultTracker {
             tracker.set(kGAIScreenName, value: "VideoDetailsViewController")
             let builder: NSObject = GAIDictionaryBuilder.createScreenView().build()
-            tracker.send(builder as! [NSObject : AnyObject])
+            tracker.send(builder as! [AnyHashable: Any])
         }
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        textView.setContentOffset(CGPointZero, animated: false)
+        textView.setContentOffset(CGPoint.zero, animated: false)
     }
     
     func updateProperties() {
@@ -65,50 +65,50 @@ class VideoDetailsViewController: UIViewController {
             if let videoURL = video?.videoURL {
                 let size = MediaUtils.getVideoResolution(videoURL)
                 var text = ""
-                if let name = videoURL.lastPathComponent {
-                    text += "Name:       \(name)\n"
-                }
+                text += "Name:       \(videoURL.lastPathComponent)\n"
                 text += "Resolution: \(Int(size.width))x\(Int(size.height))\n"
                 text += "MimeType:   \(MediaUtils.getVideoMimeType(videoURL))\n"
                 text += "Frame Rate: \(MediaUtils.getVideoFrameRate(videoURL)) fps\n"
                 text += "File Size:  \(MediaUtils.getVideoFileSize(videoURL))\n"
                 text += "Duration:   \(MediaUtils.getVideoDurationFormatted(videoURL))\n"
                 text += "Bitrate:    \(MediaUtils.getVideoBitrate(videoURL))\n"
-                text += "Date:       \(formatDate(video?.creationDate))\n"
+                text += "Date:       \(formatDate(video?.creationDate as Date?))\n"
                 tv.text = text
             }
         }
     }
     
-    func formatDate(date: NSDate?) -> String {
-        let formatter = NSDateFormatter()
-        formatter.dateStyle = NSDateFormatterStyle.MediumStyle
-        formatter.timeStyle = .ShortStyle
+    func formatDate(_ date: Date?) -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = DateFormatter.Style.medium
+        formatter.timeStyle = .short
         if let date = date {
-            return formatter.stringFromDate(date)
+            return formatter.string(from: date)
         }
         
         return ""
     }
     
-    @IBAction func onClickAtomStructureButton(sender: UIButton) {
-        let nc = parentViewController as? UINavigationController
+    @IBAction func onClickAtomStructureButton(_ sender: UIButton) {
+        let nc = parent as? UINavigationController
         if let navController = nc {
-            let atomStructureController = self.storyboard!.instantiateViewControllerWithIdentifier("atomStructure") as! AtomStructureViewController
+            let atomStructureController = self.storyboard!.instantiateViewController(withIdentifier: "atomStructure") as! AtomStructureViewController
             atomStructureController.video = video
             navController.pushViewController(atomStructureController, animated: true)
         }
     }
     
-    @IBAction func onClickPlayButton(sender: UIButton) {
+    @IBAction func onClickPlayButton(_ sender: UIButton) {
         if let tracker = GAI.sharedInstance().defaultTracker {
-            tracker.send(GAIDictionaryBuilder.createEventWithCategory("Video Info", action: "Clicked play button", label: "", value: 0).build() as [NSObject : AnyObject])
+            let dictionary = GAIDictionaryBuilder.createEvent(withCategory: "Video Info", action: "Clicked play button", label: "", value: 0).build() as NSDictionary
+            let event = dictionary as? [AnyHashable: Any] ?? [:]
+            tracker.send(event)
         }
         if let videoURL = video?.videoURL {
-            let player = AVPlayer(URL: videoURL)
+            let player = AVPlayer(url: videoURL as URL)
             let playerController = AVPlayerViewController()
             playerController.player = player
-            self.presentViewController(playerController, animated: true) {
+            self.present(playerController, animated: true) {
                 player.play()
             }
         }

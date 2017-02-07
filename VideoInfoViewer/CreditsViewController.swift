@@ -26,27 +26,27 @@ class CreditsViewController: UIViewController {
         self.title = "Credits"
         
         let text = NSMutableAttributedString()
-        text.appendAttributedString(getAppLink())
-        text.appendAttributedString(getIconCredit())
-        text.appendAttributedString(getMP4ParseCredit())
+        text.append(getAppLink())
+        text.append(getIconCredit())
+        text.append(getMP4ParseCredit())
         
         textView.attributedText = text
         self.automaticallyAdjustsScrollViewInsets = false
     }
     
-    override func viewDidAppear(animated:Bool) {
+    override func viewDidAppear(_ animated:Bool) {
         super.viewDidAppear(animated)
         
         if let tracker = GAI.sharedInstance().defaultTracker {
             tracker.set(kGAIScreenName, value: "CreditsViewController")
             let builder: NSObject = GAIDictionaryBuilder.createScreenView().build()
-            tracker.send(builder as! [NSObject : AnyObject])
+            tracker.send(builder as! [AnyHashable: Any])
         }
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        textView.setContentOffset(CGPointZero, animated: false)
+        textView.setContentOffset(CGPoint.zero, animated: false)
     }
     
     func getAppLink() -> NSAttributedString {

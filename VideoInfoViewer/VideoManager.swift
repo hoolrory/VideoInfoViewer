@@ -22,7 +22,7 @@ import Photos
 class VideoManager {
     
     lazy var managedContext: NSManagedObjectContext? = {
-        if let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
             return appDelegate.managedObjectContext
         }
         
@@ -32,11 +32,11 @@ class VideoManager {
     func getVideos() -> [Video] {
         var videos = [Video]()
         
-        let fetchRequest = NSFetchRequest(entityName: "Video")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Video")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "openDate", ascending: false)]
         
         do {
-            let results = try managedContext?.executeFetchRequest(fetchRequest)
+            let results = try managedContext?.fetch(fetchRequest)
             if let objects = results as? [NSManagedObject] {
                 for object in objects {
                     videos.append(Video(fromObject: object))
@@ -49,12 +49,12 @@ class VideoManager {
         return videos
     }
     
-    func getVideoByAssetId(assetId: String) -> Video? {
-        let fetchRequest = NSFetchRequest(entityName: "Video")
+    func getVideoByAssetId(_ assetId: String) -> Video? {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Video")
         fetchRequest.predicate = NSPredicate(format: "assetId == %@", assetId)
         
         do {
-            let results = try managedContext?.executeFetchRequest(fetchRequest)
+            let results = try managedContext?.fetch(fetchRequest)
             if let objects = results as? [NSManagedObject] {
                 if objects.count == 1 {
                     return Video(fromObject: objects[0])
@@ -67,8 +67,8 @@ class VideoManager {
         return nil
     }
     
-    func updateOpenDate(video: Video) {
-        video.coreDataObject.setValue(NSDate(), forKey: "openDate")
+    func updateOpenDate(_ video: Video) {
+        video.coreDataObject.setValue(Date(), forKey: "openDate")
         
         do {
             try managedContext?.save()
@@ -77,37 +77,37 @@ class VideoManager {
         }
     }
     
-    typealias CompletionHandler = (result:Video?) -> Void
+    typealias CompletionHandler = (_ result:Video?) -> Void
     
-    func addVideoFromAVURLAsset(asset: AVURLAsset, phAsset: PHAsset, completionHandler: CompletionHandler) {
+    func addVideoFromAVURLAsset(_ asset: AVURLAsset, phAsset: PHAsset, completionHandler: @escaping CompletionHandler) {
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-            let filemgr = NSFileManager.defaultManager()
-            let lastPathComponent = asset.URL.lastPathComponent
-            let videoName = lastPathComponent != nil ? lastPathComponent! : "video_\(NSDate().timeIntervalSince1970).MOV"
+        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async {
+            let filemgr = FileManager.default
+            let lastPathComponent = asset.url.lastPathComponent
+            let videoName = lastPathComponent != nil ? lastPathComponent : "video_\(Date().timeIntervalSince1970).MOV"
             
             let videoURL = self.getDocumentUrl(videoName)
             let creationDate = phAsset.creationDate
             let assetId = phAsset.localIdentifier
             
             do {
-                try filemgr.copyItemAtURL(asset.URL, toURL: videoURL)
+                try filemgr.copyItem(at: asset.url, to: videoURL)
             } catch _ {
                 print("Failed to copy")
-                completionHandler(result: nil)
+                completionHandler(nil)
             }
             
             let thumbURL = self.getDocumentUrl("\(videoName).png")
             
-            let thumbSize: CGSize = CGSizeMake(CGFloat(phAsset.pixelWidth), CGFloat(phAsset.pixelHeight))
+            let thumbSize: CGSize = CGSize(width: CGFloat(phAsset.pixelWidth), height: CGFloat(phAsset.pixelHeight))
             
             let options = PHImageRequestOptions()
-            options.synchronous = true
+            options.isSynchronous = true
             
             let cachingImageManager = PHCachingImageManager()
-            cachingImageManager.requestImageForAsset(phAsset, targetSize: thumbSize, contentMode: PHImageContentMode.AspectFill, options: options, resultHandler: { (image: UIImage?, info: [NSObject : AnyObject]?) -> Void in
+            cachingImageManager.requestImage(for: phAsset, targetSize: thumbSize, contentMode: PHImageContentMode.aspectFill, options: options, resultHandler: { (image: UIImage?, info: [AnyHashable: Any]?) -> Void in
                 if let image = image {
-                    UIImagePNGRepresentation(image)?.writeToURL(thumbURL, atomically: true)
+                    try? UIImagePNGRepresentation(image)?.write(to: thumbURL, options: [.atomic])
                 } else {
                     let duration = MediaUtils.getVideoDuration(videoURL)
                     let thumbTime = CMTime(seconds: duration.seconds / 2.0, preferredTimescale: duration.timescale)
@@ -118,26 +118,26 @@ class VideoManager {
             })
             
             let video = self.addVideo(assetId, videoURL: videoURL, thumbURL: thumbURL, creationDate: creationDate)
-            completionHandler(result: video)
+            completionHandler(video)
         }
     }
     
-    func addVideoFromURL(url: NSURL, completionHandler: CompletionHandler) {
+    func addVideoFromURL(_ url: URL, completionHandler: @escaping CompletionHandler) {
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-            let filemgr = NSFileManager.defaultManager()
+        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async {
+            let filemgr = FileManager.default
             let lastPathComponent = url.lastPathComponent
-            let videoName = lastPathComponent != nil ? lastPathComponent! : "video_\(NSDate().timeIntervalSince1970).MOV"
+            let videoName = lastPathComponent != nil ? lastPathComponent : "video_\(Date().timeIntervalSince1970).MOV"
             
             let videoURL = self.getDocumentUrl(videoName)
-            let creationDate = NSDate()
+            let creationDate = Date()
             let assetId = ""
             
             do {
-                try filemgr.copyItemAtURL(url, toURL: videoURL)
+                try filemgr.copyItem(at: url, to: videoURL)
             } catch _ {
                 print("Failed to copy")
-                completionHandler(result: nil)
+                completionHandler(nil)
             }
             
             let thumbURL = self.getDocumentUrl("\(videoName).png")
@@ -148,21 +148,21 @@ class VideoManager {
             MediaUtils.renderThumbnailFromVideo(videoURL, thumbURL: thumbURL, time: thumbTime)
             
             let video = self.addVideo(assetId, videoURL: videoURL, thumbURL: thumbURL, creationDate: creationDate)
-            completionHandler(result: video)
+            completionHandler(video)
         }
     }
     
-    func addVideo(assetId: String, videoURL: NSURL, thumbURL: NSURL, creationDate: NSDate?) -> Video? {
+    func addVideo(_ assetId: String, videoURL: URL, thumbURL: URL, creationDate: Date?) -> Video? {
         guard let managedContext = managedContext else { return nil }
         
-        let entity =  NSEntityDescription.entityForName("Video", inManagedObjectContext:managedContext)
+        let entity =  NSEntityDescription.entity(forEntityName: "Video", in:managedContext)
         
-        let object = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
+        let object = NSManagedObject(entity: entity!, insertInto: managedContext)
         
         object.setValue(assetId, forKey: "assetId")
         object.setValue(videoURL.lastPathComponent, forKey: "videoFile")
         object.setValue(thumbURL.lastPathComponent, forKey: "thumbFile")
-        object.setValue(NSDate(), forKey: "openDate")
+        object.setValue(Date(), forKey: "openDate")
         object.setValue(creationDate, forKey: "creationDate")
         
         do {
@@ -184,24 +184,19 @@ class VideoManager {
         if videos.count > 5 {
             let videosToDelete = videos[5 ..< videos.count ]
             for video in videosToDelete {
-                managedContext?.deleteObject(video.coreDataObject)
+                managedContext?.delete(video.coreDataObject)
             }
             do {
                 try managedContext?.save()
                 
-                let filemgr = NSFileManager.defaultManager()
+                let filemgr = FileManager.default
                 for video in videosToDelete {
-                    
-                    if let videoPath = video.videoURL.path {
-                        if filemgr.fileExistsAtPath(videoPath) {
-                            try filemgr.removeItemAtURL(video.videoURL)
-                        }
-                    }
-                    if let thumbPath = video.thumbURL.path {
-                        if filemgr.fileExistsAtPath(thumbPath) {
-                            try filemgr.removeItemAtURL(video.thumbURL)
-                        }
-                    }
+                  if filemgr.fileExists(atPath: video.videoURL.path) {
+                     try filemgr.removeItem(at: video.videoURL as URL)
+                  }
+                  if filemgr.fileExists(atPath: video.thumbURL.path) {
+                     try filemgr.removeItem(at: video.thumbURL as URL)
+                  }
                 }
             } catch let error  {
                 print("Could not save \(error))")
@@ -209,13 +204,13 @@ class VideoManager {
         }
     }
     
-    func getDocumentUrl(pathComponent: String) -> NSURL {
-        let fileManager = NSFileManager.defaultManager()
-        let urls = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-        guard let documentDirectory: NSURL = urls.first else {
+    func getDocumentUrl(_ pathComponent: String) -> URL {
+        let fileManager = FileManager.default
+        let urls = fileManager.urls(for: .documentDirectory, in: .userDomainMask)
+        guard let documentDirectory: URL = urls.first else {
             fatalError("documentDir Error")
         }
         
-        return documentDirectory.URLByAppendingPathComponent(pathComponent)
+        return documentDirectory.appendingPathComponent(pathComponent)
     }
 }

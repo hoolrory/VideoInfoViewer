@@ -22,33 +22,33 @@ public struct Video {
     var coreDataObject: NSManagedObject!
     
     var assetId: String!
-    var videoURL: NSURL!
-    var thumbURL: NSURL!
-    var openDate: NSDate!
-    var creationDate: NSDate!
+    var videoURL: URL!
+    var thumbURL: URL!
+    var openDate: Date!
+    var creationDate: Date!
     
     init(fromObject object: NSManagedObject) {
         coreDataObject = object
         
-        if let videoFile = object.valueForKey("videoFile") as? String {
+        if let videoFile = object.value(forKey: "videoFile") as? String {
             videoURL = getDocumentUrl(videoFile)
         }
-        if let thumbFile = object.valueForKey("thumbFile") as? String {
+        if let thumbFile = object.value(forKey: "thumbFile") as? String {
             thumbURL = getDocumentUrl(thumbFile)
         }
         
-        assetId = object.valueForKey("assetId") as? String
-        openDate = object.valueForKey("openDate") as? NSDate
-        creationDate = object.valueForKey("creationDate") as? NSDate
+        assetId = object.value(forKey: "assetId") as? String
+        openDate = object.value(forKey: "openDate") as? Date
+        creationDate = object.value(forKey: "creationDate") as? Date
     }
     
-    func getDocumentUrl(pathComponent: String) -> NSURL {
-        let fileManager = NSFileManager.defaultManager()
-        let urls = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-        guard let documentDirectory: NSURL = urls.first else {
+    func getDocumentUrl(_ pathComponent: String) -> URL {
+        let fileManager = FileManager.default
+        let urls = fileManager.urls(for: .documentDirectory, in: .userDomainMask)
+        guard let documentDirectory: URL = urls.first else {
             fatalError("documentDir Error")
         }
         
-        return documentDirectory.URLByAppendingPathComponent(pathComponent)
+        return documentDirectory.appendingPathComponent(pathComponent)
     }
 }
