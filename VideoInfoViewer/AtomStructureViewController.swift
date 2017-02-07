@@ -30,6 +30,8 @@ internal class AtomStructureViewController: UITableViewController {
     var atoms = [Atom]()
     var parserBridge: ParserBridge?
     
+    let parsingQueue = DispatchQueue(label: "parsingQueue")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,7 +39,7 @@ internal class AtomStructureViewController: UITableViewController {
         
         showActivityIndicator()
         
-        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async {
+        parsingQueue.async {
             self.parserBridge = ParserBridge()
             if let videoURL = self.video?.videoURL {
                 self.rootAtom = self.parserBridge!.parseFile(videoURL.path)

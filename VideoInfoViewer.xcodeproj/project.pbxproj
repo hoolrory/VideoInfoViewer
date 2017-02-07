@@ -619,7 +619,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Libraries",
-					"$(PROJECT_DIR)/Libraries/MP4Parse/build/Debug-iphoneos",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.rory.p.hool.VideoInfoViewer;
 				PRODUCT_NAME = "Video Info Viewer";
@@ -652,7 +651,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Libraries",
-					"$(PROJECT_DIR)/Libraries/MP4Parse/build/Debug-iphoneos",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.rory.p.hool.VideoInfoViewer;
 				PRODUCT_NAME = "Video Info Viewer";

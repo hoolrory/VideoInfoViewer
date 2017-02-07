@@ -29,6 +29,9 @@ class VideoManager {
         return nil
     }()
     
+    
+    let backgroundQueue = DispatchQueue(label: "backgroundQueue")
+    
     func getVideos() -> [Video] {
         var videos = [Video]()
         
@@ -81,17 +84,15 @@ class VideoManager {
     
     func addVideoFromAVURLAsset(_ asset: AVURLAsset, phAsset: PHAsset, completionHandler: @escaping CompletionHandler) {
         
-        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async {
-            let filemgr = FileManager.default
-            let lastPathComponent = asset.url.lastPathComponent
-            let videoName = lastPathComponent != nil ? lastPathComponent : "video_\(Date().timeIntervalSince1970).MOV"
+        backgroundQueue.async {
+            let videoName = asset.url.lastPathComponent
             
             let videoURL = self.getDocumentUrl(videoName)
             let creationDate = phAsset.creationDate
             let assetId = phAsset.localIdentifier
             
             do {
-                try filemgr.copyItem(at: asset.url, to: videoURL)
+                try FileManager.default.copyItem(at: asset.url, to: videoURL)
             } catch _ {
                 print("Failed to copy")
                 completionHandler(nil)
@@ -112,7 +113,7 @@ class VideoManager {
                     let duration = MediaUtils.getVideoDuration(videoURL)
                     let thumbTime = CMTime(seconds: duration.seconds / 2.0, preferredTimescale: duration.timescale)
                     
-                    MediaUtils.renderThumbnailFromVideo(videoURL, thumbURL: thumbURL, time: thumbTime)
+                    _ = MediaUtils.renderThumbnailFromVideo(videoURL, thumbURL: thumbURL, time: thumbTime)
                     
                 }
             })
@@ -124,17 +125,15 @@ class VideoManager {
     
     func addVideoFromURL(_ url: URL, completionHandler: @escaping CompletionHandler) {
         
-        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async {
-            let filemgr = FileManager.default
-            let lastPathComponent = url.lastPathComponent
-            let videoName = lastPathComponent != nil ? lastPathComponent : "video_\(Date().timeIntervalSince1970).MOV"
+        backgroundQueue.async {
+            let videoName = url.lastPathComponent
             
             let videoURL = self.getDocumentUrl(videoName)
             let creationDate = Date()
             let assetId = ""
             
             do {
-                try filemgr.copyItem(at: url, to: videoURL)
+                try FileManager.default.copyItem(at: url, to: videoURL)
             } catch _ {
                 print("Failed to copy")
                 completionHandler(nil)
@@ -145,7 +144,7 @@ class VideoManager {
             let duration = MediaUtils.getVideoDuration(videoURL)
             let thumbTime = CMTime(seconds: duration.seconds / 2.0, preferredTimescale: duration.timescale)
             
-            MediaUtils.renderThumbnailFromVideo(videoURL, thumbURL: thumbURL, time: thumbTime)
+            _ = MediaUtils.renderThumbnailFromVideo(videoURL, thumbURL: thumbURL, time: thumbTime)
             
             let video = self.addVideo(assetId, videoURL: videoURL, thumbURL: thumbURL, creationDate: creationDate)
             completionHandler(video)
