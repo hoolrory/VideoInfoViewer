@@ -64,8 +64,6 @@ class MainViewController: UIViewController {
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         self.tableView.delegate = self
         
-        self.loadVideos()
-        
         if showAds {
             setupAd()
         }
@@ -79,6 +77,8 @@ class MainViewController: UIViewController {
             let builder: NSObject = GAIDictionaryBuilder.createScreenView().build()
             tracker.send(builder as! [AnyHashable: Any])
         }
+        
+        self.loadVideos()
     }
     
     func loadVideos() {
@@ -258,6 +258,7 @@ class MainViewController: UIViewController {
         if let navController = nc {
             let videoDetailsController = self.storyboard!.instantiateViewController(withIdentifier: "videoDetails") as! VideoDetailsViewController
             videoDetailsController.video = video
+            videoDetailsController.videoManager = videoManager
             navController.pushViewController(videoDetailsController, animated: true)
         }
     }

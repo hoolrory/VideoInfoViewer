@@ -22,6 +22,8 @@ class VideoDetailsViewController: UIViewController {
 
     var video: Video?
     
+    var videoManager: VideoManager?
+    
     @IBOutlet weak var thumbnailView: UIImageView!
     
     @IBOutlet weak var textView: UITextView!
@@ -32,8 +34,6 @@ class VideoDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.title = "Video Info"
         
         thumbnailView?.image = UIImage(named: video!.thumbURL!.path)
         
@@ -87,6 +87,15 @@ class VideoDetailsViewController: UIViewController {
         }
         
         return ""
+    }
+    
+    @IBAction func onClickRemoveButton(_ sender: Any) {
+        if let video = video {
+            videoManager?.removeVideo(video: video)
+        }
+        if let navController = parent as? UINavigationController {
+            navController.popViewController(animated: true)
+        }
     }
     
     @IBAction func onClickAtomStructureButton(_ sender: UIButton) {
