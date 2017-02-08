@@ -183,23 +183,26 @@ class VideoManager {
         if videos.count > 5 {
             let videosToDelete = videos[5 ..< videos.count ]
             for video in videosToDelete {
-                managedContext?.delete(video.coreDataObject)
+                removeVideo(video: video)
             }
-            do {
-                try managedContext?.save()
-                
-                let filemgr = FileManager.default
-                for video in videosToDelete {
-                  if filemgr.fileExists(atPath: video.videoURL.path) {
-                     try filemgr.removeItem(at: video.videoURL as URL)
-                  }
-                  if filemgr.fileExists(atPath: video.thumbURL.path) {
-                     try filemgr.removeItem(at: video.thumbURL as URL)
-                  }
-                }
-            } catch let error  {
-                print("Could not save \(error))")
+        }
+    }
+    
+    func removeVideo(video: Video) {
+        managedContext?.delete(video.coreDataObject)
+        
+        do {
+            try managedContext?.save()
+            
+            let filemgr = FileManager.default
+            if filemgr.fileExists(atPath: video.videoURL.path) {
+                try filemgr.removeItem(at: video.videoURL as URL)
             }
+            if filemgr.fileExists(atPath: video.thumbURL.path) {
+                try filemgr.removeItem(at: video.thumbURL as URL)
+            }
+        } catch let error  {
+            print("Could not save \(error))")
         }
     }
     
