@@ -90,7 +90,7 @@ class MainViewController: UIViewController {
             emptyView.text = "To get started, click \"Open\"\nto select a video."
             emptyView.frame = CGRect(x: 0, y: 0, width: self.tableView.bounds.width, height: self.tableView.bounds.height/4)
             emptyView.numberOfLines = 0
-            emptyView.layoutMargins = UIEdgeInsetsMake(10, 10, 10, 10)
+            emptyView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
             emptyView.backgroundColor = UIColor.white
             emptyView.textAlignment = .center
             self.tableView.tableHeaderView = emptyView
@@ -194,7 +194,7 @@ class MainViewController: UIViewController {
             alert.addAction(UIAlertAction(
                 title: "OK", style: .default, handler: {
                     _ in
-                    let url = URL(string:UIApplicationOpenSettingsURLString)!
+                    let url = URL(string:UIApplication.openSettingsURLString)!
                     UIApplication.shared.openURL(url)
             }))
             self.present(alert, animated:true, completion:nil)
@@ -265,7 +265,7 @@ class MainViewController: UIViewController {
     
     func showActivityIndicator() {
         DispatchQueue.main.async {
-            self.activityView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+            self.activityView = UIActivityIndicatorView(style: .gray)
             self.activityView!.backgroundColor = UIColor.gray.withAlphaComponent(0.5)
             self.activityView!.center = self.view.center
             self.activityView!.frame = self.view.frame

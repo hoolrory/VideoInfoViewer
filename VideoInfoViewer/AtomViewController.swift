@@ -42,9 +42,9 @@ internal class AtomViewController: UIViewController {
         atomName.text = atom?.getName()
         atomContent.text = atom?.getDescription()
         
-        atomContent.textContainerInset = UIEdgeInsetsMake(0, 10, 0, 10)
-        rawData.textContainerInset = UIEdgeInsetsMake(0, 10, 0, 10)
-        loadRawDataButton.contentEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 20)
+        atomContent.textContainerInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        rawData.textContainerInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        loadRawDataButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
     }
     
     override func viewDidAppear(_ animated:Bool) {
@@ -108,7 +108,7 @@ internal class AtomViewController: UIViewController {
     
     func showActivityIndicator() {
         DispatchQueue.main.async {
-            self.activityView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+            self.activityView = UIActivityIndicatorView(style: .gray)
             self.activityView!.backgroundColor = UIColor.gray.withAlphaComponent(0.5)
             self.activityView!.center = self.view.center
             self.activityView!.frame = self.view.frame

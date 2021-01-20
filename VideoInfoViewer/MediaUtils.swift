@@ -32,7 +32,7 @@ class MediaUtils {
                 uiImage = uiImage.rotate(CGFloat(rotation))
             }
             
-            let result = try? UIImagePNGRepresentation(uiImage)?.write(to: thumbURL, options: [.atomic])
+            let result = try? uiImage.pngData()?.write(to: thumbURL, options: [.atomic])
             return result != nil
         } catch _ {
             print("Failed to get thumbnail")
@@ -47,7 +47,7 @@ class MediaUtils {
     
     static func getVideoResolution(_ videoURL: URL) -> CGSize {
         let asset = AVURLAsset(url: videoURL, options: nil)
-        let videoTracks = asset.tracks(withMediaType: AVMediaTypeVideo)
+        let videoTracks = asset.tracks(withMediaType: AVMediaType.video)
         
         if videoTracks.count == 0 {
             return CGSize(width: 0, height: 0)
@@ -60,7 +60,7 @@ class MediaUtils {
     static func getVideoFrameRate(_ videoURL:URL) -> Float {
         let asset = AVURLAsset(url: videoURL, options: nil)
         
-        let videoTracks = asset.tracks(withMediaType: AVMediaTypeVideo)
+        let videoTracks = asset.tracks(withMediaType: AVMediaType.video)
         
         if videoTracks.count == 0 {
             return 0
@@ -109,7 +109,7 @@ class MediaUtils {
     
     static func getVideoBitrate(_ videoURL: URL) -> String {
         let asset = AVURLAsset(url: videoURL)
-        let videoTracks = asset.tracks(withMediaType: AVMediaTypeVideo)
+        let videoTracks = asset.tracks(withMediaType: AVMediaType.video)
         
         if videoTracks.count == 0 {
             return ""
@@ -121,7 +121,7 @@ class MediaUtils {
     static func getVideoRotation(_ videoURL: URL) -> Float {
         let asset = AVURLAsset(url: videoURL)
         
-        let videoTracks = asset.tracks(withMediaType: AVMediaTypeVideo)
+        let videoTracks = asset.tracks(withMediaType: AVMediaType.video)
         
         if videoTracks.count == 0 {
             return 0.0
@@ -130,7 +130,7 @@ class MediaUtils {
         let transform = videoTracks[0].preferredTransform
     
         let radians = atan2f(Float(transform.b), Float(transform.a))
-        let videoAngleInDegrees = (radians * 180.0) / Float(M_PI)
+        let videoAngleInDegrees = (radians * 180.0) / .pi
         
         return videoAngleInDegrees
     }

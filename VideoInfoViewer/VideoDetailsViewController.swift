@@ -40,7 +40,7 @@ class VideoDetailsViewController: UIViewController {
         updateProperties()
         
         let image = UIImage(named: "ic_play_circle_filled_white_48pt.png")?.withRenderingMode(.alwaysTemplate)
-        playButton.setImage(image, for: UIControlState())
+        playButton.setImage(image, for: UIControl.State())
         playButton.tintColor = UIColor.white
         playButton.alpha = 0.8
     }
