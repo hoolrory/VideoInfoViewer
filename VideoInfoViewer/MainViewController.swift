@@ -167,6 +167,8 @@ class MainViewController: UIViewController {
         switch status {
         case .authorized:
             return true
+        case .limited:
+            return true
         case .notDetermined:
             PHPhotoLibrary.requestAuthorization() { status in
                 switch status {
