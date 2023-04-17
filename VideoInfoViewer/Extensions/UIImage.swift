@@ -53,14 +53,14 @@ extension UIImage {
     func rotate(_ degrees: CGFloat) -> UIImage {
         
         let rotatedViewBox = UIView(frame: CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height))
-        rotatedViewBox.transform = CGAffineTransform(rotationAngle: degrees * CGFloat(M_PI / 180))
+        rotatedViewBox.transform = CGAffineTransform(rotationAngle: degrees * CGFloat(Double.pi / 180))
         
         let rotatedSize: CGSize = rotatedViewBox.frame.size
         UIGraphicsBeginImageContext(rotatedSize)
         
         let context = UIGraphicsGetCurrentContext()!
         context.translateBy(x: rotatedSize.width / 2, y: rotatedSize.height / 2)
-        context.rotate(by: (degrees * CGFloat(M_PI / 180)))
+        context.rotate(by: (degrees * CGFloat(Double.pi / 180)))
         context.scaleBy(x: 1.0, y: -1.0)
         context.draw(self.cgImage!, in: CGRect(x: -self.size.width / 2, y: -self.size.height / 2, width: self.size.width, height: self.size.height))
         

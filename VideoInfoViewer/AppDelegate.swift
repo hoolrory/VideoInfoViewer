@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var okToWait = false
     var dispatchHandler: ((_ result:GAIDispatchResult) -> Void)?
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         if let gaFile = Bundle.main.url(forResource: "googleAnalytics", withExtension: "txt") {
             do {
@@ -60,7 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             weakSelf?.okToWait = false
         })
         
-        if backgroundTaskId == UIBackgroundTaskInvalid {
+        if backgroundTaskId == UIBackgroundTaskIdentifier.invalid {
             return
         }
         
@@ -88,7 +88,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ app: UIApplication, open url: URL,
-                     options: [UIApplicationOpenURLOptionsKey : Any]) -> Bool {
+                     options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
         if let vc = self.window?.rootViewController as? UINavigationController {
             vc.popToRootViewController(animated: false)
             if let main = vc.visibleViewController as? MainViewController {

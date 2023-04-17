@@ -40,9 +40,9 @@ open class SelectAlbumController: UITableViewController {
         
         navigationItem.title = NSLocalizedString("Albums", comment: "")
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Cancel", comment: ""), style: UIBarButtonItemStyle.plain, target: self, action: #selector(SelectAlbumController.cancelAction))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Cancel", comment: ""), style: UIBarButtonItem.Style.plain, target: self, action: #selector(SelectAlbumController.cancelAction))
         
-        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+        let activityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
         activityIndicator.hidesWhenStopped = true
         activityIndicator.center = self.view.center
         view.addSubview(activityIndicator)
@@ -154,7 +154,7 @@ open class SelectAlbumController: UITableViewController {
         }
     }
     
-    func cancelAction() {
+    @objc func cancelAction() {
         _ = navigationController?.popViewController(animated: true)
     }
     

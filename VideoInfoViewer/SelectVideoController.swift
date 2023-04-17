@@ -40,7 +40,7 @@ class SelectVideoController: UICollectionViewController {
         super.viewDidLoad()
         
         let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.scrollDirection = UICollectionViewScrollDirection.vertical
+        flowLayout.scrollDirection = UICollectionView.ScrollDirection.vertical
         
         collectionView?.collectionViewLayout = flowLayout
         collectionView?.backgroundColor = UIColor.white
@@ -140,7 +140,7 @@ extension SelectVideoController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsetsMake(cellSpacing, cellSpacing, cellSpacing, cellSpacing)
+        return UIEdgeInsets(top: cellSpacing, left: cellSpacing, bottom: cellSpacing, right: cellSpacing)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

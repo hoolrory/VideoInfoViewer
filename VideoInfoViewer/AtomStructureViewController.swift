@@ -93,7 +93,7 @@ internal class AtomStructureViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: atomCellIdentifier) as? AtomStructureViewCell ?? AtomStructureViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: atomCellIdentifier)
+        let cell = tableView.dequeueReusableCell(withIdentifier: atomCellIdentifier) as? AtomStructureViewCell ?? AtomStructureViewCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: atomCellIdentifier)
         cell.accessoryType = .detailButton
         
         let atom = atoms[indexPath.item]
@@ -117,7 +117,7 @@ internal class AtomStructureViewController: UITableViewController {
         }
         
         if atom.collapsed {
-            cell.collapseImageView?.transform = CGAffineTransform(rotationAngle: -90*CGFloat(M_PI/180))
+            cell.collapseImageView?.transform = CGAffineTransform(rotationAngle: -90*CGFloat(Double.pi/180))
         } else {
             cell.collapseImageView?.transform = CGAffineTransform(rotationAngle: 0)
         }
@@ -166,7 +166,7 @@ internal class AtomStructureViewController: UITableViewController {
                 let degrees = atom.collapsed ? CGFloat(-90) : CGFloat(0)
                 
                 UIView.animate(withDuration: 0.5, animations: { () -> Void in
-                    cell.collapseImageView?.transform = CGAffineTransform(rotationAngle: degrees * CGFloat(M_PI/180))
+                    cell.collapseImageView?.transform = CGAffineTransform(rotationAngle: degrees * CGFloat(Double.pi/180))
                 }) 
             }
     
@@ -208,7 +208,7 @@ internal class AtomStructureViewController: UITableViewController {
     
     func showActivityIndicator() {
         DispatchQueue.main.async {
-            self.activityView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+            self.activityView = UIActivityIndicatorView(style: .gray)
             self.activityView!.backgroundColor = UIColor.gray.withAlphaComponent(0.5)
             self.activityView!.center = self.view.center
             self.activityView!.frame = self.view.frame
