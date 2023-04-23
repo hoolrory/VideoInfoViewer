@@ -45,16 +45,6 @@ class VideoDetailsViewController: UIViewController {
         playButton.alpha = 0.8
     }
     
-    override func viewDidAppear(_ animated:Bool) {
-        super.viewDidAppear(animated)
-        
-        if let tracker = GAI.sharedInstance().defaultTracker {
-            tracker.set(kGAIScreenName, value: "VideoDetailsViewController")
-            let builder: NSObject = GAIDictionaryBuilder.createScreenView().build()
-            tracker.send(builder as! [AnyHashable: Any])
-        }
-    }
-    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         textView.setContentOffset(CGPoint.zero, animated: false)
@@ -108,11 +98,6 @@ class VideoDetailsViewController: UIViewController {
     }
     
     @IBAction func onClickPlayButton(_ sender: UIButton) {
-        if let tracker = GAI.sharedInstance().defaultTracker {
-            let dictionary = GAIDictionaryBuilder.createEvent(withCategory: "Video Info", action: "Clicked play button", label: "", value: 0).build() as NSDictionary
-            let event = dictionary as? [AnyHashable: Any] ?? [:]
-            tracker.send(event)
-        }
         if let videoURL = video?.videoURL {
             let player = AVPlayer(url: videoURL as URL)
             let playerController = AVPlayerViewController()

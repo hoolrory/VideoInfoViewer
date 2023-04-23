@@ -23,25 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     var okToWait = false
-    var dispatchHandler: ((_ result:GAIDispatchResult) -> Void)?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
-        if let gaFile = Bundle.main.url(forResource: "googleAnalytics", withExtension: "txt") {
-            do {
-                let trackingId = try NSString(contentsOf: gaFile, encoding: String.Encoding.utf8.rawValue)
-                    
-                if trackingId.length > 0 {
-                    
-                    let gai = GAI.sharedInstance()
-                    gai?.trackUncaughtExceptions = true
-                    gai?.logger.logLevel = GAILogLevel.none
-                    _ = gai?.tracker(withTrackingId: trackingId as String)
-                }
-            } catch _ {
-                print("Failed to setup Google Analytics")
-            }
-        }
         
         return true
     }
@@ -63,20 +46,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if backgroundTaskId == UIBackgroundTaskIdentifier.invalid {
             return
         }
-        
-        self.dispatchHandler = { (result) -> Void in
-            
-            if let weakSelf = weakSelf {
-                if result == .good && weakSelf.okToWait {
-                    GAI.sharedInstance().dispatch(completionHandler: weakSelf.dispatchHandler)
-                } else {
-                    UIApplication.shared.endBackgroundTask(backgroundTaskId)
-                }
-            }
-        }
-        
-        GAI.sharedInstance().dispatch(completionHandler: self.dispatchHandler)
-    
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {

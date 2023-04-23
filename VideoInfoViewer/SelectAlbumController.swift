@@ -52,16 +52,6 @@ open class SelectAlbumController: UITableViewController {
         loadData()
     }
     
-    override open func viewDidAppear(_ animated:Bool) {
-        super.viewDidAppear(animated)
-        
-        if let tracker = GAI.sharedInstance().defaultTracker {
-            tracker.set(kGAIScreenName, value: "SelectAlbumController")
-            let builder: NSObject = GAIDictionaryBuilder.createScreenView().build()
-            tracker.send(builder as! [AnyHashable: Any])
-        }
-    }
-    
     deinit {
         PHPhotoLibrary.shared().unregisterChangeObserver(self)
     }

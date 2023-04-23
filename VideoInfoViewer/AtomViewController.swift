@@ -47,16 +47,6 @@ internal class AtomViewController: UIViewController {
         loadRawDataButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
     }
     
-    override func viewDidAppear(_ animated:Bool) {
-        super.viewDidAppear(animated)
-        
-        if let tracker = GAI.sharedInstance().defaultTracker {
-            tracker.set(kGAIScreenName, value: "AtomViewController")
-            let builder: NSObject = GAIDictionaryBuilder.createScreenView().build()
-            tracker.send(builder as! [AnyHashable: Any])
-        }
-    }
-    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         scrollView.contentSize = CGSize(width: stackView.frame.width, height: stackView.frame.height)
@@ -64,12 +54,6 @@ internal class AtomViewController: UIViewController {
     
     @IBAction func onClickLoadRawData(_ sender: AnyObject) {
         loadRawDataButton.removeFromSuperview()
-        
-        if let tracker = GAI.sharedInstance().defaultTracker {
-            let dictionary = GAIDictionaryBuilder.createEvent(withCategory: "Video Info", action: "Click load raw data", label: "", value: 0).build() as NSDictionary
-            let event = dictionary as? [AnyHashable: Any] ?? [:]
-            tracker.send(event)
-        }
         
         if let parserBridge = parserBridge {
             

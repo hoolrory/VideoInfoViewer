@@ -18,6 +18,7 @@ import AVFoundation
 import CoreData
 import Foundation
 import Photos
+import UIKit
 
 class VideoManager {
     

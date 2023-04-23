@@ -58,16 +58,6 @@ class SelectVideoController: UICollectionViewController {
         assets = assetsFetchResult.objects(at: IndexSet(integersIn: NSMakeRange(0, assetsFetchResult.count).toRange()!)) 
     }
     
-    override func viewDidAppear(_ animated:Bool) {
-        super.viewDidAppear(animated)
-        
-        if let tracker = GAI.sharedInstance().defaultTracker {
-            tracker.set(kGAIScreenName, value: "SelectVideoController")
-            let builder: NSObject = GAIDictionaryBuilder.createScreenView().build()
-            tracker.send(builder as! [AnyHashable: Any])
-        }
-    }
-    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return assets.count
     }
@@ -106,11 +96,7 @@ class SelectVideoController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         _ = navigationController?.popToRootViewController(animated: true)
-        if let tracker = GAI.sharedInstance().defaultTracker {
-            let dictionary = GAIDictionaryBuilder.createEvent(withCategory: "Video Info", action: "Selected video from album", label: "", value: 0).build() as NSDictionary
-            let event = dictionary as? [AnyHashable: Any] ?? [:]
-            tracker.send(event)
-        }
+        
         if didSelectAsset != nil {
             didSelectAsset!(assets[indexPath.row])
         }

@@ -63,16 +63,6 @@ internal class AtomStructureViewController: UITableViewController {
         self.navigationController?.navigationBar.isTranslucent = false
     }
     
-    override func viewDidAppear(_ animated:Bool) {
-        super.viewDidAppear(animated)
-        
-        if let tracker = GAI.sharedInstance().defaultTracker {
-            tracker.set(kGAIScreenName, value: "AtomStructureViewController")
-            let builder: NSObject = GAIDictionaryBuilder.createScreenView().build()
-            tracker.send(builder as! [AnyHashable: Any])
-        }
-    }
-    
     func displayAtom(_ atom: Atom, depth: Int) {
         if depth > 0 {
             atoms.append(atom)

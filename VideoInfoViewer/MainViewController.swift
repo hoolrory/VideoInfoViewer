@@ -72,12 +72,6 @@ class MainViewController: UIViewController {
     override func viewDidAppear(_ animated:Bool) {
         super.viewDidAppear(animated)
         
-        if let tracker = GAI.sharedInstance().defaultTracker {
-            tracker.set(kGAIScreenName, value: "MainViewController")
-            let builder: NSObject = GAIDictionaryBuilder.createScreenView().build()
-            tracker.send(builder as! [AnyHashable: Any])
-        }
-        
         self.loadVideos()
     }
     
@@ -123,11 +117,6 @@ class MainViewController: UIViewController {
     }
     
     func handleURL(_ url: URL) {
-        if let tracker = GAI.sharedInstance().defaultTracker {
-            let dictionary = GAIDictionaryBuilder.createEvent(withCategory: "Video Info", action: "Video shared to app", label: "", value: 0).build() as NSDictionary
-            let event = dictionary as? [AnyHashable: Any] ?? [:]
-            tracker.send(event)
-        }
         showActivityIndicator()
         videoManager.addVideoFromURL(url, completionHandler: { video in
             DispatchQueue.main.async {

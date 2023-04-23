@@ -19,9 +19,6 @@
 #import "Atom.h"
 #include "MP4.Parser.h"
 #import "AtomWrapper.h"
-#import "GAI.h"
-#import "GAIDictionaryBuilder.h"
-#import "GAITracker.h"
 
 struct ParserWrapper {
     MP4::Parser* parser;
@@ -62,15 +59,15 @@ struct ParserWrapper {
             [atom.children addObject:child];
             
             if( MP4::UnknownAtom *unknownAtom = dynamic_cast<MP4::UnknownAtom*>( childWrapper.atom ) ) {
-                id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
                 
-                NSString *type = [NSString stringWithCString:unknownAtom->getType().c_str()
+                
+                /*NSString *type = [NSString stringWithCString:unknownAtom->getType().c_str()
                                    encoding:[NSString defaultCStringEncoding]];
                 
                 [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Video Info"
                                                                       action:@"Found UnknownBox"
                                                                        label:type
-                                                                       value:nil] build]];
+                                                                       value:nil] build]];*/
             }
         }
     }

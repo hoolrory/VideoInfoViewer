@@ -15,6 +15,7 @@
  **/
 
 import Foundation
+import UIKit
 
 class CreditsViewController: UIViewController {
     
@@ -32,16 +33,6 @@ class CreditsViewController: UIViewController {
         
         textView.attributedText = text
         self.automaticallyAdjustsScrollViewInsets = false
-    }
-    
-    override func viewDidAppear(_ animated:Bool) {
-        super.viewDidAppear(animated)
-        
-        if let tracker = GAI.sharedInstance().defaultTracker {
-            tracker.set(kGAIScreenName, value: "CreditsViewController")
-            let builder: NSObject = GAIDictionaryBuilder.createScreenView().build()
-            tracker.send(builder as! [AnyHashable: Any])
-        }
     }
     
     override func viewDidLayoutSubviews() {
