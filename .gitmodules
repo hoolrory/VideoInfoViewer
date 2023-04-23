@@ -1,3 +1,0 @@
-[submodule "Libraries/MP4Parse"]
-	path = Libraries/MP4Parse
-	url = git@github.com:hoolrory/MP4Parse.git
