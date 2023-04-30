@@ -4,4 +4,7 @@
    <FileRef
       location = "group:VideoInfoViewer.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:ISOBMFF/ISOBMFF.xcodeproj">
+   </FileRef>
 </Workspace>

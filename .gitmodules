@@ -1,0 +1,3 @@
+[submodule "ISOBMFF"]
+	path = ISOBMFF
+	url = https://github.com/DigiDNA/ISOBMFF.git
